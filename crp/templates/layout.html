@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"/>
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dataTables.foundation.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.structure.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.theme.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+        <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+
+    <script type="application/javascript" src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/vendor/jquery-ui.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/vendor/jquery.dataTables.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/vendor/dataTables.foundation.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/foundation.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</head>
+<body>
+<header class="header">
+  <h1 class="headline">ClassRoom + <small></small></h1>
+  <ul class="header-subnav">
+    <li><a href="#">Take Action!</a></li>
+    <li><a href="#" class="is-active">Dashboard</a></li>
+    <li><a target="_blank" href="#">Just do it!</a></li>
+  </ul>
+</header>
+<div id="nav" class="top-bar">
+    <div class="row">
+        <div class="top-bar-left">
+            <ul class="dropdown menu" data-dropdown-menu>
+                {% if g.user.is_authenticated%}
+                    <li class="has-submenu">
+                        <a href="#"> {{ username }}</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                            <li><a href="#">Three</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+                {% if not g.user.is_authenticated%}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="top-bar-right">
+            <ul class="menu">
+                <li><input type="search" placeholder="Search"></li>
+                <li><button type="button" class="button">Search</button></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="content">{% block content %}{% endblock %}</div>
+
+<div id="footer" class="row column">
+    {% block footer %}
+        <br/>
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li class="float-right"> &copy; Copyright 2016 by ClassRoom Plus.</li>
+        </ul>
+        <br/>
+        <br/>
+    {% endblock %}
+</div>
+
+
+</body>
+</html>
