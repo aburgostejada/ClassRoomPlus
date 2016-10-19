@@ -5,7 +5,8 @@ import jinja2
 from flask import Flask, request, flash, url_for, redirect, render_template, g, jsonify
 from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
 from flask import Flask
-from crp import User
+from crp import teacher
+from crp.DB.teacher_model import TeacherModel
 
 app = Flask(__name__)
 app.jinja_loader = jinja2.FileSystemLoader('crp/templates')
@@ -17,7 +18,7 @@ login_manager.init_app(app)
 # the App Engine WSGI application server.
 @login_manager.user_loader
 def load_user(id):
-    return User.query_user(id)
+    return teacher.query_user(id)
 
 
 @app.before_request
@@ -28,12 +29,27 @@ def before_request():
 @app.route("/dashboard", methods=["GET"])
 @login_required
 def dashboard():
-    return render_template('dashboard.html', username=current_user.get_username())
+    return render_template('dashboard.html', name=current_user.get_name())
 
 
 @app.route("/", methods=["GET"])
 def index():
     return redirect(url_for('login'))
+
+@app.route("/new_teacher_once", methods=["GET"])
+def new_teacher_once():
+    # TeacherModel(user_name="aburgos",
+    #                        password="f920cd4628136d5cef595ba8d629758b6d6e96463f64afe1407309d0be0cd361",
+    #                        first_name="Augusto",
+    #                        last_name="Burgos",
+    #                        status="active").put()
+
+    # TeacherModel(user_name="fandi",
+    #              password="4b2f3acea03a8e3858baa671a2ffcd4012f60e5ec248b1e0feb3b806e322d1cd",
+    #              first_name="Fandi",
+    #              last_name="Peng",
+    #              status="active").put()
+    return "true"
 
 
 @app.route('/logout')
@@ -56,7 +72,7 @@ def login():
         remember_me = False
         if 'remember_me' in request.form:
             remember_me = True
-        registered_user = User.auth(username=username, password=password)
+        registered_user = teacher.auth(username=username, password=password)
         if registered_user is None:
             flash('Username or Password is invalid', 'error')
             return redirect(url_for('login'))
