@@ -6,8 +6,10 @@ from flask import Flask, request, flash, url_for, redirect, render_template, g, 
 from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
 from flask import Flask
 from crp import teacher
+from crp import loc
 from crp.DB.teacher_model import TeacherModel
-
+localization = loc.Localization()
+lan = localization.en #Allows to change the language
 app = Flask(__name__)
 app.jinja_loader = jinja2.FileSystemLoader('crp/templates')
 app.secret_key = "1u691O4d7?-9R(0G&o|L8iaR3740*O"
@@ -29,7 +31,7 @@ def before_request():
 @app.route("/dashboard", methods=["GET"])
 @login_required
 def dashboard():
-    return render_template('dashboard.html', name=current_user.get_name())
+    return render_template('dashboard.html', loc=localization, lan=lan, name=current_user.get_name())
 
 
 @app.route("/", methods=["GET"])
