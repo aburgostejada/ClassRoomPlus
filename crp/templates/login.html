@@ -1,27 +1,38 @@
 {% extends "layout.html" %}
 {% block title %}Login{% endblock %}
 {% block head %}
-  {{ super() }}
-  <style type="text/css">
-    .important { color: #336699; }
-  </style>
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
 {% endblock %}
 {% block content %}
-    <div id="login" class="row">
-      <div class="medium-6 medium-centered large-4 large-centered columns">
-        <h2>RADV</h2>
-        <form action="/login" method=post>
-          <div class="row column log-in-form">
-            <label>Username
-              <input name="username" type="text" placeholder="User Name">
-            </label>
-            <label>Password
-              <input name="password" type="password" placeholder="Password">
-            </label>
-            <input id="remember_me" name="remember_me" type="checkbox"><label for="remember_me">Remember Me</label>
-            <p><a id="loginButton" type="submit" class="button expanded">Log In</a></p>
-          </div>
-        </form>
-      </div>
-    </div>
+    <form id="login" action="{{ url_for('login') }}" method=post>
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered text-center">
+                <br/>
+                    <h2 class="info">{{ loc.get_text("teacher_login", lan) }}</h2>
+                <br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered">
+                <div class="row ">
+                    <div class="columns small-12">
+                        <h4>Username</h4>
+                        <input name="username" type="text" placeholder="User Name" />
+                    </div>
+                    <div class="columns small-12">
+                         <h4>Password</h4>
+                        <input name="password" type="password" placeholder="Password" />
+                    </div>
+                    <div class="columns small-12 text-center">
+                        <a id="loginButton" type="submit" class="submitButton button expanded"><h3>{{ loc.get_text("login", lan) }}</h3></a></p>
+                        <input id="remember_me" name="remember_me" type="checkbox"><label for="remember_me">{{ loc.get_text("remember_me", lan) }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
 {% endblock %}

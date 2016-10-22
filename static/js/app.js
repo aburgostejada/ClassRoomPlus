@@ -3,13 +3,11 @@ String.prototype.capitalize = function() {
 };
 
 $(document).ready(function(){
-    $("#loginButton").click(function(){
-        $("#login").find("form").submit();
+    $(".submitButton").click(function(){
+        $(this).parents("form").submit();
     });
 
-
     $(document).foundation();
-
 });
 
 

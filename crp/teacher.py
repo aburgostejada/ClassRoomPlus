@@ -27,6 +27,9 @@ class Teacher(UserMixin):
     def get_name(self):
         return self.first_name+" "+self.last_name
 
+    def get_model(self):
+        return TeacherModel.get_by_username(str(self.username))
+
     def __repr__(self):
         return '<User %r>' % self.username
 
@@ -37,7 +40,6 @@ class Teacher(UserMixin):
 
 def query_user(username):
     teacher = TeacherModel.get_by_username(str(username))
-
     return Teacher(teacher.user_name, teacher.first_name, teacher.last_name)
 
 

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="small-10 large-5 medium-8 columns small-centered text-center">
+            <br/>
+                <h1 class="info">{{ loc.get_text("student_landing", lan) }}</h1>
+            <br/>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+
+{% endblock %}

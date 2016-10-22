@@ -18,44 +18,30 @@
     <script type="application/javascript" src="{{ url_for('static', filename='js/vendor/dataTables.foundation.min.js') }}"></script>
     <script type="application/javascript" src="{{ url_for('static', filename='js/foundation.min.js') }}"></script>
     <script type="application/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
-
 </head>
 <body>
 <header class="header">
-  <h1 class="headline">ClassRoom + <small></small></h1>
-  <ul class="header-subnav">
-    <li><a href="#">{{ loc.get_text("menu_one", lan) }}</a></li>
-    <li><a href="#" class="is-active">{{ loc.get_text("dashboard", lan) }}</a></li>
-    <li><a target="_blank" href="#">{{ loc.get_text("menu_two", lan) }}</a></li>
-  </ul>
-</header>
-<div id="nav" class="top-bar">
-    <div class="row">
-        <div class="top-bar-left">
+    <div class="top-corner">
+        {% if g.user.is_authenticated%}
             <ul class="dropdown menu" data-dropdown-menu>
-                {% if g.user.is_authenticated%}
-                    <li class="has-submenu">
-                        <a href="#"> {{ name }}</a>
-                        <ul class="submenu menu vertical" data-submenu>
-                            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                            <li><a href="#">Three</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
-                {% if not g.user.is_authenticated%}
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                {% endif %}
+                <li>
+                    <a href="#"> {{ user.get_name() }}</a>
+                    <ul class="menu">
+                        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
-        </div>
-        <div class="top-bar-right">
-            <ul class="menu">
-                <li><input type="search" placeholder="Search"></li>
-                <li><button type="button" class="button">Search</button></li>
-            </ul>
-        </div>
+        {% endif %}
+        {% if not g.user.is_authenticated%}
+            <a href="{{ url_for('login') }}" class="button login">{{ loc.get_text("login_sign_up", lan) }}</a>
+        {% endif %}
     </div>
-</div>
+    <div class="headline">
+        <h1><img src="{{url_for('static', filename='css/images/classroomplus.png') }}" alt="icon" style="width:400px"> <small></small></h1>
+    </div>
+</header>
+
 
 <div id="content">{% block content %}{% endblock %}</div>
 
@@ -63,16 +49,12 @@
     {% block footer %}
         <br/>
         <ul class="menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li class="float-right"> &copy; Copyright 2016 by ClassRoom Plus.</li>
+            <li class="float-right"> &copy; {{ loc.get_text("copyright", lan) }}</li>
         </ul>
         <br/>
         <br/>
     {% endblock %}
 </div>
-
 
 </body>
 </html>

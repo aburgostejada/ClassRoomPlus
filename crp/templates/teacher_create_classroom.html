@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <form id="createClassRoom" action="{{ url_for('teacher_create_classroom') }}" method=post>
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered text-center">
+                <br/>
+                    <h2 class="info">{{ loc.get_text("create_classroom", lan) }}</h2>
+                <br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered">
+                <div class="row">
+                    <input name="key" type="hidden" value="{{ class_room.key() if class_room else "false" }}">
+                    <div class="columns small-12">
+                        <h4>Class Name:</h4>
+                        <input name="name" type="text" value="{{ class_room.name if class_room else "" }}" placeholder="Class Name" />
+                    </div>
+                    <div class="columns small-12">
+                         <h4>Create Passcode:</h4>
+                         <input name="passcode" type="password" value="{{ class_room.passcode if class_room else "" }}" placeholder="Class passcode" />
+                    </div>
+                      <div class="columns small-12">
+                         <h4>Comments:</h4>
+                         <textarea name="comments" placeholder="Class's Comments" rows="5">{{ class_room.comments if class_room else "" }}</textarea>
+                    </div>
+                    <div class="columns small-12 text-center">
+                        <a id="create" type="submit" class="submitButton button expanded"><h3>{{ loc.get_text("save", lan) if class_room else loc.get_text("create", lan) }}</h3></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

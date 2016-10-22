@@ -62,9 +62,9 @@ def find_referenced_templates(ast):
 
     >>> from jinja2 import Environment, meta
     >>> env = Environment()
-    >>> ast = env.parse('{% extends "layout.html" %}{% include helper %}')
+    >>> ast = env.parse(old_layout.html %}')
     >>> list(meta.find_referenced_templates(ast))
-    ['layout.html', None]
+    ['old_layout.html', None]
 
     This function is useful for dependency tracking.  For example if you want
     to rebuild parts of the website after a layout template has changed.

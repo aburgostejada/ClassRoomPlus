@@ -1,19 +1,24 @@
 from google.appengine.ext import db
+from crp.DB.teacher_model import TeacherModel
 
 
-class ClassModel(db.Model):
-    id = db.IntegerProperty(required=True)
+class ClassRoomModel(db.Model):
+    name = db.TextProperty()
+    passcode = db.TextProperty()
+    comments = db.TextProperty()
     created = db.DateTimeProperty(auto_now_add=True)
+    status = db.StringProperty(required=True, choices={"active", "disabled", "deleted"})
+    teacher = db.ReferenceProperty(TeacherModel, collection_name='class_rooms')
 
     @classmethod
     def get_all_by(cls, attr, value):
-        q = ClassModel.all()
+        q = ClassRoomModel.all()
         q.filter(attr+" =", value)
         return q.fetch(1000)
 
     @classmethod
     def exits(cls, id):
-        q = ClassModel.all()
+        q = ClassRoomModel.all()
         q.filter("id =", id)
 
         total = q.count()
@@ -21,11 +26,10 @@ class ClassModel(db.Model):
             return True
         return False
 
-
     @classmethod
     def delete_by(cls, id):
         success = False
-        q = ClassModel.all()
+        q = ClassRoomModel.all()
         q.filter("id =", id)
         for obj in q.fetch(1000):
             success = obj.delete()

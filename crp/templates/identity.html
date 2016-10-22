@@ -1,32 +1,29 @@
-{% extends "layout_new.html" %}
+{% extends "layout.html" %}
 {% block title %}Login{% endblock %}
 {% block head %}
-  {{ super() }}
-  <style type="text/css">
-    .important { color: #336699; }
-  </style>
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
 {% endblock %}
 {% block content %}
-
-
-
-
-  <div class="row info">
-    <div class="small-5 columns  small-centered text-center">You are a </div>
-  </div>
-
-
-  <div class="row identity">
-    <div class="small-5 columns  small-centered text-center">
-      <ul class="stack button-groups" style="list-style: none;">
-
-        <li ><a href="#" class="button identity">Student</a></li>
-        <li ><a href="#" class="button identity">Instructor</a></li>
-      </ul>
-
-
+    <div class="row">
+        <div class="small-10 large-5 medium-8 columns small-centered text-center">
+            <br/>
+            <h1 class="info">{{ loc.get_text("you_are", lan) }}</h1>
+            <br/>
+        </div>
     </div>
-  </div>
-
-
+    <div class="row">
+        <div class="small-10 large-5 medium-8 columns small-centered">
+            <div class="row text-center">
+                <div class="columns small-12">
+                    <a href="{{ url_for('student_landing') }}" class="button identity expanded"><h3>{{ loc.get_text("student", lan) }}</h3></a>
+                </div>
+                <div class="columns small-12">
+                    <a href="{{ url_for('dashboard') }}" class="button identity expanded"><h3>{{ loc.get_text("teacher", lan) }}</h3></a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
