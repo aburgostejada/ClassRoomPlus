@@ -9,7 +9,7 @@ from crp import teacher
 from crp import loc
 from crp.DB.teacher_model import TeacherModel
 localization = loc.Localization()
-lan = localization.en #Allows to change the language
+lan = localization.eng #Allows to change the language
 app = Flask(__name__)
 app.jinja_loader = jinja2.FileSystemLoader('crp/templates')
 app.secret_key = "1u691O4d7?-9R(0G&o|L8iaR3740*O"
@@ -66,7 +66,7 @@ def login():
         return redirect(url_for('dashboard'))
 
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('login.html', loc=localization)
 
     if request.method == "POST":
         username = request.form['username']
@@ -94,3 +94,17 @@ def page_not_found(e):
 def application_error(e):
     """Return a custom 500 error."""
     return 'Sorry, unexpected error: {}'.format(e), 500
+
+
+##### views based on the mockup,
+
+@app.route("/identity")
+def identity():
+    return render_template('identity.html', loc=localization, lan=lan)
+
+
+
+
+
+
+

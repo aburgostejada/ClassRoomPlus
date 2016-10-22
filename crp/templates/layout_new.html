@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}"/>
+    {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dataTables.foundation.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.structure.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.theme.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+        <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+
+    <script type="application/javascript" src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/vendor/jquery-ui.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/vendor/jquery.dataTables.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/vendor/dataTables.foundation.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/foundation.min.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</head>
+<body>
+<header class="header">
+
+    <div class="top-corner">
+        <a href="{{ url_for('login') }}" class="button login">Login / Sign-up</a>
+    </div>
+
+    <div class="headline">
+        <h1><img src="{{url_for('static', filename='css/images/classroomplus.png') }}" alt="icon" style="width:400px"> <small></small></h1>
+    </div>
+
+</header>
+
+
+<div id="content">{% block content %}{% endblock %}</div>
+
+<div id="footer" class="row column">
+    {% block footer %}
+        <br/>
+        <ul class="menu">
+
+            <li class="float-right"> &copy; Copyright 2016 by Classroom Plus</li>
+        </ul>
+        <br/>
+        <br/>
+    {% endblock %}
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "layout_new.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+
+
+
+
+  <div class="row info">
+    <div class="small-5 columns  small-centered text-center">You are a </div>
+  </div>
+
+
+  <div class="row identity">
+    <div class="small-5 columns  small-centered text-center">
+      <ul class="stack button-groups" style="list-style: none;">
+
+        <li ><a href="#" class="button identity">Student</a></li>
+        <li ><a href="#" class="button identity">Instructor</a></li>
+      </ul>
+
+
+    </div>
+  </div>
+
+
+{% endblock %}
