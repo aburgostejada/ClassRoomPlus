@@ -23,8 +23,10 @@ class Localization:
             "student_landing": "Welcome",
             "create": "Create",
             "save": "Save",
+            "edit": "Edit",
             "enter_a_classroom": "Enter a Classroom",
             "create_classroom": "Create a Classroom",
+            "view_classroom": "Classroom's Details",
         }
 
         spanish = {
@@ -42,8 +44,10 @@ class Localization:
             "student_landing": "Bienvenido",
             "create": "Crear",
             "save": "Salvar",
+            "edit": "Editar",
             "enter_a_classroom": "Entre a una clase",
             "create_classroom": "Crear una clase",
+            "view_classroom": "Detalles de la Clase",
         }
 
         if lan == cls.eng and english.has_key(key):

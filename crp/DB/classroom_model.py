@@ -3,12 +3,15 @@ from crp.DB.teacher_model import TeacherModel
 
 
 class ClassRoomModel(db.Model):
-    name = db.TextProperty()
-    passcode = db.TextProperty()
+    name = db.TextProperty(required=True)
+    passcode = db.TextProperty(required=True)
     comments = db.TextProperty()
     created = db.DateTimeProperty(auto_now_add=True)
     status = db.StringProperty(required=True, choices={"active", "disabled", "deleted"})
     teacher = db.ReferenceProperty(TeacherModel, collection_name='class_rooms')
+
+    def students_list_string(self):
+        return ', '.join([x.name for x in self.students])
 
     @classmethod
     def get_all_by(cls, attr, value):

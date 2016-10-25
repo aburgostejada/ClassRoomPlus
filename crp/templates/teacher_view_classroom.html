@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="small-10 large-5 medium-8 columns small-centered text-center">
+            <br/>
+            <h2 class="info">{{ loc.get_text("view_classroom", lan) }}</h2>
+            <br/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-10 large-5 medium-8 columns small-centered">
+            <div class="row">
+                <div class="row">
+                    <div class="columns small-4">
+                        <h5>Name:</h5>
+                    </div>
+                    <div class="columns small-8">
+                        <h5>{{ class_room.name }}</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="columns small-4">
+                        <h5>Passcode:</h5>
+                    </div>
+                    <div class="columns small-8">
+                        <h5>{{ class_room.passcode }}</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="columns small-4">
+                        <h5>Comments:</h5>
+                    </div>
+                    <div class="columns small-8">
+                        <p>{{ class_room.comments }}</p>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="columns small-12 centered">
+                        <h4 class="subheader">Students</h4>
+                    </div>
+                </div>
+                <div class="row callout">
+                    <div class="columns small-12">
+                        <div class="row">
+                            <div class="columns small-6">
+                                <h5><strong>Name</strong></h5>
+                            </div>
+                            <div class="columns small-6">
+                                <h5><strong>pin</strong></h5>
+                            </div>
+                        </div>
+                        {% for student in class_room.students %}
+                            <div class="row">
+                                <div class="columns small-6">
+                                    <h6>{{ student.name }}</h6>
+                                </div>
+                                <div class="columns small-6">
+                                    <h6>{{ student.pin }}</h6>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="columns small-12 text-center">
+                        <a id="create" href="{{ url_for("teacher_create_classroom", key=class_room.key()) }}" class="button expanded"><h3>{{ loc.get_text("edit", lan) }}</h3></a>
+                    </div>
+                </div>
+                <br/><br/>
+            </div>
+        </div>
+    </div>
+{% endblock %}

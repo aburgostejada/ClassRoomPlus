@@ -121,26 +121,38 @@ def student_landing():
     return render_template("student_landing.html", loc=localization, lan=lan,  user=current_user)
 
 
+@app.route("/teacher_view_classroom", methods=['GET'])
+@login_required
+def teacher_view_classroom():
+    key = request.args.get("key")
+    class_room = False
+    if key:
+        class_room = ClassRoomModel.get(key)
+
+    return render_template("teacher_view_classroom.html", loc=localization,
+                           lan=lan,  user=current_user, class_room=class_room)
+
 @app.route("/teacher_create_classroom", methods=['GET', 'POST'])
 @login_required
 def teacher_create_classroom():
     if request.method == "POST":
         teacher_repo = TeacherRepository(current_user.get_model())
         name = request.form['name']
+        students = request.form['students']
         passcode = request.form['passcode']
         comments = request.form['comments']
         key = request.form['key']
 
         if key != "false":
-            teacher_repo.update_classroom(
-                key=key, name=name, passcode=passcode, comments=comments
+            key = teacher_repo.update_classroom(
+                key=key, name=name, passcode=passcode, students=students, comments=comments
             )
         else:
-            teacher_repo.create_new_classroom(
-                name=name, passcode=passcode, comments=comments
+            key = teacher_repo.create_new_classroom(
+                name=name, passcode=passcode, students=students, comments=comments
             )
 
-        return redirect(url_for("dashboard"))
+        return redirect(url_for("teacher_view_classroom", key=key))
     else:
         key = request.args.get("key")
         class_room = False
