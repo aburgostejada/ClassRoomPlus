@@ -11,3 +11,13 @@ $(document).ready(function(){
 });
 
 
+function add_option() {
+    document.getElementById('options').innerHTML += '<input name="option" type="text" value="" placeholder="Option" />';
+}
+
+
+function delete_option() {
+    document.getElementById('options').lastChild.remove();
+}
+
+

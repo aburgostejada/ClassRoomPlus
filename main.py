@@ -164,7 +164,9 @@ def teacher_create_classroom():
 
 
 
-
-
+@app.route("/teacher_create_quiz")
+#@login_required
+def teacher_create_quiz():
+    return render_template("teacher_create_quiz.html", loc=localization, lan=lan,  user=current_user)
 
 

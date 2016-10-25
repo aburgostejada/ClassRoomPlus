@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <form id="createClassRoom" autocomplete="off" action="{{ url_for('teacher_create_classroom') }}" method=post>
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered text-center">
+                <br/>
+                    <h2 class="info">{{ loc.get_text("create_quiz", lan) }}</h2>
+                <br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered">
+                <div class="row">
+                    <input name="key" type="hidden" value="{{ class_room.key() if class_room else "false" }}">
+                    <div class="columns small-12">
+                        <h4>Time Allowed (mins):</h4>
+                        <input id="time" type="number" min="0" max="" step="1" value ="0"/>
+
+                    </div>
+
+                    <div class="columns small-12">
+                         <h4>Question:</h4>
+                         <textarea name="question" placeholder="Type your question here" rows="3">{{ class_room.students_list_string() if class_room else "" }}</textarea>
+                    </div>
+
+                    <div class="columns small-12">
+                        <h4>Options:</h4>
+                    </div>
+                    <div class="columns small-12" id="options">
+                        <input name="option" type="text" value="" placeholder="Option" />
+                    </div>
+
+
+
+                    <div class="small-12 columns">
+                        <a href="#" class="button small" onclick="add_option()">Add Option</a>
+                        <a href="#" class="button small float-right" onclick="delete_option()">Delete Option</a>
+                    </div>
+
+
+
+                    <div class="columns small-12 text-center">
+                        <a id="create" type="submit" class="submitButton button expanded" ><h3>{{ loc.get_text("save", lan) if class_room else loc.get_text("create", lan) }}</h3></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

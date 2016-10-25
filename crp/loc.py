@@ -27,6 +27,7 @@ class Localization:
             "enter_a_classroom": "Enter a Classroom",
             "create_classroom": "Create a Classroom",
             "view_classroom": "Classroom's Details",
+            "create_quiz": "Create a Quiz",
         }
 
         spanish = {
@@ -48,6 +49,8 @@ class Localization:
             "enter_a_classroom": "Entre a una clase",
             "create_classroom": "Crear una clase",
             "view_classroom": "Detalles de la Clase",
+            "create_quiz": "Crear una prueba",
+
         }
 
         if lan == cls.eng and english.has_key(key):
