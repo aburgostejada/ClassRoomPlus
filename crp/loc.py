@@ -28,6 +28,8 @@ class Localization:
             "create_classroom": "Create a Classroom",
             "view_classroom": "Classroom's Details",
             "create_quiz": "Create a Quiz",
+            "create_poll": "Create a Poll",
+            "new_poll": "New Poll",
         }
 
         spanish = {
@@ -50,6 +52,8 @@ class Localization:
             "create_classroom": "Crear una clase",
             "view_classroom": "Detalles de la Clase",
             "create_quiz": "Crear una prueba",
+            "create_poll": "Crear una encuesta rapida",
+            "new_poll": "Nueva encuesta",
 
         }
 

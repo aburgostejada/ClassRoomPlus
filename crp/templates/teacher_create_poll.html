@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+
+{% if success %}
+     <div class="row">
+         <div class="small-12 large-5 medium-8 columns small-centered text-center">
+            <h1>Poll Created Successfully</h1>
+         </div>
+    </div>
+{% else %}
+    {% block content %}
+        <form id="createPoll" autocomplete="off" action="{{ url_for('teacher_create_poll') }}"  method="post">
+            <div class="row">
+                <div class="small-10 large-5 medium-8 columns small-centered text-center">
+                    <br/>
+                    <h2 class="info">{{ class_room.name }}</h2>
+                    <h3 >{{ loc.get_text("create_poll", lan) }}</h3>
+                    <br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-10 large-5 medium-8 columns small-centered">
+                    <div class="row">
+                        <input name="key" type="hidden" value="{{ class_room.key() if class_room else "false" }}">
+                        <div class="columns small-12">
+                            <h4>Time Allowed (mins):</h4>
+                            <input name="time_allowed" id="time_allowed" type="number" min="0" max="" step="1" value ="0"/>
+                        </div>
+
+                        <div class="columns small-12">
+                            <h4>Question:</h4>
+                            <textarea name="question" placeholder="Type your question here" rows="3"></textarea>
+                        </div>
+
+                        <div class="columns small-12">
+                            <h4>Options:</h4>
+                        </div>
+                        <div class="columns small-12">
+                            <div class="row">
+                                <div class="columns small-6">
+                                    <label>Custom:
+                                        <input type="radio" name="answer_type" value="custom" checked>
+                                    </label>
+                                </div>
+                                <div class="columns small-6">
+                                    <label>Yes / No:
+                                        <input type="radio" name="answer_type" value="yes_no">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columns small-12" id="options">
+                            <input name="option[]" type="text" value="" placeholder="Option" />
+                        </div>
+
+                        <div class="small-12 columns">
+                            <a href="#" class="button small" onclick="add_option()">Add Option</a>
+                            <a href="#" class="button small float-right" onclick="delete_option()">Delete Option</a>
+                        </div>
+
+                        <div class="columns small-12 text-center">
+                            <a id="create" type="submit" class="submitButton button expanded" ><h3>{{ loc.get_text("save", lan) if class_room else loc.get_text("create", lan) }}</h3></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% endblock %}
+{% endif %}

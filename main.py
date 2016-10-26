@@ -132,6 +132,7 @@ def teacher_view_classroom():
     return render_template("teacher_view_classroom.html", loc=localization,
                            lan=lan,  user=current_user, class_room=class_room)
 
+
 @app.route("/teacher_create_classroom", methods=['GET', 'POST'])
 @login_required
 def teacher_create_classroom():
@@ -163,10 +164,33 @@ def teacher_create_classroom():
                                lan=lan,  user=current_user, class_room=class_room)
 
 
+@app.route("/teacher_created_poll_success", methods=['GET'])
+@login_required
+def teacher_created_poll_success():
+    return render_template("teacher_created_poll_success.html", loc=localization, lan=lan, user=current_user)
 
-@app.route("/teacher_create_quiz")
-#@login_required
-def teacher_create_quiz():
-    return render_template("teacher_create_quiz.html", loc=localization, lan=lan,  user=current_user)
+
+@app.route("/teacher_create_poll", methods=['GET', 'POST'])
+@login_required
+def teacher_create_poll():
+    if request.method == "POST":
+        teacher_repo = TeacherRepository(current_user.get_model())
+        time_allowed = int(request.form['time_allowed'])
+        question = request.form['question']
+        answer_type = request.form['answer_type']
+        options = request.form.getlist('option[]')
+        key = request.form['key']
+
+        teacher_repo.add_poll_to_classroom(
+            key=key, time_allowed=time_allowed, question=question, answer_type=answer_type, options=options
+        )
+
+        return redirect(url_for("teacher_created_poll_success", key=key))
+    else:
+        key = request.args.get("key")
+        class_room = ClassRoomModel.get(key)
+
+        return render_template("teacher_create_poll.html", loc=localization, lan=lan,
+                                user=current_user, class_room=class_room)
 
 

@@ -74,6 +74,9 @@
                     <div class="columns small-12 text-center">
                         <a id="create" href="{{ url_for("teacher_create_classroom", key=class_room.key()) }}" class="button expanded"><h3>{{ loc.get_text("edit", lan) }}</h3></a>
                     </div>
+                     <div class="columns small-12 text-center">
+                        <a id="create" href="{{ url_for("teacher_create_poll", key=class_room.key()) }}" class="button expanded"><h3>{{ loc.get_text("new_poll", lan) }}</h3></a>
+                    </div>
                 </div>
                 <br/><br/>
             </div>

@@ -1,6 +1,7 @@
 from crp.DB.classroom_model import ClassRoomModel
 import random
 
+from crp.DB.poll_model import PollModel
 from crp.DB.student_model import StudentModel
 
 
@@ -43,4 +44,11 @@ class TeacherRepository:
         self.save_list_of_students(students, class_room)
 
         return class_room.put()
+
+    def add_poll_to_classroom(self, key, time_allowed, question, answer_type, options):
+        class_room = ClassRoomModel.get(key)
+
+        PollModel(class_room=class_room, type=answer_type, options=options,
+                  time_allowed=time_allowed, question=question, status="active").put()
+
 

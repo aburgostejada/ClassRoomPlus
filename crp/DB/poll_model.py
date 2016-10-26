@@ -1,36 +1,21 @@
 from google.appengine.ext import db
 
+from crp.DB.classroom_model import ClassRoomModel
+
 
 class PollModel(db.Model):
-    id = db.IntegerProperty(required=True)
+    type = db.StringProperty(required=True, choices={"yes_no", "custom"})
+    options = db.StringListProperty()
+    time_allowed = db.IntegerProperty(required=True)
+    question = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
+    status = db.StringProperty(required=True, choices={"active", "disabled", "pending"})
+    class_room = db.ReferenceProperty(ClassRoomModel, collection_name='poll_list')
 
     @classmethod
     def get_all_by(cls, attr, value):
         q = PollModel.all()
         q.filter(attr+" =", value)
         return q.fetch(1000)
-
-    @classmethod
-    def exits(cls, id):
-        q = PollModel.all()
-        q.filter("id =", id)
-
-        total = q.count()
-        if total > 0:
-            return True
-        return False
-
-
-    @classmethod
-    def delete_by(cls, id):
-        success = False
-        q = PollModel.all()
-        q.filter("id =", id)
-        for obj in q.fetch(1000):
-            success = obj.delete()
-        return success
-
-
 
 
