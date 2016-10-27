@@ -114,13 +114,6 @@ def identity():
     else:
         return redirect(url_for('dashboard'))
 
-
-@app.route("/student_landing")
-@login_required
-def student_landing():
-    return render_template("student_landing.html", loc=localization, lan=lan,  user=current_user)
-
-
 @app.route("/teacher_view_classroom", methods=['GET'])
 @login_required
 def teacher_view_classroom():
@@ -194,3 +187,17 @@ def teacher_create_poll():
                                 user=current_user, class_room=class_room)
 
 
+@app.route("/student_landing")
+#@login_required
+def student_landing():
+    return render_template("student_landing.html", loc=localization, lan=lan,  user=current_user)
+
+
+@app.route("/student_take_poll")
+#@login_required
+def student_take_poll():
+    # hard coded view inputs to be changed later
+    classroom = {"name": "Foo 101"}
+    poll = {"time_left": "3:55", "question": "which number is the largest?", "options": [4,9,4,5]}
+    return render_template("student_take_poll.html", loc=localization, lan=lan,  user=current_user,
+                           class_room=classroom, poll=poll)

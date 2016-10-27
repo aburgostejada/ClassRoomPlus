@@ -30,6 +30,7 @@ class Localization:
             "create_quiz": "Create a Quiz",
             "create_poll": "Create a Poll",
             "new_poll": "New Poll",
+
         }
 
         spanish = {

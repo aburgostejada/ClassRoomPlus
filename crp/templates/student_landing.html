@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">
@@ -7,15 +7,31 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div class="row">
-        <div class="small-10 large-5 medium-8 columns small-centered text-center">
-            <br/>
-                <h1 class="info">{{ loc.get_text("student_landing", lan) }}</h1>
-            <br/>
+    <form id="createClassRoom" autocomplete="off" action="{{ url_for('teacher_create_classroom') }}" method="post">
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered text-center">
+                <br/>
+                    <h2 class="info">Enter a Classroom</h2>
+                <br/>
+            </div>
         </div>
-    </div>
-    <div class="row">
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered">
+                <div class="row">
+                    <input name="key" type="hidden" value="{{ class_room.key() if class_room else "false" }}">
 
-    </div>
 
+                    <div class="columns small-12">
+                         <h4>Passcode:</h4>
+                         <input id="passcode" name="passcode" autocomplete="new-password" type="text" value="{{ class_room.passcode if class_room else "" }}" placeholder="Class passcode" />
+                    </div>
+
+
+                    <div class="columns small-12 text-center">
+                        <a id="create" type="submit" class="submitButton button expanded"><h3>Enter</h3></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}

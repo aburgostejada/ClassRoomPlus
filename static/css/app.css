@@ -105,3 +105,8 @@
     position: relative;
     top: 30px;
 }
+
+#time_left {
+    color: red;
+
+}
