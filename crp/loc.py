@@ -12,7 +12,7 @@ class Localization:
             "dashboard": "Dashboard",
             "menu_one" : "Take Action!",
             "menu_two" : "Just Do it!",
-            "login_sign_up": "Login / Sign-up",
+            "login_sign_up": "Teacher Login",
             "copyright": "Copyright 2016 by Classroom Plus",
             "teacher_login": "Teacher's Login",
             "login": "Log In",
@@ -30,6 +30,7 @@ class Localization:
             "create_quiz": "Create a Quiz",
             "create_poll": "Create a Poll",
             "new_poll": "New Poll",
+            "disable": "Disable"
 
         }
 
@@ -55,6 +56,7 @@ class Localization:
             "create_quiz": "Crear una prueba",
             "create_poll": "Crear una encuesta rapida",
             "new_poll": "Nueva encuesta",
+            "disable": "Deshabilitar"
 
         }
 

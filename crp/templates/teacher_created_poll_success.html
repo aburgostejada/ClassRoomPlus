@@ -11,7 +11,11 @@
 {% block content %}
  <div class="row">
      <div class="small-12 large-5 medium-8 columns small-centered text-center">
-        <h1>Poll Created Successfully</h1>
+         <h2 class="info">Poll Created Successfully</h2>
+         <br/>
+         <div class="callout success">
+            <h3>Class Room Access Code: {{ access_code }}</h3>
+         </div>
      </div>
 </div>
 {% endblock %}

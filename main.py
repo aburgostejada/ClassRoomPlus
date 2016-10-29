@@ -9,17 +9,19 @@ from crp import teacher
 from crp import loc
 import time
 from crp.DB.classroom_model import ClassRoomModel
+from crp.DB.poll_model import PollModel
 from crp.DB.teacher_model import TeacherModel
 from crp.lib.teacher_repository import TeacherRepository
 
 localization = loc.Localization()
-lan = localization.eng #Allows to change the language
+lan = localization.eng  # Allows to change the language
 app = Flask(__name__)
 app.jinja_loader = jinja2.FileSystemLoader('crp/templates')
 app.secret_key = "1u691O4d7?-9R(0G&o|L8iaR3740*O"
 app.config['SESSION_TYPE'] = 'filesystem'
 login_manager = LoginManager()
 login_manager.init_app(app)
+
 
 # Note: We don't need to call run() since our application is embedded within
 # the App Engine WSGI application server.
@@ -37,7 +39,7 @@ def before_request():
 def dashboard():
     if current_user.is_authenticated:
         class_rooms = current_user.get_model().class_rooms
-        return render_template('dashboard.html', loc=localization, lan=lan,  user=current_user, class_rooms=class_rooms)
+        return render_template('dashboard.html', loc=localization, lan=lan, user=current_user, class_rooms=class_rooms)
     else:
         return redirect(url_for('login'))
 
@@ -105,14 +107,13 @@ def application_error(e):
     return 'Sorry, unexpected error: {}'.format(e), 500
 
 
-##### views based on the mockup,
-
 @app.route("/identity")
 def identity():
     if not current_user.is_authenticated:
-        return render_template('identity.html', loc=localization, lan=lan,  user=current_user)
+        return render_template('identity.html', loc=localization, lan=lan, user=current_user)
     else:
         return redirect(url_for('dashboard'))
+
 
 @app.route("/teacher_view_classroom", methods=['GET'])
 @login_required
@@ -123,7 +124,7 @@ def teacher_view_classroom():
         class_room = ClassRoomModel.get(key)
 
     return render_template("teacher_view_classroom.html", loc=localization,
-                           lan=lan,  user=current_user, class_room=class_room)
+                           lan=lan, user=current_user, class_room=class_room)
 
 
 @app.route("/teacher_create_classroom", methods=['GET', 'POST'])
@@ -133,17 +134,16 @@ def teacher_create_classroom():
         teacher_repo = TeacherRepository(current_user.get_model())
         name = request.form['name']
         students = request.form['students']
-        passcode = request.form['passcode']
         comments = request.form['comments']
         key = request.form['key']
 
         if key != "false":
             key = teacher_repo.update_classroom(
-                key=key, name=name, passcode=passcode, students=students, comments=comments
+                key=key, name=name, students=students, comments=comments
             )
         else:
             key = teacher_repo.create_new_classroom(
-                name=name, passcode=passcode, students=students, comments=comments
+                name=name, students=students, comments=comments
             )
 
         return redirect(url_for("teacher_view_classroom", key=key))
@@ -154,13 +154,17 @@ def teacher_create_classroom():
             class_room = ClassRoomModel.get(key)
 
         return render_template("teacher_create_classroom.html", loc=localization,
-                               lan=lan,  user=current_user, class_room=class_room)
+                               lan=lan, user=current_user, class_room=class_room)
 
 
 @app.route("/teacher_created_poll_success", methods=['GET'])
 @login_required
 def teacher_created_poll_success():
-    return render_template("teacher_created_poll_success.html", loc=localization, lan=lan, user=current_user)
+    key = request.args.get("key")
+    poll = PollModel.get(key)
+
+    return render_template("teacher_created_poll_success.html", loc=localization, lan=lan,
+                           user=current_user, access_code=poll.class_room.access_code)
 
 
 @app.route("/teacher_create_poll", methods=['GET', 'POST'])
@@ -174,30 +178,70 @@ def teacher_create_poll():
         options = request.form.getlist('option[]')
         key = request.form['key']
 
-        teacher_repo.add_poll_to_classroom(
+        poll_key = teacher_repo.add_poll_to_classroom(
             key=key, time_allowed=time_allowed, question=question, answer_type=answer_type, options=options
         )
 
-        return redirect(url_for("teacher_created_poll_success", key=key))
+        return redirect(url_for("teacher_created_poll_success", key=poll_key))
     else:
         key = request.args.get("key")
         class_room = ClassRoomModel.get(key)
 
         return render_template("teacher_create_poll.html", loc=localization, lan=lan,
-                                user=current_user, class_room=class_room)
+                               user=current_user, class_room=class_room)
 
 
-@app.route("/student_landing")
-#@login_required
+@app.route("/teacher_view_poll", methods=['GET', 'POST'])
+@login_required
+def teacher_view_poll():
+    if request.method == "POST":
+        key = request.form['key']
+        poll = PollModel.get(key)
+        teacher_repo = TeacherRepository(current_user.get_model())
+        teacher_repo.disable_poll(
+            key=key
+        )
+        return redirect(url_for("teacher_view_classroom", key=poll.class_room.key()))
+    else:
+        key = request.args.get("key")
+        poll = PollModel.get(key)
+
+        return render_template("teacher_view_poll.html", loc=localization, lan=lan,
+                               user=current_user, poll=poll)
+
+
+@app.route("/student_landing", methods=['POST', 'GET'])
 def student_landing():
-    return render_template("student_landing.html", loc=localization, lan=lan,  user=current_user)
+    if request.method == "POST":
+        access_code = request.form['access_code']
+        pin = request.form['pin']
+        class_room = ClassRoomModel.get_by_access_code(access_code)
+
+        if class_room:
+            error = class_room.has_student(pin)
+        else:
+            error = True
+
+        polls = class_room.get_active_polls()
+
+        if len(polls) == 0:
+            error = True
+
+        poll = polls[0]
+
+        if error:
+            return render_template("student_landing.html", loc=localization, lan=lan,
+                                   user=current_user, error=error)
+        else:
+            return redirect(url_for("student_take_poll", key=poll.key()))
+    else:
+        return render_template("student_landing.html", loc=localization, lan=lan, user=current_user)
 
 
 @app.route("/student_take_poll")
-#@login_required
 def student_take_poll():
     # hard coded view inputs to be changed later
     classroom = {"name": "Foo 101"}
-    poll = {"time_left": "3:55", "question": "which number is the largest?", "options": [4,9,4,5]}
-    return render_template("student_take_poll.html", loc=localization, lan=lan,  user=current_user,
+    poll = {"time_left": "3:55", "question": "which number is the largest?", "options": [4, 9, 4, 5]}
+    return render_template("student_take_poll.html", loc=localization, lan=lan, user=current_user,
                            class_room=classroom, poll=poll)

@@ -24,12 +24,8 @@
                         <input name="name" type="text" value="{{ class_room.name if class_room else "" }}" placeholder="Class Name" />
                     </div>
                     <div class="columns small-12">
-                         <h4>Create Passcode:</h4>
-                         <input name="passcode" autocomplete="new-password" type="text" value="{{ class_room.passcode if class_room else "" }}" placeholder="Class passcode" />
-                    </div>
-                    <div class="columns small-12">
                          <h4>Students:<small>(Student's name separated by coma)</small></h4>
-                         <textarea name="students" placeholder="(Student's name separated by coma)" rows="10">{{ class_room.students_list_string() if class_room else "" }}</textarea>
+                         <textarea name="students" placeholder="(Student's name separated by coma)" required rows="10">{{ class_room.students_list_string() if class_room else "" }}</textarea>
                     </div>
                     <div class="columns small-12">
                          <h4>Comments:</h4>

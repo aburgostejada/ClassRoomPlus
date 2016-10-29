@@ -50,18 +50,19 @@
                                 </div>
                                 <div class="columns small-6">
                                     <label>Yes / No:
-                                        <input type="radio" name="answer_type" value="yes_no">
+                                        <input  type="radio" name="answer_type" value="yes_no">
                                     </label>
                                 </div>
                             </div>
                         </div>
+
                         <div class="columns small-12" id="options">
                             <input name="option[]" type="text" value="" placeholder="Option" />
                         </div>
 
-                        <div class="small-12 columns">
-                            <a href="#" class="button small" onclick="add_option()">Add Option</a>
-                            <a href="#" class="button small float-right" onclick="delete_option()">Delete Option</a>
+                        <div class="small-12 columns" id="optionsActions">
+                            <a id="addOption" href="#" class="button small">Add Option</a>
+                            <a id="deleteOption" href="#" class="button small float-right">Delete Option</a>
                         </div>
 
                         <div class="columns small-12 text-center">

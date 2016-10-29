@@ -7,26 +7,38 @@
     </style>
 {% endblock %}
 {% block content %}
-    <form id="createClassRoom" autocomplete="off" action="{{ url_for('teacher_create_classroom') }}" method="post">
+    <form id="createClassRoom" autocomplete="off" action="{{ url_for('student_landing') }}" method="post">
         <div class="row">
             <div class="small-10 large-5 medium-8 columns small-centered text-center">
                 <br/>
-                    <h2 class="info">Enter a Classroom</h2>
+                <h2 class="info">Enter a Classroom</h2>
                 <br/>
             </div>
         </div>
+        {% if error == True %}
+            <div class="row">
+                <div class="small-10 large-5 medium-8  columns small-centered">
+                    <div class="callout alert">
+                        <p>There is a error either with <strong>class access code</strong> or your <strong>student pin</strong>, please ask your professor for assistance.</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <div class="row">
             <div class="small-10 large-5 medium-8 columns small-centered">
                 <div class="row">
-                    <input name="key" type="hidden" value="{{ class_room.key() if class_room else "false" }}">
-
-
                     <div class="columns small-12">
-                         <h4>Passcode:</h4>
-                         <input id="passcode" name="passcode" autocomplete="new-password" type="text" value="{{ class_room.passcode if class_room else "" }}" placeholder="Class passcode" />
+                        <h4>Class Access Code:</h4>
+                        <input id="access_code" name="access_code" autocomplete="new-password" type="number" required placeholder="Class Access Code"  />
                     </div>
-
-
+                </div>
+                 <div class="row">
+                    <div class="columns small-12">
+                        <h4>Student Pin:</h4>
+                        <input id="pin" name="pin" autocomplete="new-password" type="number" required placeholder="Student Pin" />
+                    </div>
+                </div>
+                <div class="row">
                     <div class="columns small-12 text-center">
                         <a id="create" type="submit" class="submitButton button expanded"><h3>Enter</h3></a>
                     </div>
