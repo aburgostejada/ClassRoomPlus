@@ -30,14 +30,37 @@
                         <h5>{{ poll.question }}</h5>
                     </div>
                 </div>
+                <br/>
                 <div class="row">
-                    <div class="columns small-12 text-center">
-                        <h4>Access Code</h4>
+                    <div class="columns small-6">
+                        <h5>Access Code:</h5>
+                    </div>
+                    <div class="columns small-6" >
+                        <h5>{{ poll.class_room.access_code }}</h5>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="columns small-12 callout" >
-                        <h5>{{ poll.class_room.access_code }}</h5>
+                    <div class="columns small-6">
+                        <h5>Status:</h5>
+                    </div>
+                    <div class="columns small-6" >
+                        <h5>
+                            {%  if (poll.completed()) %}
+                                Completed
+                            {%  else %}
+                                Active
+                            {%  endif %}
+                        </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="columns small-6">
+                        <h5>Students Answered:</h5>
+                    </div>
+                    <div class="columns small-6" >
+                        <h5>
+                            {{ poll.get_total_answered() }}
+                        </h5>
                     </div>
                 </div>
                 <br/>
@@ -46,7 +69,7 @@
                 <div class="row">
                     <div class="columns small-12 text-center">
                         <input type="hidden" name="key" value="{{ poll.key() }}">
-                        <a type="submit" class="submitButton button expanded"><h3>{{ loc.get_text("disable", lan) }}</h3></a>
+                        <button type="submit" class="submitButton button expanded large">{{ loc.get_text("close", lan) }}</button>
                     </div>
                 </div>
             </div>

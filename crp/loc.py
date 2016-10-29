@@ -30,7 +30,8 @@ class Localization:
             "create_quiz": "Create a Quiz",
             "create_poll": "Create a Poll",
             "new_poll": "New Poll",
-            "disable": "Disable"
+            "disable": "Disable",
+            "close": "Close"
 
         }
 
@@ -56,7 +57,8 @@ class Localization:
             "create_quiz": "Crear una prueba",
             "create_poll": "Crear una encuesta rapida",
             "new_poll": "Nueva encuesta",
-            "disable": "Deshabilitar"
+            "disable": "Deshabilitar",
+             "close": "Cerrar"
 
         }
 

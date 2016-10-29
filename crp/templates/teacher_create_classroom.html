@@ -32,7 +32,7 @@
                          <textarea name="comments" placeholder="Class's Comments" rows="5">{{ class_room.comments if class_room else "" }}</textarea>
                     </div>
                     <div class="columns small-12 text-center">
-                        <a id="create" type="submit" class="submitButton button expanded"><h3>{{ loc.get_text("save", lan) if class_room else loc.get_text("create", lan) }}</h3></a>
+                        <button id="create" type="submit" class="submitButton button expanded large">{{ loc.get_text("save", lan) if class_room else loc.get_text("create", lan) }}</button>
                     </div>
                 </div>
             </div>

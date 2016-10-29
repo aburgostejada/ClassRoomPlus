@@ -22,18 +22,25 @@ function setUpCreateNewPoll(){
             options.hide();
             $("#optionsActions").hide();
         }else{
-            options.show();
-            $("#optionsActions").show();
+            alert("Feature in Development");
+            this.value = "yes_no";
+            // options.show();
+            // $("#optionsActions").show();
         }
     });
 }
 
 $(document).ready(function(){
-    $(".submitButton").click(function(){
-        $(this).parents("form").submit();
-    });
     setUpCreateNewPoll();
     $(document).foundation();
+    if(('.timer-quick').length > 0){
+        $('.timer-quick').startTimer({
+          onComplete: function(){
+                alert("Time is UP...");
+                $("#submit").click();
+          }
+        });
+    }
 });
 
 

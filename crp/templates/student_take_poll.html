@@ -7,46 +7,69 @@
     </style>
 {% endblock %}
 
-{% if success %}
-     <div class="row">
-         <div class="small-12 large-5 medium-8 columns small-centered text-center">
-            <h1>Poll Created Successfully</h1>
-         </div>
-    </div>
-{% else %}
-    {% block content %}
-        <form id="createPoll" autocomplete="off" action="{{ url_for('teacher_create_poll') }}"  method="post">
-            <div class="row">
-                <div class="small-10 large-5 medium-8 columns small-centered text-center">
-                    <br/>
-                    <h2 class="info">{{ class_room.name }}</h2>
-                    <br/>
-                </div>
+{% block content %}
+    <form id="createPoll" autocomplete="off" action="{{ url_for('student_take_poll') }}"  method="post">
+        <input type="hidden" name="student_key" value="{{ student.key() }}" />
+        <input type="hidden" name="poll_key" value="{{ poll.key() }}" />
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered text-center">
+                <br/>
+                <h3 class="info">Welcome {{ student.name }}</h3>
+                <br/><br/>
+                <h4 class="info">{{ class_room.name }}</h4>
             </div>
-            <div class="row">
-                <div class="small-10 large-5 medium-8 columns small-centered">
+        </div>
+        <div class="row">
+            <div class="small-10 large-5 medium-8 columns small-centered">
+                <div class="row">
+                    <div class="columns small-9">
+                        <h5>Time Left:</h5>
+                    </div>
+                    <div class="columns small-3" style="text-align: right;" >
+                        <h5 id="time_left"><div class="timer-quick" data-minutes-left="{{ poll.time_allowed }}"></div> </h5>
+                    </div>
+                    <br/><br/>
+                </div>
+                <div class="row">
+                    <div class="columns small-12">
+                        <h3 class="text-center">Question</h3>
+                        <br/>
+                        <h5 >{{ poll.question }}</h5>
+                    </div>
+                    <br/><br/><br/>
+                </div>
+                <br/><br/>
+                {% if (poll.type == "yes_no")  %}
+                    <div class="row">
+                        <div class="columns small-6">
+                            <label>
+                                <input type="radio" name="answer" value="yes">
+                            </label> YES
+                        </div>
+                        <div class="columns small-6" style="text-align: right;">
+                            <label>
+                                <input type="radio" name="answer" value="no">
+                            </label> NO
+                        </div>
+                        <input type="radio" name="answer" value="none" style="display: none" checked>
+                    </div>
+                {% else %}
                     <div class="row">
                         <div class="columns small-12">
-                            <h4>Time Left:</h4>
-                            <h3 id="time_left">{{ poll.time_left }}</h3>
-                        </div>
-
-                        <div class="columns small-12">
-                            <h4>Q: {{ poll.question }}</h4>
-                        </div>
-
-                        <div class="columns small-12">
                             {% for option in poll.options %}
-                                 <input type="checkbox" name={{ option }} value={{ option }}> {{ option }}<br>
+                                <input type="radio" name="answer" value={{ option }}> {{ option }}<br>
                             {% endfor %}
                         </div>
-
-                        <div class="columns small-12 text-center">
-                            <a id="create" type="submit" class="submitButton button expanded" ><h3>Submit</h3></a>
-                        </div>
                     </div>
+                {% endif %}
+            </div>
+            <br/>
+            <br/>
+            <div class="row">
+                <div class="columns small-10 large-5 medium-8 text-center small-centered">
+                    <button id="submit" type="submit" class="submitButton button expanded large" >Submit</button>
                 </div>
             </div>
-        </form>
-    {% endblock %}
-{% endif %}
+        </div>
+    </form>
+{% endblock %}

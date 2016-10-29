@@ -15,7 +15,7 @@
     </div>
 {% else %}
     {% block content %}
-        <form id="createPoll" autocomplete="off" action="{{ url_for('teacher_create_poll') }}"  method="post">
+        <form id="createPoll" autocomplete="off" action="{{ url_for('teacher_create_poll') }}" method="post">
             <div class="row">
                 <div class="small-10 large-5 medium-8 columns small-centered text-center">
                     <br/>
@@ -29,13 +29,15 @@
                     <div class="row">
                         <input name="key" type="hidden" value="{{ class_room.key() if class_room else "false" }}">
                         <div class="columns small-12">
-                            <h4>Time Allowed (mins):</h4>
-                            <input name="time_allowed" id="time_allowed" type="number" min="0" max="" step="1" value ="0"/>
+                            <h4>Time Allowed (mins): <small>required</small> </h4>
+                            <label for="time_allowed">
+                                <input name="time_allowed" id="time_allowed" type="number" min="0" max="" step="1" value ="5" required />
+                            </label>
                         </div>
 
                         <div class="columns small-12">
-                            <h4>Question:</h4>
-                            <textarea name="question" placeholder="Type your question here" rows="3"></textarea>
+                            <h4>Question: <small>required</small></h4>
+                            <textarea name="question" placeholder="Type your question here" rows="3" required ></textarea>
                         </div>
 
                         <div class="columns small-12">
@@ -43,14 +45,14 @@
                         </div>
                         <div class="columns small-12">
                             <div class="row">
-                                <div class="columns small-6">
-                                    <label>Custom:
-                                        <input type="radio" name="answer_type" value="custom" checked>
+                                  <div class="columns small-6">
+                                    <label>Yes / No:
+                                        <input  type="radio" name="answer_type" value="yes_no" checked>
                                     </label>
                                 </div>
                                 <div class="columns small-6">
-                                    <label>Yes / No:
-                                        <input  type="radio" name="answer_type" value="yes_no">
+                                    <label>Custom:
+                                        <input type="radio" name="answer_type" value="custom" >
                                     </label>
                                 </div>
                             </div>
@@ -66,7 +68,7 @@
                         </div>
 
                         <div class="columns small-12 text-center">
-                            <a id="create" type="submit" class="submitButton button expanded" ><h3>{{ loc.get_text("save", lan) if class_room else loc.get_text("create", lan) }}</h3></a>
+                            <button id="create" type="submit" class="submitButton button expanded large" >{{ loc.get_text("save", lan) if class_room else loc.get_text("create", lan) }}</button>
                         </div>
                     </div>
                 </div>

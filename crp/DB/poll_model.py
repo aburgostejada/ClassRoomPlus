@@ -9,7 +9,7 @@ class PollModel(db.Model):
     time_allowed = db.IntegerProperty(required=True)
     question = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
-    status = db.StringProperty(required=True, choices={"active", "disabled", "pending"})
+    status = db.StringProperty(required=True, choices={"active", "close", "pending"})
     class_room = db.ReferenceProperty(ClassRoomModel, collection_name='poll_list')
 
     @classmethod
@@ -18,4 +18,15 @@ class PollModel(db.Model):
         q.filter(attr+" =", value)
         return q.fetch(1000)
 
+    def get_total_answered(self):
+        return self.answers.count()
 
+    def completed(self):
+        return self.get_total_answered() >= self.class_room.students.count()
+
+    def has_this_student_answered(self, student):
+        for answer in self.answers:
+            if answer.student.key() == student.key():
+                return True
+
+        return False

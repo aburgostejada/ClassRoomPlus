@@ -2,12 +2,13 @@ from crp.DB.classroom_model import ClassRoomModel
 import random
 
 from crp.DB.poll_model import PollModel
+from crp.DB.student_answers import StudentAnswersModel
 from crp.DB.student_model import StudentModel
 
 
 # TODO missing name validation
 
-class TeacherRepository:
+class Repository:
     def __init__(self, teacher):
         self.teacher = teacher
 
@@ -25,6 +26,20 @@ class TeacherRepository:
     def delete_all_of_students_for(class_room):
         for student_name in class_room.students:
             student_name.delete()
+
+    @staticmethod
+    def add_poll_to_classroom(key, time_allowed, question, answer_type, options):
+        class_room = ClassRoomModel.get(key)
+
+        poll = PollModel(class_room=class_room, type=answer_type, options=options,
+                         time_allowed=time_allowed, question=question, status="active").put()
+        return poll
+
+    @staticmethod
+    def disable_poll(key):
+        poll = PollModel.get(key)
+        poll.status = "close"
+        poll.put()
 
     def create_new_classroom(self, name, students, comments):
         access_code = random.randint(10000, 99999) #TODO make sure is unique for active classes
@@ -45,15 +60,5 @@ class TeacherRepository:
 
         return class_room.put()
 
-    def add_poll_to_classroom(self, key, time_allowed, question, answer_type, options):
-        class_room = ClassRoomModel.get(key)
-
-
-
-        return PollModel(class_room=class_room, type=answer_type, options=options,
-                         time_allowed=time_allowed, question=question, status="active").put()
-
-    def disable_poll(self, key):
-        poll = PollModel.get(key)
-        poll.status = "disabled"
-        poll.put()
+    def save_student_answer(self, student, poll, answer):
+        StudentAnswersModel(student=student, poll=poll, answer=answer).put()

@@ -22,21 +22,33 @@ class ClassRoomModel(db.Model):
         result = poll_list.fetch(1000)
         return result
 
-    def has_student(self, pin):
-        for student in self.students:
-            if pin.isdigit() and student.pin == pin:
-                return True
+    def get_close_polls(self):
+        poll_list = self.poll_list
+        poll_list.filter("status =", "close")
+        if poll_list.count() == 0:
+            return False
 
-        return False
+        result = poll_list.fetch(1000)
+        return result
+
+
+    def get_student(self, pin):
+        for student in self.students:
+            if pin.isdigit() and student.pin == int(pin):
+                return student
+
+        return None
 
     @classmethod
     def get_by_access_code(cls, access_code):
-        q = ClassRoomModel.all()
-        q.filter("access_code =", int(access_code))
+        if access_code.isdigit():
+            q = ClassRoomModel.all()
+            q.filter("access_code =", int(access_code))
 
-        if q.count() > 1 or q.count() <= 0:
-            return False
-        return q.get()
+            if q.count() > 1 or q.count() <= 0:
+                return None
+            return q.get()
+        return None
 
     @classmethod
     def get_all_by(cls, attr, value):

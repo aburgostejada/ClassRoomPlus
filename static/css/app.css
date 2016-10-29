@@ -108,5 +108,25 @@
 
 #time_left {
     color: red;
+    text-align: right;
+}
 
+#options, #optionsActions{
+    display: none;
+}
+
+.jst-hours {
+  float: left;
+}
+.jst-minutes {
+  float: left;
+}
+.jst-seconds {
+  float: left;
+}
+.jst-clearDiv {
+  clear: both;
+}
+.jst-timeout {
+  color: red;
 }

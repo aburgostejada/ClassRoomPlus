@@ -10,8 +10,9 @@ from crp import loc
 import time
 from crp.DB.classroom_model import ClassRoomModel
 from crp.DB.poll_model import PollModel
+from crp.DB.student_model import StudentModel
 from crp.DB.teacher_model import TeacherModel
-from crp.lib.teacher_repository import TeacherRepository
+from crp.lib.repository import Repository
 
 localization = loc.Localization()
 lan = localization.eng  # Allows to change the language
@@ -131,7 +132,7 @@ def teacher_view_classroom():
 @login_required
 def teacher_create_classroom():
     if request.method == "POST":
-        teacher_repo = TeacherRepository(current_user.get_model())
+        teacher_repo = Repository(current_user.get_model())
         name = request.form['name']
         students = request.form['students']
         comments = request.form['comments']
@@ -171,14 +172,14 @@ def teacher_created_poll_success():
 @login_required
 def teacher_create_poll():
     if request.method == "POST":
-        teacher_repo = TeacherRepository(current_user.get_model())
+        repo = Repository(current_user.get_model())
         time_allowed = int(request.form['time_allowed'])
         question = request.form['question']
         answer_type = request.form['answer_type']
         options = request.form.getlist('option[]')
         key = request.form['key']
 
-        poll_key = teacher_repo.add_poll_to_classroom(
+        poll_key = repo.add_poll_to_classroom(
             key=key, time_allowed=time_allowed, question=question, answer_type=answer_type, options=options
         )
 
@@ -197,8 +198,8 @@ def teacher_view_poll():
     if request.method == "POST":
         key = request.form['key']
         poll = PollModel.get(key)
-        teacher_repo = TeacherRepository(current_user.get_model())
-        teacher_repo.disable_poll(
+        repo = Repository(current_user.get_model())
+        repo.disable_poll(
             key=key
         )
         return redirect(url_for("teacher_view_classroom", key=poll.class_room.key()))
@@ -216,32 +217,55 @@ def student_landing():
         access_code = request.form['access_code']
         pin = request.form['pin']
         class_room = ClassRoomModel.get_by_access_code(access_code)
+        error = None
+        student = None
+        poll = None
 
         if class_room:
-            error = class_room.has_student(pin)
+            student = class_room.get_student(pin)
+            polls = class_room.get_active_polls()
+            if len(polls) == 0:
+                error = True
+            else:
+                poll = polls[0]
         else:
             error = True
 
-        polls = class_room.get_active_polls()
-
-        if len(polls) == 0:
-            error = True
-
-        poll = polls[0]
-
-        if error:
+        if error or not student or not poll:
             return render_template("student_landing.html", loc=localization, lan=lan,
-                                   user=current_user, error=error)
+                                   user=current_user, error=True)
         else:
-            return redirect(url_for("student_take_poll", key=poll.key()))
+            return redirect(url_for("student_take_poll", poll_key=poll.key(), student_key=student.key()))
     else:
         return render_template("student_landing.html", loc=localization, lan=lan, user=current_user)
 
 
-@app.route("/student_take_poll")
+@app.route("/student_take_poll", methods=['GET', 'POST'])
 def student_take_poll():
-    # hard coded view inputs to be changed later
-    classroom = {"name": "Foo 101"}
-    poll = {"time_left": "3:55", "question": "which number is the largest?", "options": [4, 9, 4, 5]}
-    return render_template("student_take_poll.html", loc=localization, lan=lan, user=current_user,
-                           class_room=classroom, poll=poll)
+    if request.method == "POST":
+        poll_key = request.form['poll_key']
+        student_key = request.form['student_key']
+        poll = PollModel.get(poll_key)
+        student = StudentModel.get(student_key)
+        student_answered = False
+
+        if not poll.has_this_student_answered(student):
+            if poll.type == "yes_no":
+                answer = request.form['answer']
+                repo = Repository(None)
+                repo.save_student_answer(student, poll, answer)
+        else:
+            student_answered = True
+
+        return render_template("student_take_poll_success.html", loc=localization, lan=lan,
+                               user=current_user, student_answered=student_answered)
+    else:
+        poll_key = request.args.get("poll_key")
+        student_key = request.args.get("student_key")
+        poll = PollModel.get(poll_key)
+        student = StudentModel.get(student_key)
+        classroom = poll.class_room
+
+        return render_template("student_take_poll.html", loc=localization, lan=lan,
+                               user=current_user, class_room=classroom, poll=poll,
+                               student=student)
