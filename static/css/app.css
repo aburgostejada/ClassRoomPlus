@@ -12,52 +12,77 @@
     color: #ffe;
 }
 
-.header-subnav {
-    float: none;
-    position: absolute;
-    text-align: center;
-    margin: 0 auto;
-    bottom: 0;
-    width: 100%; }
-.header-subnav li {
-    float: none;
-    display: inline-block; }
-.header-subnav li a {
-    padding: 0.9rem 1rem;
-    font-size: 0.75rem;
-    color: #ffe;
-    text-transform: uppercase;
-    display: block;
-    font-weight: bold;
-    letter-spacing: 1px;
-    transition: all 0.35s ease-in-out; }
-.header-subnav li a.is-active {
-    background: rgba(250, 250, 250, 0.15); }
-.header-subnav li a:hover {
-    background: rgba(250, 250, 250, 0.15);
-    transition: all 0.35s ease-in-out; }
+.title-bar {
+    background: #00254c;;
+    padding: 0.9rem 0.9rem 0px;
+}
+
+.top-bar {
+    background: #00254c; }
+.top-bar ul {
+    background:  #00254c; }
+.top-bar ul li {
+    background:  #00254c; }
+.top-bar ul li a {
+    color: #fff; }
+
+.top-bar .submenu li{
+    background:  #fff;
+}
+
+.top-bar .submenu li a {
+    color: black;
+}
+
+.menu-text {
+    color: #fff; }
+@media only screen and (max-width: 40em) {
+    .menu-text {
+        display: none !important; } }
+
+@media only screen and (min-width: 40em) {
+    .menu:last-child {
+        border-left: 1px solid #4e4e4e; }
+
+    .menu:first-child {
+        border-left: none; }
+
+    .menu li:not(:last-child) {
+        border-right: 1px solid #4e4e4e; } }
+.dropdown.menu .submenu {
+    border: none; }
+
+.dropdown.menu .is-dropdown-submenu-parent.is-right-arrow > a::after {
+    border-color: #fff transparent transparent; }
+
+.is-drilldown-submenu-parent > a::after {
+    border-color: transparent transparent transparent #fff; }
+
+.js-drilldown-back::before {
+    border-color: transparent #fff transparent transparent; }
+
+.is-drilldown{
+    height: 120px;
+}
+
 
 #content{
     margin-bottom: 3.0rem;
 }
 
-.dropdown a{
-    color: white;
-}
+/*.dropdown a{*/
+/*color: white;*/
+/*}*/
 
-.dropdown a:after{
-    border-color: white transparent transparent;
-}
+/*.dropdown a:after{*/
+/*border-color: white transparent transparent;*/
+/*}*/
 
 
-.dropdown .menu a{
-    color:  #00254c;
-}
+/*.dropdown .menu a{*/
+/*color:  #00254c;*/
+/*}*/
 
-#footer {
-    position: fixed;
-    bottom: 0px;
-}
 
 #copy{
     left:20px;
@@ -116,17 +141,17 @@
 }
 
 .jst-hours {
-  float: left;
+    float: left;
 }
 .jst-minutes {
-  float: left;
+    float: left;
 }
 .jst-seconds {
-  float: left;
+    float: left;
 }
 .jst-clearDiv {
-  clear: both;
+    clear: both;
 }
 .jst-timeout {
-  color: red;
+    color: red;
 }
