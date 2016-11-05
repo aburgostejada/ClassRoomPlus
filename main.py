@@ -66,6 +66,11 @@ def new_teacher_once():
     return "true"
 
 
+@app.route("/teacher_signup", methods=['GET'])
+def teacher_signup():
+        return render_template("teacher_signup.html", loc=localization,
+                               lan=lan)
+
 @app.route('/logout')
 def logout():
     logout_user()

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <form id="login" action="{{ url_for('login') }}" method=post>
+        <div class="row">
+            <div class="small-10 large-7 medium-10 columns small-centered text-center">
+                <br/>
+                    <h2 class="info">{{ loc.get_text("teacher_signup", lan) }}</h2>
+                <br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-10 large-7 medium-10 columns small-centered">
+                <div class="row ">
+                    <div class="columns small-12">
+                        <h4>Email</h4>
+                        <input name="username" type="text" placeholder="Email" required />
+                    </div>
+                    <div class="columns small-12">
+                         <h4>Password</h4>
+                        <input name="password" type="password" placeholder="Password" required/>
+                    </div>
+
+                    <div class="columns small-12">
+                         <h4>Repeat Password</h4>
+                        <input name="password_repeat" type="password" placeholder="Repeat Password" required/>
+                    </div>
+                    <div class="columns small-12 text-center">
+                        <button id="loginButton" type="submit" class="submitButton button expanded large">{{ loc.get_text("signup", lan) }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
