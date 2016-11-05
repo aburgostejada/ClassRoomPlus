@@ -9,7 +9,7 @@
 {% block content %}
     <form id="createClassRoom" autocomplete="off" action="{{ url_for('student_landing') }}" method="post">
         <div class="row">
-            <div class="small-10 large-5 medium-8 columns small-centered text-center">
+            <div class="small-10 large-7 medium-10 columns small-centered text-center">
                 <br/>
                 <h2 class="info">Enter a Classroom</h2>
                 <br/>
@@ -17,7 +17,7 @@
         </div>
         {% if error == True %}
             <div class="row">
-                <div class="small-10 large-5 medium-8  columns small-centered">
+                <div class="small-10 large-7 medium-10  columns small-centered">
                     <div class="callout alert">
                         <p>There is a error either with <strong>class access code</strong> or your <strong>student pin</strong>, please ask your professor for assistance.</p>
                     </div>
@@ -25,7 +25,7 @@
             </div>
         {% endif %}
         <div class="row">
-            <div class="small-10 large-5 medium-8 columns small-centered">
+            <div class="small-10 large-7 medium-10 columns small-centered">
                 <div class="row">
                     <div class="columns small-12">
                         <h4>Class Access Code:</h4>

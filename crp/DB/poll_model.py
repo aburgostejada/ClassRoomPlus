@@ -1,10 +1,12 @@
+import base64
+
 from google.appengine.ext import db
 
 from crp.DB.classroom_model import ClassRoomModel
 
 
 class PollModel(db.Model):
-    type = db.StringProperty(required=True, choices={"yes_no", "custom"})
+    type = db.StringProperty(required=True, choices={"yes_no", "free_text", "multiple", "single"})
     options = db.StringListProperty()
     time_allowed = db.IntegerProperty(required=True)
     question = db.TextProperty(required=True)
@@ -23,6 +25,9 @@ class PollModel(db.Model):
 
     def completed(self):
         return self.get_total_answered() >= self.class_room.students.count()
+
+    def get_encoded_options(self):
+        return [(x, base64.b64encode(x)) for x in self.options]
 
     def has_this_student_answered(self, student):
         for answer in self.answers:

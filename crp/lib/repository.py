@@ -1,3 +1,5 @@
+import base64
+
 from crp.DB.classroom_model import ClassRoomModel
 import random
 
@@ -61,4 +63,9 @@ class Repository:
         return class_room.put()
 
     def save_student_answer(self, student, poll, answer):
+        if isinstance(answer, list):
+            answer = ", ".join([base64.b64decode(x) for x in answer])
+        elif poll.type == "single":
+            answer = base64.b64decode(answer)
+
         StudentAnswersModel(student=student, poll=poll, answer=answer).put()

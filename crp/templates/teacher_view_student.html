@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block title %}Student Detailed View{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="small-10 large-7 medium-10 columns small-centered text-center">
+            <br/>
+            <h2 class="info">Student Details</h2>
+            <br/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 large-7 medium-10 columns small-centered">
+            <div class="row callout success">
+                <div class="columns small-4">
+                    <h5>Name:</h5>
+                </div>
+                 <div class="columns small-8 text-right">
+                    <h5>{{ student.name }}</h5>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="columns small-6">
+                    <h5>Status:</h5>
+                </div>
+                <div class="columns small-6 text-right" >
+                    <h5>
+                       {{ student.status }}
+                    </h5>
+                </div>
+            </div>
+            <br/>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Date</th>
+                        <th>Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for answer in student.answers %}
+                    <tr>
+                        <td>
+                            <h6>{{ answer.poll.question }}</h6>
+                        </td>
+                        <td>
+                            <h6>{{ answer.created.strftime("%d/%m/%y") }}</h6>
+                        </td>
+                        <td>
+                            <h6>{{ answer.answer }}</h6>
+                        </td>
+                    </tr>
+             {% endfor %}
+                </tbody>
+            </table>
+
+
+            <br/>
+            <br/>
+            <div class="row">
+                <div class="columns small-12 text-center">
+                    <a type="submit" href="{{ url_for('teacher_view_classroom', key=student.class_room.key() ) }}" class="button expanded large">{{ loc.get_text("back", lan) }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

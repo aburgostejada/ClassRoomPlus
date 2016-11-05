@@ -12,7 +12,7 @@
         <input type="hidden" name="student_key" value="{{ student.key() }}" />
         <input type="hidden" name="poll_key" value="{{ poll.key() }}" />
         <div class="row">
-            <div class="small-10 large-5 medium-8 columns small-centered text-center">
+            <div class="small-10 large-7 medium-10 columns small-centered text-center">
                 <br/>
                 <h3 class="info">Welcome {{ student.name }}</h3>
                 <br/><br/>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="small-10 large-5 medium-8 columns small-centered">
+            <div class="small-10 large-7 medium-10 columns small-centered">
                 <div class="row">
                     <div class="columns small-9">
                         <h5>Time Left:</h5>
@@ -53,11 +53,25 @@
                         </div>
                         <input type="radio" name="answer" value="none" style="display: none" checked>
                     </div>
-                {% else %}
+                {% elif (poll.type == "free_text") %}
                     <div class="row">
                         <div class="columns small-12">
-                            {% for option in poll.options %}
-                                <input type="radio" name="answer" value={{ option }}> {{ option }}<br>
+                            <textarea name="answer" placeholder="Write your responses here."></textarea>
+                        </div>
+                    </div>
+                {% elif (poll.type == "multiple") %}
+                    <div class="row">
+                        <div class="columns small-12">
+                            {% for option, encoded in poll.get_encoded_options() %}
+                                <input type="checkbox" name="answer[]" value={{ encoded }}> {{ option }}<br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                 {% elif (poll.type == "single") %}
+                    <div class="row">
+                        <div class="columns small-12">
+                            {% for option, encoded in poll.get_encoded_options() %}
+                                <input type="radio" name="answer" value={{ encoded }}> {{ option }}<br>
                             {% endfor %}
                         </div>
                     </div>
@@ -66,7 +80,7 @@
             <br/>
             <br/>
             <div class="row">
-                <div class="columns small-10 large-5 medium-8 text-center small-centered">
+                <div class="columns small-10 large-7 medium-10 text-center small-centered">
                     <button id="submit" type="submit" class="submitButton button expanded large" >Submit</button>
                 </div>
             </div>

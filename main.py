@@ -211,6 +211,16 @@ def teacher_view_poll():
                                user=current_user, poll=poll)
 
 
+@app.route("/teacher_view_student", methods=['GET'])
+@login_required
+def teacher_view_student():
+        key = request.args.get("key")
+        student = StudentModel.get(key)
+
+        return render_template("teacher_view_student.html", loc=localization,
+                               lan=lan, user=current_user, student=student)
+
+
 @app.route("/student_landing", methods=['POST', 'GET'])
 def student_landing():
     if request.method == "POST":
@@ -250,10 +260,11 @@ def student_take_poll():
         student_answered = False
 
         if not poll.has_this_student_answered(student):
-            if poll.type == "yes_no":
-                answer = request.form['answer']
-                repo = Repository(None)
-                repo.save_student_answer(student, poll, answer)
+            repo = Repository(None)
+            if poll.type == "yes_no" or poll.type == "free_text" or poll.type == "single":
+                repo.save_student_answer(student, poll, request.form['answer'])
+            elif poll.type == "multiple":
+                repo.save_student_answer(student, poll, request.form.getlist('answer[]'))
         else:
             student_answered = True
 

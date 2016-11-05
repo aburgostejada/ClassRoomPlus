@@ -18,14 +18,12 @@ function setUpCreateNewPoll(){
     });
 
     $("input[name=answer_type]").change(function(){
-        if(this.value == "yes_no"){
+        if(this.value == "yes_no" || this.value == "free_text"){
             options.hide();
             $("#optionsActions").hide();
         }else{
-            alert("Feature in Development");
-            this.value = "yes_no";
-            // options.show();
-            // $("#optionsActions").show();
+            options.show();
+            $("#optionsActions").show();
         }
     });
 }

@@ -31,8 +31,8 @@ class Localization:
             "create_poll": "Create a Poll",
             "new_poll": "New Poll",
             "disable": "Disable",
-            "close": "Close"
-
+            "close": "Close",
+            "back": "Back"
         }
 
         spanish = {
@@ -58,8 +58,8 @@ class Localization:
             "create_poll": "Crear una encuesta rapida",
             "new_poll": "Nueva encuesta",
             "disable": "Deshabilitar",
-             "close": "Cerrar"
-
+             "close": "Cerrar",
+            "back": "Volver"
         }
 
         if lan == cls.eng and english.has_key(key):

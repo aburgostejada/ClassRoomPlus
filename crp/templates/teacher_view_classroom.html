@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
+{% block title %}Class Room View{% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">
@@ -8,20 +8,20 @@
 {% endblock %}
 {% block content %}
     <div class="row">
-        <div class="small-10 large-5 medium-8 columns small-centered text-center">
+        <div class="small-10 large-7 medium-10 columns small-centered text-center">
             <br/>
             <h2 class="info">{{ loc.get_text("view_classroom", lan) }}</h2>
             <br/>
         </div>
     </div>
     <div class="row">
-        <div class="small-10 large-5 medium-8 columns small-centered">
+        <div class="small-10 large-7 medium-10 columns small-centered">
             <div class="row">
                 <div class="row">
                     <div class="columns small-4">
                         <h5>Name:</h5>
                     </div>
-                    <div class="columns small-8">
+                    <div class="columns small-8 text-right">
                         <h5>{{ class_room.name }}</h5>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                     <div class="columns small-4">
                         <h5>Comments:</h5>
                     </div>
-                    <div class="columns small-8">
+                    <div class="columns small-8 text-right">
                         <p>{{ class_room.comments }}</p>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="columns small-4">
                         <h5>Access Code:</h5>
                     </div>
-                    <div class="columns small-8">
+                    <div class="columns small-8 text-right">
                         <h5>{{ class_room.access_code }}</h5>
                     </div>
                 </div>
@@ -55,21 +55,25 @@
                     <div class="row callout">
                         <div class="columns small-12">
                             <div class="row">
-                                <div class="columns small-6">
+                                <div class="columns small-5">
                                     <h5><strong>Name</strong></h5>
                                 </div>
-                                <div class="columns small-6">
-                                    <h5><strong>pin</strong></h5>
+                                <div class="columns small-5">
+                                    <h5><strong>Pin</strong></h5>
                                 </div>
+                                <div class="columns small-2"></div>
                             </div>
 
                             {% for student in class_room.students %}
                                 <div class="row">
-                                    <div class="columns small-6">
+                                    <div class="columns small-5">
                                         <h6>{{ student.name }}</h6>
                                     </div>
-                                    <div class="columns small-6">
+                                    <div class="columns small-5">
                                         <h6>{{ student.pin }}</h6>
+                                    </div>
+                                     <div class="columns small-2">
+                                        <a class="button" href="{{ url_for("teacher_view_student", key=student.key()) }}">View</a>
                                     </div>
                                 </div>
                             {% endfor %}
