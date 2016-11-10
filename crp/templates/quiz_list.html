@@ -1,0 +1,90 @@
+{% if(class_room.get_active_quizzes() == False) %}
+    <div class="callout error">
+        There are not active quizzes in this Class Room
+    </div>
+{% else %}
+    <div class="row">
+        <div class="columns small-12 centered">
+            <h4 class="subheader">Active Quizzes</h4>
+        </div>
+    </div>
+    <div class="row callout">
+        <div class="columns small-12">
+            <div class="row">
+                <div class="columns small-5">
+                    <h6><strong>Quiz Title</strong></h6>
+                </div>
+                <div class="columns small-5">
+                    <h6><strong>Answered</strong></h6>
+                </div>
+                <div class="columns small-2">
+                </div>
+            </div>
+            {% for quiz in class_room.get_active_quizzes() %}
+                <div class="row">
+                    <div class="columns small-5">
+                        <h6>{{ quiz.title }}</h6>
+                    </div>
+                    <div class="columns small-4">
+                        {%  if (quiz.completed()) %}
+                            <h6>Completed with ({{ quiz.get_total_answered() }})</h6>
+                        {%  else %}
+                            <h6>{{ quiz.get_total_answered() }}</h6>
+                        {%  endif %}
+                    </div>
+                    <div class="columns small-3">
+                        <div class="columns small-6">
+                            <a class="button" href="{{ url_for("teacher_view_quiz", key=quiz.key()) }}">View</a>
+                        </div>
+                        <div class="columns small-6">
+                            <a class="button" href="{{ url_for("teacher_create_quiz", quiz_key=quiz.key(), classroom_key=quiz.class_room.key()) }}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif%}
+
+{% if(class_room.get_close_quizzes() == False) %}
+    <div class="callout error">
+        There are not close quizzes in this Class Room
+    </div>
+{% else %}
+    <div class="row">
+        <div class="columns small-12 centered">
+            <h4 class="subheader">Close Quizzes</h4>
+        </div>
+    </div>
+    <div class="row callout">
+        <div class="columns small-12">
+            <div class="row">
+                <div class="columns small-5">
+                    <h6><strong>Quiz Title</strong></h6>
+                </div>
+                <div class="columns small-5">
+                    <h6><strong>Answered</strong></h6>
+                </div>
+                <div class="columns small-2">
+                </div>
+            </div>
+            {% for quiz in class_room.get_close_polls() %}
+                <div class="row">
+                    <div class="columns small-5">
+                        <h6>{{ quiz.title }}</h6>
+                    </div>
+                    <div class="columns small-5">
+                        {%  if (quiz.completed()) %}
+                            <h6>Completed with ({{ quiz.get_total_answered() }})</h6>
+                        {%  else %}
+                            <h6>{{ quiz.get_total_answered() }}</h6>
+                        {%  endif %}
+                    </div>
+                    <div class="columns small-2">
+                        <a class="button" href="{{ url_for("teacher_view_quiz", key=quiz.key()) }}">View</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif%}

@@ -2,7 +2,7 @@ String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
-function setUpCreateNewPoll(){
+function setUpCreateNewQuestion(){
     var options = $("#options");
 
     $("#addOption").click(function(e) {
@@ -29,7 +29,11 @@ function setUpCreateNewPoll(){
 }
 
 $(document).ready(function(){
-    setUpCreateNewPoll();
+
+    if($("#createQuiz").length > 0 || $("#createPoll").length > 0){
+        setUpCreateNewQuestion();
+    }
+
     $(document).foundation();
     if(('.timer-quick').length > 0){
         $('.timer-quick').startTimer({

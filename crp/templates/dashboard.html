@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}Dashboard{% endblock %}
+{% block subnav %}
+    <ul class="header-subnav">
+        <li><a class="is-active" href="#">Dashboard</a></li>
+    </ul>
+ {% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">

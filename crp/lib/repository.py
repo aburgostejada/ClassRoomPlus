@@ -4,6 +4,7 @@ from crp.DB.classroom_model import ClassRoomModel
 import random
 
 from crp.DB.poll_model import PollModel
+from crp.DB.quiz_model import QuizModel
 from crp.DB.student_answers import StudentAnswersModel
 from crp.DB.student_model import StudentModel
 
@@ -43,6 +44,12 @@ class Repository:
         poll.status = "close"
         poll.put()
 
+    @staticmethod
+    def disable_quiz(key):
+        poll = QuizModel.get(key)
+        poll.status = "close"
+        poll.put()
+
     def create_new_classroom(self, name, students, comments):
         access_code = random.randint(10000, 99999) #TODO make sure is unique for active classes
         class_room_key = ClassRoomModel(name=name, access_code=access_code,
@@ -69,3 +76,14 @@ class Repository:
             answer = base64.b64decode(answer)
 
         StudentAnswersModel(student=student, poll=poll, answer=answer).put()
+
+    @staticmethod
+    def add_quiz_to_classroom(classroom_key, time_allowed, title):
+        class_room = ClassRoomModel.get(classroom_key)
+
+        return QuizModel(class_room=class_room, time_allowed=time_allowed, title=title, status="active").put()
+
+    @staticmethod
+    def update_quiz_to_classroom(quiz_key, classroom_key, time_allowed, title):
+        class_room = ClassRoomModel.get(classroom_key)
+        return QuizModel(key=quiz_key, class_room=class_room, time_allowed=time_allowed, title=title, status="active").put()

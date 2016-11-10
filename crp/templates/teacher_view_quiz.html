@@ -10,19 +10,19 @@
 
 
 {% block content %}
-    <form id="createClassRoom" autocomplete="off" action="{{ url_for('teacher_view_poll') }}" method="post">
+    <form id="createClassRoom" autocomplete="off" action="{{ url_for('teacher_view_quiz') }}" method="post">
         {% include "class_room_title.html" %}
         <div class="row">
             <div class="small-12 large-7 medium-10 columns small-centered text-center">
                 <h1></h1>
                 <div class="row">
                     <div class="columns small-12 text-center">
-                        <h4>Question:</h4>
+                        <h4>Title:</h4>
                     </div>
                 </div>
                 <div class="row">
                     <div class="columns small-12 callout">
-                        <h5>{{ poll.question }}</h5>
+                        <h5>{{ quiz.title }}</h5>
                     </div>
                 </div>
                 <br/>
@@ -31,7 +31,7 @@
                         <h5>Access Code:</h5>
                     </div>
                     <div class="columns small-6" >
-                        <h5>{{ poll.class_room.access_code }}</h5>
+                        <h5>{{ quiz.class_room.access_code }}</h5>
                     </div>
                 </div>
                 <div class="row">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="columns small-6" >
                         <h5>
-                            {%  if (poll.completed()) %}
+                            {%  if (quiz.completed()) %}
                                 Completed
                             {%  else %}
                                 Active
@@ -54,7 +54,7 @@
                     </div>
                     <div class="columns small-6" >
                         <h5>
-                            {{ poll.get_total_answered() }}
+                            {{ quiz.get_total_answered() }}
                         </h5>
                     </div>
                 </div>
@@ -63,11 +63,10 @@
                 <br/>
                 <div class="row">
                     <div class="columns small-12 text-center">
-                     <input type="hidden" name="key" value="{{ poll.key() }}">
-                        {% if not poll.is_close() %}
+                        <input type="hidden" name="key" value="{{ quiz.key() }}">
+                        {% if not quiz.is_close() %}
                             <button type="submit" class="submitButton button expanded large">{{ loc.get_text("close", lan) }}</button>
                         {% endif %}
-
                     </div>
                 </div>
 

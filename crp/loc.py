@@ -26,15 +26,23 @@ class Localization:
             "create": "Create",
             "save": "Save",
             "edit": "Edit",
+            "update": "Update",
             "enter_a_classroom": "Enter a Classroom",
             "create_classroom": "Create a Classroom",
             "view_classroom": "Classroom's Details",
             "create_quiz": "Create a Quiz",
             "create_poll": "Create a Poll",
             "new_poll": "New Poll",
+            "new_quiz": "New Quiz",
             "disable": "Disable",
             "close": "Close",
-            "back": "Back"
+            "back": "Back",
+            "add": "Add",
+            "add_question": "Add Question",
+            "time_allowed": "Time Allowed (mins):",
+            "required": "Required",
+            "quiz_title": "Quiz Title"
+
         }
 
         spanish = {
@@ -53,15 +61,22 @@ class Localization:
             "create": "Crear",
             "save": "Salvar",
             "edit": "Editar",
+            "update": "Actualizar",
             "enter_a_classroom": "Entre a una clase",
             "create_classroom": "Crear una clase",
             "view_classroom": "Detalles de la Clase",
             "create_quiz": "Crear una prueba",
             "create_poll": "Crear una encuesta rapida",
             "new_poll": "Nueva encuesta",
+            "new_quiz": "Nueva prueba",
+            "quiz_title": "Titulo de la Prueba",
             "disable": "Deshabilitar",
              "close": "Cerrar",
-            "back": "Volver"
+            "back": "Volver",
+            "add": "Agregar",
+            "add_question": "Agregar Pregunta",
+            "time_allowed": "Tiempo Permitido (minutos):",
+            "required": "Requerido",
         }
 
         if lan == cls.eng and english.has_key(key):

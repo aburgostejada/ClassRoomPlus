@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
+{% block subnav %} {% include "class_room_nav.html" %} {% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">
@@ -8,13 +9,7 @@
 {% endblock %}
 {% block content %}
     <form id="createClassRoom" autocomplete="off" action="{{ url_for('teacher_create_classroom') }}" method="post">
-        <div class="row">
-            <div class="small-10 large-7 medium-10 columns small-centered text-center">
-                <br/>
-                    <h2 class="info">{{ loc.get_text("create_classroom", lan) }}</h2>
-                <br/>
-            </div>
-        </div>
+
         <div class="row">
             <div class="small-10 large-7 medium-10 columns small-centered">
                 <div class="row">

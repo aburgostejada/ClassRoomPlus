@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+ <div class="row">
+     <div class="small-12 large-7 medium-10 columns small-centered text-center">
+         <h2 class="info">Quiz Created Successfully</h2>
+         <br/>
+         <div class="callout success">
+            <h3>Class Room Access Code: {{ access_code }}</h3>
+         </div>
+     </div>
+</div>
+{% endblock %}

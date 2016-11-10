@@ -13,24 +13,26 @@ class ClassRoomModel(db.Model):
     def students_list_string(self):
         return ', '.join([x.name for x in self.students])
 
-    def get_active_polls(self):
-        poll_list = self.poll_list
-        poll_list.filter("status =", "active")
-        if poll_list.count() == 0:
+    @staticmethod
+    def get_by(list, prop, value):
+        list.filter(prop+" =", value)
+        if list.count() == 0:
             return False
 
-        result = poll_list.fetch(1000)
+        result = list.fetch(1000)
         return result
+
+    def get_active_polls(self):
+        return self.get_by(self.poll_list, "status", "active")
+
+    def get_active_quizzes(self):
+        return self.get_by(self.quiz_list, "status", "active")
 
     def get_close_polls(self):
-        poll_list = self.poll_list
-        poll_list.filter("status =", "close")
-        if poll_list.count() == 0:
-            return False
+        return self.get_by(self.poll_list, "status", "close")
 
-        result = poll_list.fetch(1000)
-        return result
-
+    def get_close_quizzes(self):
+        return self.get_by(self.quiz_list, "status", "close")
 
     def get_student(self, pin):
         for student in self.students:

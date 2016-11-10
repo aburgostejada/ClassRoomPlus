@@ -10,6 +10,7 @@ from crp import loc
 import time
 from crp.DB.classroom_model import ClassRoomModel
 from crp.DB.poll_model import PollModel
+from crp.DB.quiz_model import QuizModel
 from crp.DB.student_model import StudentModel
 from crp.DB.teacher_model import TeacherModel
 from crp.lib.repository import Repository
@@ -130,7 +131,8 @@ def teacher_view_classroom():
         class_room = ClassRoomModel.get(key)
 
     return render_template("teacher_view_classroom.html", loc=localization,
-                           lan=lan, user=current_user, class_room=class_room)
+                           lan=lan, user=current_user, class_room=class_room,
+                           page_title=localization.get_text("view_classroom", lan), active="classroom")
 
 
 @app.route("/teacher_create_classroom", methods=['GET', 'POST'])
@@ -160,7 +162,8 @@ def teacher_create_classroom():
             class_room = ClassRoomModel.get(key)
 
         return render_template("teacher_create_classroom.html", loc=localization,
-                               lan=lan, user=current_user, class_room=class_room)
+                               lan=lan, user=current_user, class_room=class_room,
+                               page_title=localization.get_text("create_classroom", lan), active="page")
 
 
 @app.route("/teacher_created_poll_success", methods=['GET'])
@@ -196,6 +199,61 @@ def teacher_create_poll():
         return render_template("teacher_create_poll.html", loc=localization, lan=lan,
                                user=current_user, class_room=class_room)
 
+@app.route("/teacher_created_quiz_success", methods=['GET'])
+@login_required
+def teacher_created_quiz_success():
+    key = request.args.get("key")
+    quiz = QuizModel.get(key)
+
+    return render_template("teacher_created_quiz_success.html", loc=localization, lan=lan,
+                           user=current_user, access_code=quiz.class_room.access_code)
+
+
+@app.route("/teacher_create_quiz", methods=['GET', 'POST'])
+@login_required
+def teacher_create_quiz():
+    if request.method == "POST":
+        repo = Repository(current_user.get_model())
+        time_allowed = int(request.form['time_allowed'])
+        quiz_title = request.form['quiz_title']
+        question = request.form['question']
+        answer_type = request.form['answer_type']
+        options = request.form.getlist('option[]')
+        classroom_key = request.form['classroom_key']
+        quiz_key = request.form['quiz_key']
+        submit = request.form['submit']
+
+        if not quiz_key or str(quiz_key) == "":
+            quiz_key = repo.add_quiz_to_classroom(
+                classroom_key=classroom_key, time_allowed=time_allowed, title=quiz_title
+            )
+        else:
+            repo.update_quiz_to_classroom(
+                quiz_key=quiz_key, classroom_key=classroom_key, time_allowed=time_allowed, title=quiz_title
+            )
+
+        if submit == "save":
+        #     repo.add_question_to_quiz(
+        #         quiz_key=quiz_key, question=question, answer_type=answer_type, options=options
+        #     )
+            return redirect(url_for("teacher_created_quiz_success", key=quiz_key))
+        elif submit == "add":
+        #     repo.add_question_to_quiz(
+        #         quiz_key=quiz_key, question=question, answer_type=answer_type,
+        #         options=options
+        #     )
+            return redirect(url_for("teacher_create_quiz", classroom_key=classroom_key, quiz_key=quiz_key))
+
+    else:
+
+        quiz = QuizModel.get(request.args.get("quiz_key")) if request.args.get("quiz_key") else False
+        class_room = ClassRoomModel.get(request.args.get("classroom_key"))
+
+        return render_template("teacher_create_quiz.html", loc=localization, lan=lan,
+                               user=current_user, class_room=class_room, quiz=quiz,
+                               page_title=localization.get_text("create_quiz", lan),
+                               active="page")
+
 
 @app.route("/teacher_view_poll", methods=['GET', 'POST'])
 @login_required
@@ -213,7 +271,28 @@ def teacher_view_poll():
         poll = PollModel.get(key)
 
         return render_template("teacher_view_poll.html", loc=localization, lan=lan,
-                               user=current_user, poll=poll)
+                               user=current_user, poll=poll, class_room=poll.class_room,
+                               page_title="Poll Details", active="page")
+
+
+@app.route("/teacher_view_quiz", methods=['GET', 'POST'])
+@login_required
+def teacher_view_quiz():
+    if request.method == "POST":
+        key = request.form['key']
+        quiz = QuizModel.get(key)
+        repo = Repository(current_user.get_model())
+        repo.disable_quiz(
+            key=key
+        )
+        return redirect(url_for("teacher_view_classroom", key=quiz.class_room.key()))
+    else:
+        key = request.args.get("key")
+        quiz = QuizModel.get(key)
+
+        return render_template("teacher_view_quiz.html", loc=localization, lan=lan,
+                               user=current_user, quiz=quiz, class_room=quiz.class_room, page_title="Quiz Details", active="page")
+
 
 
 @app.route("/teacher_view_student", methods=['GET'])
@@ -221,9 +300,11 @@ def teacher_view_poll():
 def teacher_view_student():
         key = request.args.get("key")
         student = StudentModel.get(key)
+        class_room = student.class_room
 
         return render_template("teacher_view_student.html", loc=localization,
-                               lan=lan, user=current_user, student=student)
+                               lan=lan, user=current_user, student=student, class_room=class_room,
+                               page_title="Student Details", active="page")
 
 
 @app.route("/student_landing", methods=['POST', 'GET'])

@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}Student Detailed View{% endblock %}
+{% block subnav %} {% include "class_room_nav.html" %} {% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">
@@ -9,13 +10,7 @@
 
 
 {% block content %}
-    <div class="row">
-        <div class="small-10 large-7 medium-10 columns small-centered text-center">
-            <br/>
-            <h2 class="info">Student Details</h2>
-            <br/>
-        </div>
-    </div>
+    {% include "class_room_title.html" %}
     <div class="row">
         <div class="small-12 large-7 medium-10 columns small-centered">
             <div class="row callout success">
@@ -66,11 +61,7 @@
 
             <br/>
             <br/>
-            <div class="row">
-                <div class="columns small-12 text-center">
-                    <a type="submit" href="{{ url_for('teacher_view_classroom', key=student.class_room.key() ) }}" class="button expanded large">{{ loc.get_text("back", lan) }}</a>
-                </div>
-            </div>
+            {% include "back_class_room.html" %}
         </div>
     </div>
 

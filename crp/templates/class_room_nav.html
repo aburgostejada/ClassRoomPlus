@@ -1,0 +1,8 @@
+<ul class="header-subnav">
+    {% if class_room %}
+        <li><a class="{{ "is-active" if active == "classroom" }}" href="{{ url_for("teacher_view_classroom", key=class_room.key()) }}">{{ class_room.name }}</a></li>
+    {% endif %}
+    <li><a class="{{ "is-active" if active == "page" }}" href="#" >{{ page_title }}</a></li>
+    <li><a class="{{ "is-active" if active == "dashboard"}}" href="{{ url_for("dashboard") }}">Dashboard</a></li>
+</ul>
+
