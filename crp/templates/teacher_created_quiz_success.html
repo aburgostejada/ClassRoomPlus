@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
+{% block subnav %} {% include "class_room_nav.html" %} {% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">
@@ -11,10 +12,17 @@
 {% block content %}
  <div class="row">
      <div class="small-12 large-7 medium-10 columns small-centered text-center">
-         <h2 class="info">Quiz Created Successfully</h2>
+         <h3 class="info">Quiz Created Successfully</h3>
          <br/>
-         <div class="callout success">
-            <h3>Class Room Access Code: {{ access_code }}</h3>
+         <div class="row">
+            <div class="callout success">
+                <h4>Class Room Access Code: {{ access_code }}</h4>
+             </div>
+         </div>
+         <br/>
+         <br/>
+         <div class="row">
+              {% include "class_room_back.html" %}
          </div>
      </div>
 </div>

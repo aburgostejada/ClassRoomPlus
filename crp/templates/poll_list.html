@@ -1,6 +1,8 @@
-{% if(class_room.get_active_polls() == False) %}
-    <div class="callout error">
-        There are not active polls in this Class Room
+{% if(class_room.get_active_polls() == []) %}
+    <div class="row">
+        <div class="callout alert">
+            <p>Currently there are not <strong>active</strong> polls in this Class Room.</p>
+        </div>
     </div>
 {% else %}
     <div class="row">
@@ -11,28 +13,28 @@
     <div class="row callout">
         <div class="columns small-12">
             <div class="row">
-                <div class="columns small-5">
+                <div class="columns small-5 large-4">
                     <h6><strong>Question</strong></h6>
                 </div>
-                <div class="columns small-5">
+                <div class="columns small-4 large-4">
                     <h6><strong>Answered</strong></h6>
                 </div>
-                <div class="columns small-2">
+                <div class="columns small-3 large-4">
                 </div>
             </div>
             {% for poll in class_room.get_active_polls() %}
                 <div class="row">
-                    <div class="columns small-5">
+                    <div class="columns small-5 large-4">
                         <h6>{{ poll.question }}</h6>
                     </div>
-                    <div class="columns small-5">
+                    <div class="columns small-4 large-4">
                         {%  if (poll.completed()) %}
-                            <h6>Completed with ({{ poll.get_total_answered() }})</h6>
+                            <h6><small>Completed with ({{ poll.get_total_answered() }})</small></h6>
                         {%  else %}
                             <h6>{{ poll.get_total_answered() }}</h6>
                         {%  endif %}
                     </div>
-                    <div class="columns small-2">
+                    <div class="columns small-3 large-4">
                         <a class="button" href="{{ url_for("teacher_view_poll", key=poll.key()) }}">View</a>
                     </div>
                 </div>
@@ -41,41 +43,43 @@
     </div>
 {% endif%}
 
-{% if(class_room.get_close_polls() == False) %}
-    <div class="callout error">
-        There are not close polls in this Class Room
+{% if(class_room.get_closed_polls() == []) %}
+    <div class="row">
+        <div class="callout alert">
+            <p>Currently there are not <strong>closed</strong> polls in this Class Room.</p>
+        </div>
     </div>
 {% else %}
     <div class="row">
         <div class="columns small-12 centered">
-            <h4 class="subheader">Close Polls</h4>
+            <h4 class="subheader">Closed Polls</h4>
         </div>
     </div>
     <div class="row callout">
         <div class="columns small-12">
             <div class="row">
-                <div class="columns small-5">
+                <div class="columns small-5 large-4">
                     <h6><strong>Question</strong></h6>
                 </div>
-                <div class="columns small-5">
+                <div class="columns small-4 large-4">
                     <h6><strong>Answered</strong></h6>
                 </div>
-                <div class="columns small-2">
+                <div class="columns small-3 large-4">
                 </div>
             </div>
-            {% for poll in class_room.get_close_polls() %}
+            {% for poll in class_room.get_closed_polls() %}
                 <div class="row">
-                    <div class="columns small-5">
+                    <div class="columns small-5 large-4">
                         <h6>{{ poll.question }}</h6>
                     </div>
-                    <div class="columns small-5">
+                    <div class="columns small-4 large-4">
                         {%  if (poll.completed()) %}
-                            <h6>Completed with ({{ poll.get_total_answered() }})</h6>
+                             <h6><small>Completed with ({{ poll.get_total_answered() }})</small></h6>
                         {%  else %}
                             <h6>{{ poll.get_total_answered() }}</h6>
                         {%  endif %}
                     </div>
-                    <div class="columns small-2">
+                    <div class="columns small-3 large-4">
                         <a class="button" href="{{ url_for("teacher_view_poll", key=poll.key()) }}">View</a>
                     </div>
                 </div>

@@ -28,13 +28,28 @@ function setUpCreateNewQuestion(){
     });
 }
 
-$(document).ready(function(){
 
+function setUpDeleteQuizQuestion() {
+    $("a.deleteQuizQuestion").click(function (e) {
+        e.preventDefault();
+        if (window.confirm("Do you really want to Delete The Question?")) {
+            $.post($(this).attr("href"), function (res) {
+                if(res.result == "success"){
+                    window.location.reload();
+                }
+            });
+        }
+    });
+}
+
+$(document).ready(function(){
     if($("#createQuiz").length > 0 || $("#createPoll").length > 0){
         setUpCreateNewQuestion();
     }
+    setUpDeleteQuizQuestion();
 
     $(document).foundation();
+
     if(('.timer-quick').length > 0){
         $('.timer-quick').startTimer({
           onComplete: function(){

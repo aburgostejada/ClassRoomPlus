@@ -1,6 +1,6 @@
 from google.appengine.ext import db
-
 from crp.DB.classroom_model import ClassRoomModel
+
 
 class QuizModel(db.Model):
     time_allowed = db.IntegerProperty(required=True)
@@ -14,6 +14,25 @@ class QuizModel(db.Model):
         q = QuizModel.all()
         q.filter(attr+" =", value)
         return q.fetch(1000)
+
+    @staticmethod
+    def get_by(items, prop, value):
+        items.filter(prop + " =", value)
+        if items.count() == 0:
+            return []
+
+        result = items.fetch(1000)
+        return result
+
+    def get_total_questions(self):
+        questions = self.get_active_questions()
+        if not questions:
+            return 0
+
+        return len(questions)
+
+    def get_active_questions(self):
+        return self.get_by(self.questions_list, "status", "active")
 
     def get_total_answered(self):
         return 0

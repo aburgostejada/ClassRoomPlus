@@ -1,6 +1,7 @@
 """`main` is the top level module for your Flask application."""
 
 # Import the Flask Framework
+import flask
 import jinja2
 from flask import Flask, request, flash, url_for, redirect, render_template, g, jsonify
 from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
@@ -173,7 +174,8 @@ def teacher_created_poll_success():
     poll = PollModel.get(key)
 
     return render_template("teacher_created_poll_success.html", loc=localization, lan=lan,
-                           user=current_user, access_code=poll.class_room.access_code)
+                           user=current_user, access_code=poll.class_room.access_code,
+                           class_room=poll.class_room, page_title="Poll Created", active="page")
 
 
 @app.route("/teacher_create_poll", methods=['GET', 'POST'])
@@ -199,6 +201,7 @@ def teacher_create_poll():
         return render_template("teacher_create_poll.html", loc=localization, lan=lan,
                                user=current_user, class_room=class_room)
 
+
 @app.route("/teacher_created_quiz_success", methods=['GET'])
 @login_required
 def teacher_created_quiz_success():
@@ -206,7 +209,16 @@ def teacher_created_quiz_success():
     quiz = QuizModel.get(key)
 
     return render_template("teacher_created_quiz_success.html", loc=localization, lan=lan,
-                           user=current_user, access_code=quiz.class_room.access_code)
+                           user=current_user, access_code=quiz.class_room.access_code, class_room=quiz.class_room,
+                           page_title="Quiz Created", active="page")
+
+
+@app.route("/teacher_delete_quiz_question", methods=['POST'])
+@login_required
+def teacher_delete_quiz_question():
+    repo = Repository(current_user.get_model())
+    repo.delete_quiz_question(request.args.get("key"))
+    return flask.jsonify(dict(result="success"))
 
 
 @app.route("/teacher_create_quiz", methods=['GET', 'POST'])
@@ -229,23 +241,22 @@ def teacher_create_quiz():
             )
         else:
             repo.update_quiz_to_classroom(
-                quiz_key=quiz_key, classroom_key=classroom_key, time_allowed=time_allowed, title=quiz_title
+                quiz_key=quiz_key, time_allowed=time_allowed, title=quiz_title
             )
 
         if submit == "save":
-        #     repo.add_question_to_quiz(
-        #         quiz_key=quiz_key, question=question, answer_type=answer_type, options=options
-        #     )
+            repo.add_question_to_quiz(
+                quiz_key=quiz_key, question=question, answer_type=answer_type, options=options
+            )
             return redirect(url_for("teacher_created_quiz_success", key=quiz_key))
         elif submit == "add":
-        #     repo.add_question_to_quiz(
-        #         quiz_key=quiz_key, question=question, answer_type=answer_type,
-        #         options=options
-        #     )
+            repo.add_question_to_quiz(
+                quiz_key=quiz_key, question=question, answer_type=answer_type,
+                options=options
+            )
             return redirect(url_for("teacher_create_quiz", classroom_key=classroom_key, quiz_key=quiz_key))
 
     else:
-
         quiz = QuizModel.get(request.args.get("quiz_key")) if request.args.get("quiz_key") else False
         class_room = ClassRoomModel.get(request.args.get("classroom_key"))
 
@@ -291,8 +302,8 @@ def teacher_view_quiz():
         quiz = QuizModel.get(key)
 
         return render_template("teacher_view_quiz.html", loc=localization, lan=lan,
-                               user=current_user, quiz=quiz, class_room=quiz.class_room, page_title="Quiz Details", active="page")
-
+                               user=current_user, quiz=quiz, class_room=quiz.class_room,
+                               page_title="Quiz Details", active="page")
 
 
 @app.route("/teacher_view_student", methods=['GET'])

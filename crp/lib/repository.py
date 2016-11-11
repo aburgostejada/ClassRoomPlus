@@ -5,6 +5,7 @@ import random
 
 from crp.DB.poll_model import PollModel
 from crp.DB.quiz_model import QuizModel
+from crp.DB.quiz_question_model import QuizQuestionModel
 from crp.DB.student_answers import StudentAnswersModel
 from crp.DB.student_model import StudentModel
 
@@ -69,7 +70,8 @@ class Repository:
 
         return class_room.put()
 
-    def save_student_answer(self, student, poll, answer):
+    @staticmethod
+    def save_student_answer(student, poll, answer):
         if isinstance(answer, list):
             answer = ", ".join([base64.b64decode(x) for x in answer])
         elif poll.type == "single":
@@ -84,6 +86,24 @@ class Repository:
         return QuizModel(class_room=class_room, time_allowed=time_allowed, title=title, status="active").put()
 
     @staticmethod
-    def update_quiz_to_classroom(quiz_key, classroom_key, time_allowed, title):
-        class_room = ClassRoomModel.get(classroom_key)
-        return QuizModel(key=quiz_key, class_room=class_room, time_allowed=time_allowed, title=title, status="active").put()
+    def update_quiz_to_classroom(quiz_key, time_allowed, title):
+        quiz = QuizModel.get(quiz_key)
+        quiz.time_allowed = time_allowed
+        quiz.title = title
+        return quiz.put()
+
+    @staticmethod
+    def add_question_to_quiz(quiz_key, question, answer_type, options):
+        if str(question) is not "":
+            quiz = QuizModel.get(quiz_key)
+            quiz_question = QuizQuestionModel(quiz=quiz, question=question, type=answer_type,
+                                              options=options, status="active")
+            return quiz_question.put()
+        return False
+
+    @staticmethod
+    def delete_quiz_question(key):
+        quiz_question = QuizQuestionModel.get(key)
+        quiz_question.status = "deleted"
+        return quiz_question.put()
+
