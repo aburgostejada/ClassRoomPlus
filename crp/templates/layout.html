@@ -43,7 +43,9 @@
             </ul>
         {% endif %}
         {% if not g.user.is_authenticated%}
-            <a href="{{ url_for('login') }}" class="button login">{{ loc.get_text("login_sign_up", lan) }}</a>
+            <a href="{{ url_for('login') }}" class="button login">{{ loc.get_text("login", lan) }}</a>
+            <a href="{{ url_for('teacher_signup') }}" class="button login">{{ loc.get_text("signup", lan) }}</a>
+
         {% endif %}
     </div>
 </div>
