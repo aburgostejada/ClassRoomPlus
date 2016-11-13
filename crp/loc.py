@@ -76,9 +76,19 @@ class Localization:
             "separated_by_comma": "Separated by Comma",
             "comments": "Comments",
             "go": "Go",
+            "types_of_answer": "Types of Answer",
+            "option": "Option",
+            "options": "Options",
+
+            "delete": "Delete",
+
 
 
         }
+
+
+
+
 
         spanish = {
             "dashboard": "Tablero",
@@ -146,6 +156,10 @@ class Localization:
             "separated_by_comma": "Separado por coma",
             "comments": "Comentarios",
             "go": "Ir",
+            "types_of_answer": "Tipos de respuesta",
+            "option": "Opcion",
+            "options": "Opciones",
+            "delete": "Borrar",
 
 
         }
