@@ -51,7 +51,7 @@
                 {% elif (poll.type == "free_text") %}
                     <div class="row">
                         <div class="columns small-12">
-                            <textarea name="answer" placeholder={{ loc.get_text("responses_here", lan) }}></textarea>
+                            <textarea name="answer" placeholder="{{ loc.get_text("responses_here", lan) }}"></textarea>
                         </div>
                     </div>
                 {% elif (poll.type == "multiple") %}

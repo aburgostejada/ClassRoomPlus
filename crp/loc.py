@@ -68,6 +68,14 @@ class Localization:
             "submit": "Submit",
             "time_left": "Time Left",
             "responses_here": "Responses Here",
+            "thanks": "Thanks",
+            "problem_occurred": "Problem Occurred",
+            "poll_completed": "Poll Completed",
+            "poll_already_taken": "Poll Already Taken",
+            "class_name": "Class Name",
+            "separated_by_comma": "Separated by Comma",
+            "comments": "Comments",
+            "go": "Go",
 
 
         }
@@ -121,7 +129,7 @@ class Localization:
             "closed_quizzes": "Pruebas cerradas",
             "completed": "Completo",
             "input_error": "Error de entrada",
-            "class_access_code": "Código de acceso a la clase",
+            "class_access_code": "Codigo de acceso a la clase",
             "student_pin": "Estudiante Pin",
             "enter": "Entrar",
             "welcome": "Bienvenido",
@@ -129,7 +137,16 @@ class Localization:
             "no": "No",
             "submit": "Enviar",
             "time_left": "Tiempo restante",
-            "responses_here": "Respuestas aquí",
+            "responses_here": "Respuestas aqui",
+            "thanks": "Gracias",
+            "problem_occurred": "Problema ocurrido",
+            "poll_completed": "Encuesta completada",
+            "poll_already_taken": "Encuesta ya tomada",
+            "class_name": "Nombre de la clase",
+            "separated_by_comma": "Separado por coma",
+            "comments": "Comentarios",
+            "go": "Ir",
+
 
         }
 

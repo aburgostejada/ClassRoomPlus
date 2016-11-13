@@ -15,16 +15,16 @@
                 <div class="row">
                     <input name="key" type="hidden" value="{{ class_room.key() if class_room else "false" }}">
                     <div class="columns small-12">
-                        <h4>Class Name:</h4>
-                        <input name="name" type="text" value="{{ class_room.name if class_room else "" }}" placeholder="Class Name" />
+                        <h4>{{ loc.get_text("class_name", lan) }}:</h4>
+                        <input name="name" type="text" value="{{ class_room.name if class_room else "" }}" placeholder="{{ loc.get_text("class_name", lan) }}" />
                     </div>
                     <div class="columns small-12">
-                         <h4>Students:<small>(Student's name separated by coma)</small></h4>
-                         <textarea name="students" placeholder="(Student's name separated by coma)" required rows="10">{{ class_room.students_list_string() if class_room else "" }}</textarea>
+                         <h4>{{ loc.get_text("student", lan) }}s:<small>({{ loc.get_text("separated_by_comma", lan) }})</small></h4>
+                         <textarea name="students" placeholder="({{ loc.get_text("separated_by_comma", lan) }})" required rows="10">{{ class_room.students_list_string() if class_room else "" }}</textarea>
                     </div>
                     <div class="columns small-12">
-                         <h4>Comments:</h4>
-                         <textarea name="comments" placeholder="Class's Comments" rows="5">{{ class_room.comments if class_room else "" }}</textarea>
+                         <h4>{{ loc.get_text("comments", lan) }}:</h4>
+                         <textarea name="comments" placeholder="{{ loc.get_text("comments", lan) }}" rows="5">{{ class_room.comments if class_room else "" }}</textarea>
                     </div>
                     <div class="columns small-12 text-center">
                         <button id="create" type="submit" class="submitButton button expanded large">{{ loc.get_text("save", lan) if class_room else loc.get_text("create", lan) }}</button>
