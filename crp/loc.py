@@ -79,9 +79,20 @@ class Localization:
             "types_of_answer": "Types of Answer",
             "option": "Option",
             "options": "Options",
-
             "delete": "Delete",
-
+            "poll_created_successfully": "Poll Created Successfully",
+            "quiz_created_successfully": "Quiz Created Successfully",
+            "repeat_password": "Repeat Password",
+            "email": "Email",
+            "name": "Name",
+            "view": "View",
+            "status": "Status",
+            "number_of_questions": "Number of Questions",
+            "type": "Type",
+            "polls": "Polls",
+            "quizzes": "Quizzes",
+            "date": "Date",
+            "answer": "Answer"
 
 
         }
@@ -160,7 +171,19 @@ class Localization:
             "option": "Opcion",
             "options": "Opciones",
             "delete": "Borrar",
-
+            "poll_created_successfully": "Encuesta creada con exito",
+            "quiz_created_successfully": "Prueba creada con exito",
+            "repeat_password": "Repite la contrasena",
+            "email": "correo electronico",
+            "name": "Nombre",
+            "view": "Ver",
+            "status": "Estado",
+            "number_of_questions": "Numero de preguntas",
+            "type": "Tipo",
+            "polls": "Encuestas",
+            "quizzes": "Pruebas",
+            "date": "Fecha",
+            "answer": "Responder"
 
         }
 

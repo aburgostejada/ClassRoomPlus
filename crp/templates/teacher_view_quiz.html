@@ -22,7 +22,7 @@
                 <br/>
                 <div class="row">
                     <div class="columns small-6">
-                        <h5>Number Of Questions:</h5>
+                        <h5>{{ loc.get_text("number_of_questions", lan) }}:</h5>
                     </div>
                     <div class="columns small-6 text-right">
                         <h5>{{ quiz.get_total_questions() }}</h5>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="columns small-6">
-                        <h5>Status:</h5>
+                        <h5>{{ loc.get_text("status", lan) }}:</h5>
                     </div>
                     <div class="columns small-6 text-right" >
                         <h5>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="row">
                     <div class="columns small-6">
-                        <h5>Students Answered:</h5>
+                        <h5>{{ loc.get_text("answered", lan) }}:</h5>
                     </div>
                     <div class="columns small-6 text-right" >
                         <h5>
@@ -55,18 +55,18 @@
                 <br/>
                 <br/>
                 <div class="row">
-                    <h4 class="text-center">Questions</h4>
+                    <h4 class="text-center">{{ loc.get_text("question", lan) }}s</h4>
                 </div>
                 <br/>
                 <div class="row">
                     <div class="columns small-3 large-3">
-                        <h6><strong>Question</strong></h6>
+                        <h6><strong>{{ loc.get_text("question", lan) }}</strong></h6>
                     </div>
                     <div class="columns small-3 large-3">
-                        <h6><strong>Type</strong></h6>
+                        <h6><strong>{{ loc.get_text("type", lan) }}</strong></h6>
                     </div>
                     <div class="columns small-6 large-6 text-right">
-                        <h6><strong>Options</strong></h6>
+                        <h6><strong>{{ loc.get_text("question", lan) }}s</strong></h6>
                     </div>
                 </div>
                 {% for question in quiz.get_active_questions() %}
@@ -75,7 +75,7 @@
                             <h6>{{ question.question }}</h6>
                         </div>
                         <div class="columns small-3 large-3">
-                            <h6>{{ loc.get_text(question.type, lan)  }}</h6>
+                            <h6>{{ question.type }}</h6>
                         </div>
                         <div class="columns small-6 large-6 text-right">
                             <h6>{{ question.get_options_description() }}</h6>

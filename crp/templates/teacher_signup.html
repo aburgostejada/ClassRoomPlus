@@ -19,17 +19,17 @@
             <div class="small-10 large-7 medium-10 columns small-centered">
                 <div class="row ">
                     <div class="columns small-12">
-                        <h4>Email</h4>
-                        <input name="username" type="text" placeholder="Email" required />
+                        <h4>{{ loc.get_text("email", lan) }}</h4>
+                        <input name="username" type="text" placeholder="{{ loc.get_text("email", lan) }}" required />
                     </div>
                     <div class="columns small-12">
-                         <h4>Password</h4>
-                        <input name="password" type="password" placeholder="Password" required/>
+                         <h4>{{ loc.get_text("password", lan) }}</h4>
+                        <input name="password" type="password" placeholder="{{ loc.get_text("password", lan) }}" required/>
                     </div>
 
                     <div class="columns small-12">
-                         <h4>Repeat Password</h4>
-                        <input name="password_repeat" type="password" placeholder="Repeat Password" required/>
+                         <h4>{{ loc.get_text("repeat_password", lan) }}</h4>
+                        <input name="password_repeat" type="password" placeholder="{{ loc.get_text("repeat_password", lan) }}" required/>
                     </div>
                     <div class="columns small-12 text-center">
                         <button id="loginButton" type="submit" class="submitButton button expanded large">{{ loc.get_text("signup", lan) }}</button>

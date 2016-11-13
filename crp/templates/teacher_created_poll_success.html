@@ -12,11 +12,11 @@
 {% block content %}
  <div class="row">
      <div class="small-12 large-7 medium-10 columns small-centered text-center">
-         <h3 class="info">Poll Created Successfully</h3>
+         <h3 class="info">{{ loc.get_text("poll_created_successfully", lan) }}</h3>
          <br/>
          <div class="row">
             <div class="callout success">
-                <h4>Class Room Access Code: {{ access_code }}</h4>
+                <h4>{{ loc.get_text("class_access_code", lan) }}: {{ access_code }}</h4>
              </div>
          </div>
          <br/>

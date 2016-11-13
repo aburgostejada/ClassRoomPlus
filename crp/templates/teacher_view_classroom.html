@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="row">
                     <div class="columns small-4">
-                        <h5>Name:</h5>
+                        <h5>{{ loc.get_text("class_name", lan) }}:</h5>
                     </div>
                     <div class="columns small-8 text-right">
                         <h5>{{ class_room.name }}</h5>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div class="columns small-4">
-                        <h5>Comments:</h5>
+                        <h5>{{ loc.get_text("comments", lan) }}:</h5>
                     </div>
                     <div class="columns small-8 text-right">
                         <p>{{ class_room.comments }}</p>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="row callout success">
                     <div class="columns small-6">
-                        <h5>Access Code:</h5>
+                        <h5>{{ loc.get_text("class_access_code", lan) }}</h5>
                     </div>
                     <div class="columns small-4 text-right">
                         <h5>{{ class_room.access_code }}</h5>
@@ -39,22 +39,22 @@
                 <br/>
                 {% if(class_room.students.count() == 0) %}
                     <div class="callout error">
-                        There are not students in this Class Room
+                        No {{ loc.get_text("student", lan) }}
                     </div>
                 {% else %}
                     <div class="row">
                         <div class="columns small-12 centered">
-                            <h4 class="subheader">Students</h4>
+                            <h4 class="subheader">{{ loc.get_text("student", lan) }}s</h4>
                         </div>
                     </div>
                     <div class="row callout">
                         <div class="columns small-12">
                             <div class="row">
                                 <div class="columns small-5 large-5">
-                                    <h5><strong>Name</strong></h5>
+                                    <h5><strong>{{ loc.get_text("name", lan) }}</strong></h5>
                                 </div>
                                 <div class="columns small-4 large-5">
-                                    <h5><strong>Pin</strong></h5>
+                                    <h5><strong>{{ loc.get_text("student_pin", lan) }}</strong></h5>
                                 </div>
                                 <div class="columns small-3 large-2"></div>
                             </div>
@@ -68,7 +68,7 @@
                                         <h6>{{ student.pin }}</h6>
                                     </div>
                                      <div class="columns small-3 large-2 text-right">
-                                        <a class="button" href="{{ url_for("teacher_view_student", key=student.key()) }}">View</a>
+                                        <a class="button" href="{{ url_for("teacher_view_student", key=student.key()) }}">{{ loc.get_text("view", lan) }}</a>
                                     </div>
                                 </div>
                             {% endfor %}
