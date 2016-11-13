@@ -27,26 +27,21 @@ class StudentModel(db.Model):
             return True
         return False
 
-    # @classmethod
-    # def get_by(cls, user_name):
-    #     q = TeacherModel.all()
-    #     q.filter("id =", user_name)
-    #     return q.get()
+    def get_quizzes(self, class_room):
+        quizzes = []
+        for quiz in class_room.quiz_list:
+            if quiz.has_this_student_answered(self):
+                quizzes.append(quiz)
 
-    # @classmethod
-    # def delete_by(cls, id):
-    #     success = False
-    #     q = TeacherModel.all()
-    #     q.filter("id =", id)
-    #     for obj in q.fetch(1000):
-    #         success = obj.delete()
-    #     return success
+        return quizzes
 
-    # @classmethod
-    # def get_by_username(cls, username):
-    #     q = TeacherModel.all()
-    #     q.filter("user_name =", username)
-    #     return q.get()
+    def get_answers_for(self, quiz):
+        answers = []
+        for quiz_answer in self.quiz_answers:
+            if quiz_answer.question.quiz.key() == quiz.key():
+                answers.append(quiz_answer)
+
+        return answers
 
 
 

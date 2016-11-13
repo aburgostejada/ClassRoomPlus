@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}{{ loc.get_text("create_classroom", lan) }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+ <div class="row">
+     <div class="small-12 large-7 medium-10 columns small-centered text-center">
+         {% if(student_answered) %}
+            <div class="callout alert">
+                <h2>There was a problem</h2>
+                <h4>It looks like you have already answered this poll.</h4>
+            </div>
+         {% else %}
+            <div class="callout success">
+                <h2>Thanks</h2>
+                <h4>Now you have completed the poll.</h4>
+            </div>
+         {% endif %}
+     </div>
+</div>
+{% endblock %}

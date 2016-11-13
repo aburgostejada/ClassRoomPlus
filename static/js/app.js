@@ -35,7 +35,7 @@ function setUpDeleteQuizQuestion() {
         if (window.confirm("Do you really want to Delete The Question?")) {
             $.post($(this).attr("href"), function (res) {
                 if(res.result == "success"){
-                    window.location.reload();
+                   window.location.search += '&time='+new Date().getTime();
                 }
             });
         }

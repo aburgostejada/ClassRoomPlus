@@ -67,7 +67,7 @@
                                     <div class="columns small-4 large-5">
                                         <h6>{{ student.pin }}</h6>
                                     </div>
-                                     <div class="columns small-3 large-2">
+                                     <div class="columns small-3 large-2 text-right">
                                         <a class="button" href="{{ url_for("teacher_view_student", key=student.key()) }}">View</a>
                                     </div>
                                 </div>
@@ -77,10 +77,10 @@
                 {% endif %}
                 <br/>
                 <br/>
-                    {% include "quiz_list.html" %}
+                    {% include "teacher_quiz_list.html" %}
                 <br/>
                 <br/>
-                    {% include "poll_list.html" %}
+                    {% include "teacher_poll_list.html" %}
                 <br/>
                 <br/>
 

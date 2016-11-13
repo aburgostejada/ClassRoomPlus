@@ -6,11 +6,13 @@ import random
 from crp.DB.poll_model import PollModel
 from crp.DB.quiz_model import QuizModel
 from crp.DB.quiz_question_model import QuizQuestionModel
-from crp.DB.student_answers import StudentAnswersModel
+from crp.DB.student_poll_answer import StudentPollAnswerModel
 from crp.DB.student_model import StudentModel
 
 
 # TODO missing name validation
+from crp.DB.student_quiz_question_answer import StudentQuizQuestionAnswerModel
+
 
 class Repository:
     def __init__(self, teacher):
@@ -77,7 +79,7 @@ class Repository:
         elif poll.type == "single":
             answer = base64.b64decode(answer)
 
-        StudentAnswersModel(student=student, poll=poll, answer=answer).put()
+        StudentPollAnswerModel(student=student, poll=poll, answer=answer).put()
 
     @staticmethod
     def add_quiz_to_classroom(classroom_key, time_allowed, title):
@@ -106,4 +108,12 @@ class Repository:
         quiz_question = QuizQuestionModel.get(key)
         quiz_question.status = "deleted"
         return quiz_question.put()
+
+    def save_student_quiz_answer(self, student, question, answer):
+        if isinstance(answer, list):
+            answer = ", ".join([base64.b64decode(x) for x in answer])
+        elif question.type == "single":
+            answer = base64.b64decode(answer)
+
+        StudentQuizQuestionAnswerModel(student=student, question=question, answer=answer).put()
 

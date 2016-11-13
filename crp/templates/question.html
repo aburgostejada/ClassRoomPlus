@@ -1,0 +1,48 @@
+<div class="small-12 columns small-centered callout question">
+    <div class="row ">
+        <div class="columns small-12">
+            <h4 >{{ question.question }}</h4>
+            <br/>
+        </div>
+    </div>
+    {% if (question.type == "yes_no")  %}
+        <div class="row">
+            <div class="columns small-2">
+                <label>
+                    <input type="radio" name="answer-{{ question.key().id_or_name() }}'" value="yes">
+                </label> YES
+            </div>
+            <div class="columns small-2" style="text-align: right;">
+                <label>
+                    <input type="radio" name="answer-{{ question.key().id_or_name() }}" value="no">
+                </label> NO
+            </div>
+            <div class="columns"></div>
+            <input type="radio" name="answer-{{ question.key().id_or_name() }}" value="none" style="display: none" checked>
+        </div>
+    {% elif (question.type == "free_text") %}
+        <div class="row">
+            <div class="columns small-12">
+                <textarea name="answer-{{ question.key().id_or_name() }}" placeholder="Write your responses here."></textarea>
+            </div>
+        </div>
+    {% elif (question.type == "multiple") %}
+        <div class="row">
+            <div class="columns small-12">
+                {% for option, encoded in question.get_encoded_options() %}
+                    <input type="checkbox" name="answer-{{ question.key().id_or_name() }}[]" value={{ encoded }}> {{ option }}<br>
+                {% endfor %}
+            </div>
+        </div>
+    {% elif (question.type == "single") %}
+        <div class="row">
+            <div class="columns small-12">
+                {% for option, encoded in question.get_encoded_options() %}
+                    <input type="radio" name="answer-{{ question.key().id_or_name() }}" value={{ encoded }}> {{ option }}<br>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+<br/>
+<br/>

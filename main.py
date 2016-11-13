@@ -1,6 +1,8 @@
 """`main` is the top level module for your Flask application."""
 
 # Import the Flask Framework
+import calendar
+
 import flask
 import jinja2
 from flask import Flask, request, flash, url_for, redirect, render_template, g, jsonify
@@ -221,6 +223,13 @@ def teacher_delete_quiz_question():
     return flask.jsonify(dict(result="success"))
 
 
+def render_quiz(quiz, class_room):
+    return render_template("teacher_create_quiz.html", loc=localization, lan=lan,
+                           user=current_user, class_room=class_room, quiz=quiz,
+                           page_title=localization.get_text("create_quiz", lan),
+                           active="page")
+
+
 @app.route("/teacher_create_quiz", methods=['GET', 'POST'])
 @login_required
 def teacher_create_quiz():
@@ -251,19 +260,16 @@ def teacher_create_quiz():
             return redirect(url_for("teacher_created_quiz_success", key=quiz_key))
         elif submit == "add":
             repo.add_question_to_quiz(
-                quiz_key=quiz_key, question=question, answer_type=answer_type,
-                options=options
+                quiz_key=quiz_key, question=question, answer_type=answer_type, options=options
             )
-            return redirect(url_for("teacher_create_quiz", classroom_key=classroom_key, quiz_key=quiz_key))
-
+            return redirect(url_for("teacher_create_quiz", quiz_key=quiz_key, classroom_key=classroom_key, time=calendar.timegm(time.gmtime())))
     else:
         quiz = QuizModel.get(request.args.get("quiz_key")) if request.args.get("quiz_key") else False
         class_room = ClassRoomModel.get(request.args.get("classroom_key"))
+        return render_quiz(quiz, class_room)
 
-        return render_template("teacher_create_quiz.html", loc=localization, lan=lan,
-                               user=current_user, class_room=class_room, quiz=quiz,
-                               page_title=localization.get_text("create_quiz", lan),
-                               active="page")
+
+
 
 
 @app.route("/teacher_view_poll", methods=['GET', 'POST'])
@@ -318,33 +324,65 @@ def teacher_view_student():
                                page_title="Student Details", active="page")
 
 
-@app.route("/student_landing", methods=['POST', 'GET'])
-def student_landing():
+@app.route("/student_view_classroom", methods=['POST', 'GET'])
+def student_view_classroom():
     if request.method == "POST":
         access_code = request.form['access_code']
         pin = request.form['pin']
         class_room = ClassRoomModel.get_by_access_code(access_code)
-        error = None
-        student = None
-        poll = None
 
-        if class_room:
+        if class_room and class_room.get_student(pin):
             student = class_room.get_student(pin)
-            polls = class_room.get_active_polls()
-            if len(polls) == 0:
-                error = True
-            else:
-                poll = polls[0]
+            return render_template("student_view_classroom.html", loc=localization,
+                                   lan=lan, user=current_user, class_room=class_room,
+                                   page_title=localization.get_text("view_classroom", lan),
+                                   active="classroom", student=student)
         else:
-            error = True
-
-        if error or not student or not poll:
-            return render_template("student_landing.html", loc=localization, lan=lan,
-                                   user=current_user, error=True)
-        else:
-            return redirect(url_for("student_take_poll", poll_key=poll.key(), student_key=student.key()))
+            return render_template("student_landing.html", loc=localization,
+                                   lan=lan, user=current_user, error=True)
+        # else:
+        #     return redirect(url_for("student_take_poll", poll_key=poll.key(), student_key=student.key()))
     else:
-        return render_template("student_landing.html", loc=localization, lan=lan, user=current_user)
+        return redirect(url_for("student_landing"))
+
+
+@app.route("/student_landing", methods=['GET'])
+def student_landing():
+    return render_template("student_landing.html", loc=localization, lan=lan, user=current_user)
+
+
+@app.route("/student_take_quiz", methods=['GET', 'POST'])
+def student_take_quiz():
+    if request.method == "POST":
+        quiz_key = request.form['quiz_key']
+        student_key = request.form['student_key']
+        quiz = QuizModel.get(quiz_key)
+        student = StudentModel.get(student_key)
+        student_answered = False
+
+        if not quiz.has_this_student_answered(student):
+            repo = Repository(None)
+            for question in quiz.get_active_questions():
+                question_id = str(question.key().id_or_name())
+                if question.type == "yes_no" or question.type == "free_text" or question.type == "single":
+                    repo.save_student_quiz_answer(student, question, request.form['answer-'+question_id])
+                elif question.type == "multiple":
+                    repo.save_student_quiz_answer(student, question, request.form.getlist('answer-'+question_id+'[]'))
+        else:
+            student_answered = True
+
+        return render_template("student_take_quiz_success.html", loc=localization, lan=lan,
+                               user=current_user, student_answered=student_answered)
+    else:
+        quiz_key = request.args.get("quiz_key")
+        student_key = request.args.get("student_key")
+        quiz = QuizModel.get(quiz_key)
+        student = StudentModel.get(student_key)
+        classroom = quiz.class_room
+
+        return render_template("student_take_quiz.html", loc=localization, lan=lan,
+                               user=current_user, class_room=classroom, quiz=quiz,
+                               student=student)
 
 
 @app.route("/student_take_poll", methods=['GET', 'POST'])

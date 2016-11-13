@@ -24,7 +24,12 @@ class PollModel(db.Model):
         return self.status == "close"
 
     def get_total_answered(self):
-        return self.answers.count()
+        total = 0
+        for student in self.class_room.students:
+            if self.has_this_student_answered(student):
+                total += 1
+
+        return total
 
     def completed(self):
         return self.get_total_answered() >= self.class_room.students.count()

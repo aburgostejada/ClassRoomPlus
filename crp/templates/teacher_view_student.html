@@ -11,38 +11,40 @@
 
 {% block content %}
     {% include "class_room_title.html" %}
-    <div class="row">
+    <div class="row student_details">
         <div class="small-10 large-7 medium-8 columns small-centered text-center">
             <div class="row callout success">
                 <div class="columns small-4">
                     <h5>Name:</h5>
                 </div>
-                 <div class="columns small-8 text-right">
+                <div class="columns small-8 text-right">
                     <h5>{{ student.name }}</h5>
                 </div>
             </div>
             <br/>
             <div class="row">
-                <div class="columns small-6">
+                <div class="columns small-6 text-left">
                     <h5>Status:</h5>
                 </div>
                 <div class="columns small-6 text-right" >
                     <h5>
-                       {{ student.status }}
+                        {{ student.status }}
                     </h5>
                 </div>
             </div>
             <br/>
+            <h3>Polls</h3>
+            <br/>
             <table>
                 <thead>
-                    <tr>
-                        <th>Question</th>
-                        <th>Date</th>
-                        <th>Answer</th>
-                    </tr>
+                <tr>
+                    <th>Question</th>
+                    <th>Date</th>
+                    <th>Answer</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for answer in student.answers %}
+                {% for answer in student.poll_answers %}
                     <tr>
                         <td>
                             <h6>{{ answer.poll.question }}</h6>
@@ -51,14 +53,42 @@
                             <h6>{{ answer.created.strftime("%d/%m/%y") }}</h6>
                         </td>
                         <td>
-                            <h6>{{ answer.answer }}</h6>
+                            <h6>{{ answer.get_answer_text() }}</h6>
                         </td>
                     </tr>
-             {% endfor %}
+                {% endfor %}
                 </tbody>
             </table>
-
-
+            <h3>Quizzes</h3>
+            <br/>
+            {% for quiz in student.get_quizzes(class_room) %}
+                <h5>{{ quiz.title }}</h5>
+                <br/>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Date</th>
+                        <th>Answer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for answer in student.get_answers_for(quiz) %}
+                        <tr>
+                            <td>
+                                <h6>{{ answer.question.question }}</h6>
+                            </td>
+                            <td>
+                                <h6>{{ answer.created.strftime("%d/%m/%y") }}</h6>
+                            </td>
+                            <td>
+                                <h6>{{ answer.get_answer_text() }}</h6>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
             <br/>
             <br/>
             {% include "class_room_back.html" %}

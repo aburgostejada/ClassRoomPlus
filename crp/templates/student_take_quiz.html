@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}Take Quiz{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <form id="createPoll" autocomplete="off" action="{{ url_for('student_take_quiz') }}"  method="post">
+        <input type="hidden" name="student_key" value="{{ student.key() }}" />
+        <input type="hidden" name="quiz_key" value="{{ quiz.key() }}" />
+        <div class="row">
+            <div class="small-10 large-7 medium-10 columns small-centered text-center">
+                <br/>
+                <h3 class="info">Welcome {{ student.name }}</h3>
+                <br/><br/>
+                <h4 class="info">{{ class_room.name }}</h4>
+                <br/>
+                <h5>{{ quiz.title }}</h5>
+                <br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="columns small-6 large-3 small-centered">
+                <h5 id="time_left"><span>Time Left:  </span><span class="timer-quick" data-minutes-left="{{ quiz.time_allowed }}"></span> </h5>
+            </div>
+            <br/><br/>
+        </div>
+        <div class="row">
+
+            <div class="row">
+                {% for question in quiz.get_active_questions() %}
+                    {% include "question.html"  %}
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="columns small-10 large-7 medium-10 text-center small-centered">
+                    <button id="submit" type="submit" class="submitButton button expanded large" >Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

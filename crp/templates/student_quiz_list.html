@@ -1,0 +1,33 @@
+{% if(class_room.get_active_quizzes() == []) %}
+    <div class="row">
+        <div class="callout alert">
+            <p>Currently there are not <strong>active</strong> quizzes in this Class Room.</p>
+        </div>
+    </div>
+{% else %}
+    <div class="row callout">
+        <div class="columns small-12">
+            <div class="row">
+                <div class="columns small-6">
+                    <h6><strong>Quiz Title</strong></h6>
+                </div>
+                <div class="columns small-6">
+                </div>
+            </div>
+            {% for quiz in class_room.get_active_quizzes() %}
+                <div class="row">
+                    <div class="columns small-6">
+                          <h6>{{ quiz.title }}</h6>
+                    </div>
+                    <div class="columns small-3 large-2 text-right">
+                        {% if quiz.has_this_student_answered(student) %}
+                           <button class="button" disabled style="background:darkgreen; color:white">Completed</button>
+                        {% else %}
+                            <a class="button" href="{{ url_for("student_take_quiz", quiz_key=quiz.key(), student_key=student.key()) }}">Go</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif%}
