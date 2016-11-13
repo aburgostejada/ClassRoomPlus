@@ -1,12 +1,12 @@
 <div class="row">
     <div class="columns small-12 centered">
-        <h4 class="subheader">Active Polls</h4>
+        <h4 class="subheader">{{ loc.get_text("active_polls", lan) }}</h4>
     </div>
 </div>
 {% if(class_room.get_active_polls() == []) %}
     <div class="row">
         <div class="callout alert">
-            <p>Currently there are not <strong>active</strong> polls in this Class Room.</p>
+            <p>No {{ loc.get_text("active_polls", lan) }}</p>
         </div>
     </div>
 {% else %}
@@ -14,10 +14,10 @@
         <div class="columns small-12">
             <div class="row">
                 <div class="columns small-5 large-5">
-                    <h6><strong>Question</strong></h6>
+                    <h6><strong>{{ loc.get_text("question", lan) }}</strong></h6>
                 </div>
                 <div class="columns small-4 large-5">
-                    <h6><strong>Answered</strong></h6>
+                    <h6><strong>{{ loc.get_text("answered", lan) }}</strong></h6>
                 </div>
                 <div class="columns small-3 large-2">
                 </div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="columns small-4 large-5">
                         {%  if (poll.completed()) %}
-                            <h6><small>Completed with ({{ poll.get_total_answered() }})</small></h6>
+                            <h6><small>{{ loc.get_text("completed", lan) }} ({{ poll.get_total_answered() }})</small></h6>
                         {%  else %}
                             <h6>{{ poll.get_total_answered() }}</h6>
                         {%  endif %}
@@ -44,13 +44,13 @@
 {% endif%}
 <div class="row">
     <div class="columns small-12 centered">
-        <h4 class="subheader">Closed Polls</h4>
+        <h4 class="subheader">{{ loc.get_text("closed_polls", lan) }}</h4>
     </div>
 </div>
 {% if(class_room.get_closed_polls() == []) %}
     <div class="row">
         <div class="callout alert">
-            <p>Currently there are not <strong>closed</strong> polls in this Class Room.</p>
+            <p>No {{ loc.get_text("closed_polls", lan) }}</p>
         </div>
     </div>
 {% else %}
@@ -58,10 +58,10 @@
         <div class="columns small-12">
             <div class="row">
                 <div class="columns small-5 large-5">
-                    <h6><strong>Question</strong></h6>
+                    <h6><strong>{{ loc.get_text("question", lan) }}</strong></h6>
                 </div>
                 <div class="columns small-4 large-5">
-                    <h6><strong>Answered</strong></h6>
+                    <h6><strong>{{ loc.get_text("answered", lan) }}</strong></h6>
                 </div>
                 <div class="columns small-3 large-2">
                 </div>
@@ -73,7 +73,7 @@
                     </div>
                     <div class="columns small-4 large-5">
                         {%  if (poll.completed()) %}
-                            <h6><small>Completed with ({{ poll.get_total_answered() }})</small></h6>
+                            <h6><small>{{ loc.get_text("completed", lan) }} ({{ poll.get_total_answered() }})</small></h6>
                         {%  else %}
                             <h6>{{ poll.get_total_answered() }}</h6>
                         {%  endif %}

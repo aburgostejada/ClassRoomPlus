@@ -108,7 +108,8 @@ def login():
 @app.errorhandler(404)
 def page_not_found(e):
     """Return a custom 404 error."""
-    return 'Sorry, Nothing at this URL.', 404
+    return render_template("404.html", loc=localization,
+                               lan=lan)
 
 
 @app.errorhandler(500)

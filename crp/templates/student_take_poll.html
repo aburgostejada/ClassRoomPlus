@@ -14,13 +14,13 @@
         <div class="row">
             <div class="small-10 large-7 medium-10 columns small-centered text-center">
                 <br/>
-                <h3 class="info">Welcome {{ student.name }}</h3>
+                <h3 class="info">{{ loc.get_text("welcome", lan) }} {{ student.name }}</h3>
                 <br/><br/>
                 <h4 class="info">{{ class_room.name }}</h4>
             </div>
             <div class="row">
                     <div class="columns small-6 large-3 small-centered">
-                        <h5 id="time_left"><span>Time Left:  </span><span class="timer-quick" data-minutes-left="{{ poll.time_allowed }}"></span> </h5>
+                        <h5 id="time_left"><span>{{ loc.get_text("time_left", lan) }}:  </span><span class="timer-quick" data-minutes-left="{{ poll.time_allowed }}"></span> </h5>
                     </div>
                     <br/><br/>
             </div>
@@ -39,19 +39,19 @@
                         <div class="columns small-6">
                             <label>
                                 <input type="radio" name="answer" value="yes">
-                            </label> YES
+                            </label> {{ loc.get_text("yes", lan) }}
                         </div>
                         <div class="columns small-6" style="text-align: right;">
                             <label>
                                 <input type="radio" name="answer" value="no">
-                            </label> NO
+                            </label> {{ loc.get_text("no", lan) }}
                         </div>
                         <input type="radio" name="answer" value="none" style="display: none" checked>
                     </div>
                 {% elif (poll.type == "free_text") %}
                     <div class="row">
                         <div class="columns small-12">
-                            <textarea name="answer" placeholder="Write your responses here."></textarea>
+                            <textarea name="answer" placeholder={{ loc.get_text("responses_here", lan) }}></textarea>
                         </div>
                     </div>
                 {% elif (poll.type == "multiple") %}
@@ -76,7 +76,7 @@
             <br/>
             <div class="row">
                 <div class="columns small-10 large-7 medium-10 text-center small-centered">
-                    <button id="submit" type="submit" class="submitButton button expanded large" >Submit</button>
+                    <button id="submit" type="submit" class="submitButton button expanded large" >{{ loc.get_text("submit", lan) }}</button>
                 </div>
             </div>
         </div>

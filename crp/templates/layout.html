@@ -27,7 +27,7 @@
 <div class="top-bar" id="main-menu">
     <div class="top-bar-left">
         <ul class="dropdown menu" data-dropdown-menu>
-            <li class="menu-text">Class Room +</li>
+            <li class="menu-text">Classroom+</li>
         </ul>
     </div>
     <div class="top-bar-right">
@@ -36,8 +36,8 @@
                 <li class="has-submenu">
                     <a href="#">{{ user.get_name() }}</a>
                     <ul class="submenu menu vertical" data-submenu>
-                        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        <li><a href="{{ url_for('dashboard') }}">{{ loc.get_text("dashboard", lan) }}</a></li>
+                        <li><a href="{{ url_for('logout') }}">{{ loc.get_text("logout", lan) }}</a></li>
                     </ul>
                 </li>
             </ul>

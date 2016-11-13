@@ -46,6 +46,30 @@ class Localization:
             "free_text": "Open Text",
             "multiple": "Multiple Answers",
             "single": "Single Answer",
+
+            "404": "URL Not Found...",
+            "logout": "Logout",
+            "username": "Username",
+            "password": "Password",
+            "active_polls": "Active Polls",
+            "question": "Question",
+            "answered": "Answered",
+            "closed_polls": "Closed Polls",
+            "active_quizzes": "Active Quizzes",
+            "closed_quizzes": "Closed Quizzes",
+            "completed": "Completed",
+            "input_error": "Input Error",
+            "class_access_code": "Class Access Code",
+            "student_pin": "Student Pin",
+            "enter": "Enter",
+            "welcome": "Welcome",
+            "yes": "Yes",
+            "no": "No",
+            "submit": "Submit",
+            "time_left": "Time Left",
+            "responses_here": "Responses Here",
+
+
         }
 
         spanish = {
@@ -84,6 +108,29 @@ class Localization:
             "free_text": "Texto Abierto",
             "multiple": "Multiples Respuestas",
             "single": "Respuesta Unica",
+
+            "404": "URL no encontrada...",
+            "logout": "Cerrar sesion",
+            "username": "nombre de usuario",
+            "password": "contrasena",
+            "active_polls": "Encuestas activas",
+            "question": "Pregunta",
+            "answered": "Respuesta",
+            "closed_polls": "Encuestas cerradas",
+            "active_quizzes": "Pruebas activas",
+            "closed_quizzes": "Pruebas cerradas",
+            "completed": "Completo",
+            "input_error": "Error de entrada",
+            "class_access_code": "Código de acceso a la clase",
+            "student_pin": "Estudiante Pin",
+            "enter": "Entrar",
+            "welcome": "Bienvenido",
+            "yes": "Si",
+            "no": "No",
+            "submit": "Enviar",
+            "time_left": "Tiempo restante",
+            "responses_here": "Respuestas aquí",
+
         }
 
         if lan == cls.eng and english.has_key(key):
