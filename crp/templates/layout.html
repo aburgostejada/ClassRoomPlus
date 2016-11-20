@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='css/images/favicon.ico') }}"/>
@@ -19,56 +19,56 @@
     <meta name="viewport" content="width=device-width" />
 </head>
 <body>
-<div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="medium">
-    <button class="menu-icon" type="button" data-toggle></button>
-    <div class="title-bar-title">Menu</div>
-</div>
-
-<div class="top-bar" id="main-menu">
-    <div class="top-bar-left">
-        <ul class="dropdown menu" data-dropdown-menu>
-            <li class="menu-text">Class Room +</li>
-        </ul>
+    <div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="medium">
+        <button class="menu-icon" type="button" data-toggle></button>
+        <div class="title-bar-title">Menu</div>
     </div>
-    <div class="top-bar-right">
-        {% if g.user.is_authenticated%}
-            <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
-                <li class="has-submenu">
-                    <a href="#">{{ user.get_name() }}</a>
-                    <ul class="submenu menu vertical" data-submenu>
-                        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                    </ul>
-                </li>
+
+    <div class="top-bar" id="main-menu">
+        <div class="top-bar-left">
+            <ul class="dropdown menu" data-dropdown-menu>
+                <li class="menu-text">Class Room +</li>
             </ul>
-        {% endif %}
-        {% if not g.user.is_authenticated%}
-            <a href="{{ url_for('login') }}" class="button login">{{ loc.get_text("login", lan) }}</a>
-            <a href="{{ url_for('teacher_signup') }}" class="button login">{{ loc.get_text("signup", lan) }}</a>
+        </div>
+        <div class="top-bar-right">
+            {% if g.user.is_authenticated%}
+                <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
+                    <li class="has-submenu">
+                        <a href="#">{{ user.get_name() }}</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            {% endif %}
+            {% if not g.user.is_authenticated%}
+                <a href="{{ url_for('login') }}" class="button login">{{ loc.get_text("login", lan) }}</a>
+                <a href="{{ url_for('teacher_signup') }}" class="button login">{{ loc.get_text("signup", lan) }}</a>
 
-        {% endif %}
-    </div>
-</div>
-<header class="header">
-    <div class="headline">
-        <div class="row">
-            <div class="small-8 medium-6 large-4 small-centered">
-                <img src="{{url_for('static', filename='css/images/classroomplus.png') }}" alt="icon">
-            </div>
+            {% endif %}
         </div>
     </div>
-    {% block subnav %}{% endblock %}
-</header>
-<div id="content">{% block content %}{% endblock %}</div>
-<div id="footer" class="row column">
-    {% block footer %}
-        <br/>
-        <ul class="menu">
-            <li class="float-right"> &copy; {{ loc.get_text("copyright", lan) }}</li>
-        </ul>
-        <br/>
-        <br/>
-    {% endblock %}
-</div>
+    <header class="header">
+        <div class="headline">
+            <div class="row">
+                <div class="small-8 medium-6 large-4 small-centered">
+                    <img src="{{url_for('static', filename='css/images/classroomplus.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        {% block subnav %}{% endblock %}
+    </header>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer" class="row column">
+        {% block footer %}
+            <br/>
+            <ul class="menu">
+                <li class="float-right"> &copy; {{ loc.get_text("copyright", lan) }}</li>
+            </ul>
+            <br/>
+            <br/>
+        {% endblock %}
+    </div>
 </body>
 </html>

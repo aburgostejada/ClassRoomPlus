@@ -2,6 +2,7 @@
 
 # Import the Flask Framework
 import calendar
+import os
 
 import flask
 import jinja2
@@ -16,13 +17,14 @@ from crp.DB.poll_model import PollModel
 from crp.DB.quiz_model import QuizModel
 from crp.DB.student_model import StudentModel
 from crp.DB.teacher_model import TeacherModel
+from crp.lib.email import Email
 from crp.lib.repository import Repository
 
 localization = loc.Localization()
 lan = localization.eng  # Allows to change the language
 app = Flask(__name__)
 app.jinja_loader = jinja2.FileSystemLoader('crp/templates')
-app.secret_key = "1u691O4d7?-9R(0G&o|L8iaR3740*O"
+app.secret_key =  os.environ['S_KEY']
 app.config['SESSION_TYPE'] = 'filesystem'
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -54,26 +56,23 @@ def index():
     return redirect(url_for('identity'))
 
 
-@app.route("/new_teacher_once", methods=["GET"])
-def new_teacher_once():
-    # TeacherModel(user_name="aburgos",
-    #                        password="f920cd4628136d5cef595ba8d629758b6d6e96463f64afe1407309d0be0cd361",
-    #                        first_name="Augusto",
-    #                        last_name="Burgos",
-    #                        status="active").put()
-    #
-    # TeacherModel(user_name="fandi",
-    #              password="4b2f3acea03a8e3858baa671a2ffcd4012f60e5ec248b1e0feb3b806e322d1cd",
-    #              first_name="Fandi",
-    #              last_name="Peng",
-    #              status="active").put()
-    return "true"
-
-
-@app.route("/teacher_signup", methods=['GET'])
+@app.route("/teacher_signup", methods=['GET', 'POST'])
 def teacher_signup():
-        return render_template("teacher_signup.html", loc=localization,
-                               lan=lan)
+    if request.method == "POST":
+            email = request.form['email']
+            password = request.form['password']
+            confirm = request.form['confirm']
+            first_name = request.form['first_name']
+            last_name = request.form['last_name']
+
+            if teacher.sign_up(email=email, password=password, confirm=confirm, first_name=first_name, last_name=last_name):
+                return redirect(url_for('login'))
+            return render_template("teacher_signup.html", loc=localization, lan=lan, error=True)
+
+    email = Email()
+    email.send_confirmation_message("aburgostejada@gmail.com")
+    return render_template("teacher_signup.html", loc=localization, lan=lan, error=False)
+
 
 @app.route('/logout')
 def logout():

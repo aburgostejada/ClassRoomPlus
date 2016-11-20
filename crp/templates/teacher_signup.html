@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}{{ loc.get_text("signup", lan) }}{% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">
@@ -7,32 +7,56 @@
     </style>
 {% endblock %}
 {% block content %}
-    <form id="login" action="{{ url_for('login') }}" method=post>
+    <form id="teacher_signup" action="{{ url_for('teacher_signup') }}" method=post>
+
         <div class="row">
             <div class="small-10 large-7 medium-10 columns small-centered text-center">
                 <br/>
-                    <h2 class="info">{{ loc.get_text("teacher_signup", lan) }}</h2>
+                <h3 class="info">{{ loc.get_text("teacher_signup", lan) }}</h3>
                 <br/>
+                 {% if error %}
+                     <div class="callout alert text-center">
+                        <h5>Something when wrong with your submission, please try again.</h5>
+                     </div>
+                     <br/>
+                {% endif %}
             </div>
         </div>
         <div class="row">
-            <div class="small-10 large-7 medium-10 columns small-centered">
+            <div class="small-10 large-7 medium-10 column small-centered">
                 <div class="row ">
-                    <div class="columns small-12">
+                    <div class="column small-12">
                         <h4>Email</h4>
-                        <input name="username" type="text" placeholder="Email" required />
+                        <input name="email" type="email" placeholder="Email" required />
                     </div>
-                    <div class="columns small-12">
+                </div>
+                <div class="row ">
+                    <div class="column small-6">
                          <h4>Password</h4>
-                        <input name="password" type="password" placeholder="Password" required/>
+                        <input name="password" type="password" minlength="8" placeholder="Password" required />
                     </div>
-
-                    <div class="columns small-12">
-                         <h4>Repeat Password</h4>
-                        <input name="password_repeat" type="password" placeholder="Repeat Password" required/>
+                    <div class="column small-6">
+                       <h4>Confirm Password</h4>
+                        <input name="confirm" type="password" minlength="8" placeholder="Confirm Password" required />
                     </div>
-                    <div class="columns small-12 text-center">
-                        <button id="loginButton" type="submit" class="submitButton button expanded large">{{ loc.get_text("signup", lan) }}</button>
+                </div>
+                <div class="row ">
+                    <div class="column small-6">
+                         <h4>First Name</h4>
+                        <input name="first_name" type="text" placeholder="First Name" minlength="2" required />
+                    </div>
+                    <div class="column small-6">
+                      <h4>Last Name</h4>
+                        <input name="last_name" type="text" placeholder="Last Name" minlength="2" required />
+                    </div>
+                </div>
+                <div class="row ">
+                    <br/>
+                    <br/>
+                    <div class="column small-12">
+                        <div class="column small-12 text-center">
+                            <button id="signUpButton" type="submit" class="submitButton button expanded large">{{ loc.get_text("signup", lan) }}</button>
+                        </div>
                     </div>
                 </div>
             </div>
