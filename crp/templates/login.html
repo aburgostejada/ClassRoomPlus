@@ -11,7 +11,14 @@
         <div class="row">
             <div class="small-10 large-7 medium-10 columns small-centered text-center">
                 <br/>
-                    <h2 class="info">{{ loc.get_text("teacher_login", lan) }}</h2>
+                <h3 class="info">{{ loc.get_text("teacher_login", lan) }}</h3>
+                {% if error %}
+                     <br/>
+                    <div class="callout alert text-center">
+                        <h5>{{ loc.get_text("login_issues", lan) }}</h5>
+                    </div>
+                    <br/>
+                {% endif %}
                 <br/>
             </div>
         </div>
@@ -19,11 +26,11 @@
             <div class="small-10 large-7 medium-10 columns small-centered">
                 <div class="row ">
                     <div class="columns small-12">
-                        <h4>{{ loc.get_text("username", lan) }}</h4>
-                        <input name="username" type="text" placeholder="{{ loc.get_text("username", lan) }}" required />
+                        <h4>{{ loc.get_text("email", lan) }}</h4>
+                        <input name="email" type="text" placeholder="{{ loc.get_text("email", lan) }}" required />
                     </div>
                     <div class="columns small-12">
-                         <h4>{{ loc.get_text("password", lan) }}</h4>
+                        <h4>{{ loc.get_text("password", lan) }}</h4>
                         <input name="password" type="password" placeholder="{{ loc.get_text("password", lan) }}" required/>
                     </div>
                     <div class="columns small-12 text-center">

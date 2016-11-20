@@ -2,6 +2,7 @@ import base64
 
 from crp.DB.classroom_model import ClassRoomModel
 import random
+import datetime
 
 from crp.DB.poll_model import PollModel
 from crp.DB.quiz_model import QuizModel
@@ -117,3 +118,7 @@ class Repository:
 
         StudentQuizQuestionAnswerModel(student=student, question=question, answer=answer).put()
 
+    def confirmed(self):
+        self.teacher.confirmed = True
+        self.teacher.confirmed_on = datetime.datetime.now()
+        return self.teacher.put()

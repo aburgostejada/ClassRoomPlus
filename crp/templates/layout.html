@@ -31,7 +31,7 @@
         </ul>
     </div>
     <div class="top-bar-right">
-        {% if g.user.is_authenticated%}
+        {% if g.user and g.user.is_authenticated%}
             <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
                 <li class="has-submenu">
                     <a href="#">{{ user.get_name() }}</a>

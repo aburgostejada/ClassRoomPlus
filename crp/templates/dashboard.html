@@ -27,7 +27,9 @@
     <div class="row">
         <div class="small-10 large-7 medium-10 columns small-centered text-center">
             <br/>
-            <h2 class="info">{{ loc.get_text("enter_a_classroom", lan) }}</h2>
+            {% if class_rooms.count() != 0 %}
+                <h3 class="info">{{ loc.get_text("enter_a_classroom", lan) }}</h3>
+            {% endif %}
             <br/>
         </div>
     </div>

@@ -16,9 +16,8 @@ from crp.DB.classroom_model import ClassRoomModel
 from crp.DB.poll_model import PollModel
 from crp.DB.quiz_model import QuizModel
 from crp.DB.student_model import StudentModel
-from crp.DB.teacher_model import TeacherModel
-from crp.lib.email import Email
 from crp.lib.repository import Repository
+from crp.lib.security import Security
 
 localization = loc.Localization()
 lan = localization.eng  # Allows to change the language
@@ -56,6 +55,27 @@ def index():
     return redirect(url_for('identity'))
 
 
+@app.route("/confirm/<token>", methods=["GET"])
+def confirm(token):
+    email = False
+    try:
+        email = Security.confirm_token(token)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+
+    if email:
+        user = teacher.query_user(email)
+        if user.is_confirmed():
+            flash('Account already confirmed. Please login.', 'success')
+        else:
+            teacher_repo = Repository(user.get_model())
+            teacher_repo.confirmed()
+            login_user(user, remember=False)
+            flash('You have confirmed your account. Thanks!', 'success')
+        return redirect(url_for('dashboard'))
+    return redirect(url_for('login'))
+
+
 @app.route("/teacher_signup", methods=['GET', 'POST'])
 def teacher_signup():
     if request.method == "POST":
@@ -66,11 +86,9 @@ def teacher_signup():
             last_name = request.form['last_name']
 
             if teacher.sign_up(email=email, password=password, confirm=confirm, first_name=first_name, last_name=last_name):
-                return redirect(url_for('login'))
+                return render_template("teacher_signup_success.html", loc=localization, lan=lan)
             return render_template("teacher_signup.html", loc=localization, lan=lan, error=True)
 
-    email = Email()
-    email.send_confirmation_message("aburgostejada@gmail.com")
     return render_template("teacher_signup.html", loc=localization, lan=lan, error=False)
 
 
@@ -89,15 +107,15 @@ def login():
         return render_template('login.html', loc=localization, lan=lan)
 
     if request.method == "POST":
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
         remember_me = False
         if 'remember_me' in request.form:
             remember_me = True
-        registered_user = teacher.auth(username=username, password=password)
+        registered_user = teacher.auth(email=email, password=password)
         if registered_user is None:
             flash('Username or Password is invalid', 'error')
-            return redirect(url_for('login'))
+            return render_template('login.html', loc=localization, lan=lan, error=True)
         login_user(registered_user, remember=remember_me)
         flash('Logged in successfully')
         return redirect(request.args.get('next') or url_for('dashboard'))
@@ -107,8 +125,7 @@ def login():
 @app.errorhandler(404)
 def page_not_found(e):
     """Return a custom 404 error."""
-    return render_template("404.html", loc=localization,
-                               lan=lan)
+    return render_template("404.html", loc=localization, lan=lan)
 
 
 @app.errorhandler(500)

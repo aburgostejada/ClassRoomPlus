@@ -12,12 +12,12 @@ class Localization:
             "dashboard": "Dashboard",
             "menu_one" : "Take Action!",
             "menu_two" : "Just Do it!",
-            "login_sign_up": "Teacher Login",
+            "login_sign_up": "Teacher Sign In",
             "copyright": "Copyright 2016 by Classroom Plus",
-            "teacher_login": "Teacher's Login",
-            "teacher_signup": "New Teacher Signup",
-            "login": "Login",
-            "signup": "Sign-up",
+            "teacher_login": "Teacher's Sign In",
+            "teacher_signup": "New Teacher Sign Up",
+            "login": "Sign In",
+            "signup": "Sign up",
             "remember_me": "Remember Me",
             "you_are": "You are a",
             "student": "Student",
@@ -49,7 +49,6 @@ class Localization:
 
             "404": "URL Not Found...",
             "logout": "Logout",
-            "username": "Username",
             "password": "Password",
             "active_polls": "Active Polls",
             "question": "Question",
@@ -82,6 +81,8 @@ class Localization:
             "delete": "Delete",
             "poll_created_successfully": "Poll Created Successfully",
             "quiz_created_successfully": "Quiz Created Successfully",
+            "account_created_successfully": "Teacher Account Created Successfully",
+            "check_your_email": "We have sent you an email, please verify your account.",
             "repeat_password": "Repeat Password",
             "email": "Email",
             "name": "Name",
@@ -92,7 +93,8 @@ class Localization:
             "polls": "Polls",
             "quizzes": "Quizzes",
             "date": "Date",
-            "answer": "Answer"
+            "answer": "Answer",
+            "login_issues": "The email address or password is incorrect, please try again."
 
 
         }
@@ -140,7 +142,6 @@ class Localization:
 
             "404": "URL no encontrada...",
             "logout": "Cerrar sesion",
-            "username": "nombre de usuario",
             "password": "contrasena",
             "active_polls": "Encuestas activas",
             "question": "Pregunta",
@@ -173,8 +174,10 @@ class Localization:
             "delete": "Borrar",
             "poll_created_successfully": "Encuesta creada con exito",
             "quiz_created_successfully": "Prueba creada con exito",
+            "account_created_successfully": "Cuenta Creada Correctamente",
+            "check_your_email": "Le hemos mandado un correo electronico para validar su cuenta.",
             "repeat_password": "Repite la contrasena",
-            "email": "correo electronico",
+            "email": "Correo Electronico",
             "name": "Nombre",
             "view": "Ver",
             "status": "Estado",
@@ -183,7 +186,8 @@ class Localization:
             "polls": "Encuestas",
             "quizzes": "Pruebas",
             "date": "Fecha",
-            "answer": "Responder"
+            "answer": "Responder",
+            "login_issues": "La direccion de correo electronico o la contrasena son incorrectas. Vuelve a intentarlo."
 
         }
 

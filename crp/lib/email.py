@@ -1,7 +1,9 @@
-import os
 from urllib import urlencode
+import os
 import httplib2
-import webapp2
+from flask import render_template
+
+from crp.lib.security import Security
 
 
 class Email:
@@ -13,13 +15,15 @@ class Email:
         http = httplib2.Http()
         http.add_credentials('api', self.MAILGUN_API_KEY)
 
+        token = Security.generate_confirmation_token(to)
+
         url = 'https://api.mailgun.net/v3/{}/messages'.format(self.MAILGUN_DOMAIN_NAME)
         data = {
-            'from': 'Example Sender <mailgun@{}>'.format(self.MAILGUN_DOMAIN_NAME),
+            'from': 'ClassRoom+ <mailgun@{}>'.format(self.MAILGUN_DOMAIN_NAME),
             'to': to,
-            'subject': 'This is an example email from Mailgun',
+            'subject': 'Required: Please verify your email address for your ClassRoom+ account',
             'text': 'Test message from Mailgun',
-            'html': '<html>HTML <strong>version</strong> of the body</html>'
+            'html':  render_template("confirmation_email.html", url="http://crplus.net/confirm/"+token)
         }
         resp, content = http.request(url, 'POST', urlencode(data))
 
