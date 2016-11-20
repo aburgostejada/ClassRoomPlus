@@ -11,7 +11,7 @@
         <div class="row">
             <div class="small-10 large-7 medium-10 columns small-centered text-center">
                 <br/>
-                <h2 class="info">Enter a Classroom</h2>
+                <h2 class="info">{{ loc.get_text("enter_a_classroom", lan) }}</h2>
                 <br/>
             </div>
         </div>
@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="small-10 large-7 medium-10  columns small-centered">
                     <div class="callout alert">
-                        <p>There is a error either with <strong>class access code</strong> or your <strong>student pin</strong>, please ask your professor for assistance.</p>
+                        {{ loc.get_text("input_error", lan) }}
                     </div>
                 </div>
             </div>
@@ -28,19 +28,19 @@
             <div class="small-10 large-7 medium-10 columns small-centered">
                 <div class="row">
                     <div class="columns small-12">
-                        <h4>Class Access Code:</h4>
+                        <h4>{{ loc.get_text("class_access_code", lan) }}:</h4>
                         <input id="access_code" name="access_code" autocomplete="new-password" type="number" required placeholder="Class Access Code"  />
                     </div>
                 </div>
                  <div class="row">
                     <div class="columns small-12">
-                        <h4>Student Pin:</h4>
+                        <h4>{{ loc.get_text("student_pin", lan) }}:</h4>
                         <input id="pin" name="pin" autocomplete="new-password" type="number" required placeholder="Student Pin" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="columns small-12 text-center">
-                        <button id="create" type="submit" class="submitButton button expanded large">Enter</button>
+                        <button id="create" type="submit" class="submitButton button expanded large">{{ loc.get_text("enter", lan) }}</button>
                     </div>
                 </div>
             </div>

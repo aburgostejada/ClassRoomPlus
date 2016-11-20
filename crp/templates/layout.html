@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
     <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='css/images/favicon.ico') }}"/>
@@ -24,27 +24,27 @@
         <div class="title-bar-title">Menu</div>
     </div>
 
-    <div class="top-bar" id="main-menu">
-        <div class="top-bar-left">
-            <ul class="dropdown menu" data-dropdown-menu>
-                <li class="menu-text">Class Room +</li>
+<div class="top-bar" id="main-menu">
+    <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Classroom+</li>
+        </ul>
+    </div>
+    <div class="top-bar-right">
+        {% if g.user.is_authenticated%}
+            <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
+                <li class="has-submenu">
+                    <a href="#">{{ user.get_name() }}</a>
+                    <ul class="submenu menu vertical" data-submenu>
+                        <li><a href="{{ url_for('dashboard') }}">{{ loc.get_text("dashboard", lan) }}</a></li>
+                        <li><a href="{{ url_for('logout') }}">{{ loc.get_text("logout", lan) }}</a></li>
+                    </ul>
+                </li>
             </ul>
-        </div>
-        <div class="top-bar-right">
-            {% if g.user.is_authenticated%}
-                <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
-                    <li class="has-submenu">
-                        <a href="#">{{ user.get_name() }}</a>
-                        <ul class="submenu menu vertical" data-submenu>
-                            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            {% endif %}
-            {% if not g.user.is_authenticated%}
-                <a href="{{ url_for('login') }}" class="button login">{{ loc.get_text("login", lan) }}</a>
-                <a href="{{ url_for('teacher_signup') }}" class="button login">{{ loc.get_text("signup", lan) }}</a>
+        {% endif %}
+        {% if not g.user.is_authenticated%}
+            <a href="{{ url_for('login') }}" class="button login">{{ loc.get_text("login", lan) }}</a>
+            <a href="{{ url_for('teacher_signup') }}" class="button login">{{ loc.get_text("signup", lan) }}</a>
 
             {% endif %}
         </div>

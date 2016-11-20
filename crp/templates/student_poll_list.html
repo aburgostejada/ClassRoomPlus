@@ -1,7 +1,7 @@
 {% if(class_room.get_active_polls() == []) %}
     <div class="row">
         <div class="callout alert">
-            <p>Currently there are not <strong>active</strong> polls in this Class Room.</p>
+            <p>No {{ loc.get_text("active_polls", lan) }}</p>
         </div>
     </div>
 {% else %}
@@ -9,7 +9,7 @@
         <div class="columns small-12">
             <div class="row">
                 <div class="columns small-6">
-                    <h6><strong>Question</strong></h6>
+                    <h6><strong>{{ loc.get_text("question", lan) }}</strong></h6>
                 </div>
                 <div class="columns small-6">
                 </div>
@@ -21,9 +21,9 @@
                     </div>
                     <div class="columns small-3 large-2 text-right">
                          {% if poll.has_this_student_answered(student) %}
-                           <button class="button" disabled style="background:darkgreen; color:white">Completed</button>
+                           <button class="button" disabled style="background:darkgreen; color:white">{{ loc.get_text("completed", lan) }}</button>
                         {% else %}
-                            <a class="button" href="{{ url_for("student_take_poll", poll_key=poll.key(), student_key=student.key()) }}">Go</a>
+                            <a class="button" href="{{ url_for("student_take_poll", poll_key=poll.key(), student_key=student.key()) }}">{{ loc.get_text("go", lan) }}</a>
                         {% endif %}
                     </div>
                 </div>

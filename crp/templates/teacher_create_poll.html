@@ -24,40 +24,40 @@
                 </div>
                 <div class="row">
                     <div class="columns small-12">
-                        <h4>Question: <small>required</small></h4>
-                        <textarea name="question" placeholder="Type your question here" rows="3" required ></textarea>
+                        <h4>{{ loc.get_text("question", lan) }}: <small>{{ loc.get_text("required", lan) }}</small></h4>
+                        <textarea name="question" placeholder="{{ loc.get_text("question", lan) }}" rows="3" required ></textarea>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="columns small-12">
-                        <h5>Type of answers </h5>
+                        <h5>{{ loc.get_text("types_of_answer", lan) }} </h5>
                     </div>
                 </div>
                 <div class="row">
                     <div class="small-12 small-centered columns button-group toggle text-center" data-toggle="buttons-radio">
                         <input type="radio" id="r1" name="answer_type" value="yes_no" checked data-toggle="button">
-                        <label class="button" for="r1">Yes / No</label>
+                        <label class="button" for="r1">{{ loc.get_text("yes_no", lan) }}</label>
                         <input type="radio" id="r2" name="answer_type" value="free_text" data-toggle="button">
-                        <label class="button" for="r2">Open Text</label>
+                        <label class="button" for="r2">{{ loc.get_text("free_text", lan) }}</label>
                         <input type="radio" id="r3" name="answer_type" value="multiple" data-toggle="button">
-                        <label class="button" for="r3">Multiple</label>
+                        <label class="button" for="r3">{{ loc.get_text("multiple", lan) }}</label>
                         <input type="radio" id="r4" name="answer_type" value="single"  data-toggle="button">
-                        <label class="button" for="r4">Single</label>
+                        <label class="button" for="r4">{{ loc.get_text("single", lan) }}</label>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="columns small-12" id="options">
-                        <h5>Options</h5>
-                        <input name="option[]" type="text" value="" placeholder="Option" />
+                        <h5>{{ loc.get_text("options", lan) }}</h5>
+                        <input name="option[]" type="text" value="" placeholder="{{ loc.get_text("option", lan) }}" />
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="small-12 columns" id="optionsActions">
-                        <a id="addOption" href="#" class="button small">Add Option</a>
-                        <a id="deleteOption" href="#" class="button small float-right">Delete Option</a>
+                        <a id="addOption" href="#" class="button small">{{ loc.get_text("add", lan) }}</a>
+                        <a id="deleteOption" href="#" class="button small float-right">{{ loc.get_text("delete", lan) }}</a>
                     </div>
                 </div>
 
