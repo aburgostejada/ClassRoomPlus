@@ -48,10 +48,11 @@ class TeacherModel(db.Model):
         q = TeacherModel.all()
         q.filter("email =", email)
         q.filter("status =", "active")
-        q.filter("confirm =", True)
+        q.filter("confirmed =", True)
         total = q.count()
         if total == 1:
-            return True
+            return q.fetch(1)[0]
+
         return False
 
 
