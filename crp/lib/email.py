@@ -19,7 +19,7 @@ class Email:
 
         url = 'https://api.mailgun.net/v3/{}/messages'.format(self.MAILGUN_DOMAIN_NAME)
         data = {
-            'from': 'ClassRoom+ <mailgun@{}>'.format(self.MAILGUN_DOMAIN_NAME),
+            'from': 'ClassRoom+ <noreply@{}>'.format(self.MAILGUN_DOMAIN_NAME),
             'to': to,
             'subject': 'Required: Please verify your email address for your ClassRoom+ account',
             'text': 'Test message from Mailgun',
