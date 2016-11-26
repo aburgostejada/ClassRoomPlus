@@ -1,7 +1,6 @@
-
 class Localization:
     eng = "eng"
-    spa = "sp"
+    spa = "spa"
 
     def __init__(self):
         pass
@@ -9,6 +8,7 @@ class Localization:
     @classmethod
     def get_text(cls, key, lan="eng"):
         english = {
+            "language": "English",
             "dashboard": "Dashboard",
             "menu_one" : "Take Action!",
             "menu_two" : "Just Do it!",
@@ -29,6 +29,7 @@ class Localization:
             "update": "Update",
             "enter_a_classroom": "Enter a Classroom",
             "create_classroom": "Create a Classroom",
+            "class_room_view": "Classroom View",
             "view_classroom": "Details",
             "create_quiz": "Create a Quiz",
             "create_poll": "Create a Poll",
@@ -70,7 +71,9 @@ class Localization:
             "thanks": "Thanks",
             "problem_occurred": "Problem Occurred",
             "poll_completed": "Poll Completed",
+            "quiz_completed": "Quiz Completed",
             "poll_already_taken": "Poll Already Taken",
+            "quiz_already_taken": "Quiz` Already Taken",
             "class_name": "Class Name",
             "separated_by_comma": "Separated by Comma",
             "comments": "Comments",
@@ -94,17 +97,15 @@ class Localization:
             "quizzes": "Quizzes",
             "date": "Date",
             "answer": "Answer",
-            "login_issues": "The email address or password is incorrect, please try again."
-
-
+            "login_issues": "The email address or password is incorrect, please try again.",
+            "student_detailed_view": "Student Detailed View",
+            "take_quiz": "Take Quiz",
         }
 
 
-
-
-
         spanish = {
-            "dashboard": "Tablero",
+            "language": "Espanol",
+            "dashboard": "Inicio",
             "menu_one" : "Toma Accion",
             "menu_two" : "Solo Hazlo",
             "login_sign_up": "Acceder / Crear Cuenta",
@@ -123,6 +124,7 @@ class Localization:
             "enter_a_classroom": "Entre a una clase",
             "create_classroom": "Crear una clase",
             "view_classroom": "Detalles de la Clase",
+            "class_room_view": "Detalles de la Clase",
             "create_quiz": "Crear una prueba",
             "create_poll": "Crear una encuesta rapida",
             "new_poll": "Nueva encuesta",
@@ -152,18 +154,20 @@ class Localization:
             "completed": "Completo",
             "input_error": "Error de entrada",
             "class_access_code": "Codigo de acceso a la clase",
-            "student_pin": "Estudiante Pin",
+            "student_pin": "Codigo del estudiante",
             "enter": "Entrar",
             "welcome": "Bienvenido",
             "yes": "Si",
             "no": "No",
             "submit": "Enviar",
-            "time_left": "Tiempo restante",
+            "time_left": "Tiempo Restante",
             "responses_here": "Respuestas aqui",
             "thanks": "Gracias",
             "problem_occurred": "Problema ocurrido",
             "poll_completed": "Encuesta completada",
+            "quiz_completed": "Examen  completado",
             "poll_already_taken": "Encuesta ya tomada",
+            "quiz_already_taken": "Examen ya tomado",
             "class_name": "Nombre de la clase",
             "separated_by_comma": "Separado por coma",
             "comments": "Comentarios",
@@ -187,7 +191,9 @@ class Localization:
             "quizzes": "Pruebas",
             "date": "Fecha",
             "answer": "Responder",
-            "login_issues": "La direccion de correo electronico o la contrasena son incorrectas. Vuelve a intentarlo."
+            "login_issues": "La direccion de correo electronico o la contrasena son incorrectas. Vuelve a intentarlo.",
+            "student_detailed_view": "Vista Detallada Del Estudiante",
+            "take_quiz": "Tomar Examen",
 
         }
 

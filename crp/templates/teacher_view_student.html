@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Student Detailed View{% endblock %}
+{% block title %}{{ loc.get_text("student_detailed_view", lan)  }}{% endblock %}
 {% block subnav %} {% include "class_room_nav.html" %} {% endblock %}
 {% block head %}
     {{ super() }}

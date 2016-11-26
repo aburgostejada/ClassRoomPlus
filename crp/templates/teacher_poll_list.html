@@ -35,7 +35,7 @@
                         {%  endif %}
                     </div>
                     <div class="columns small-3 large-2 text-right">
-                        <a class="button" href="{{ url_for("teacher_view_poll", key=poll.key()) }}">View</a>
+                        <a class="button" href="{{ url_for("teacher_view_poll", key=poll.key()) }}">{{ loc.get_text("view", lan)  }}</a>
                     </div>
                 </div>
             {% endfor %}
@@ -79,7 +79,7 @@
                         {%  endif %}
                     </div>
                     <div class="columns small-3 large-2 text-right">
-                        <a class="button" href="{{ url_for("teacher_view_poll", key=poll.key()) }}">View</a>
+                        <a class="button" href="{{ url_for("teacher_view_poll", key=poll.key()) }}">{{ loc.get_text("view", lan)  }}</a>
                     </div>
                 </div>
             {% endfor %}

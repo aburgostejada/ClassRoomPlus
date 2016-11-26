@@ -9,8 +9,7 @@
     background-size: cover;
     position: relative;
     overflow: visible;
-    padding-top: 2.5rem;
-    padding-bottom: 4.9rem;
+    padding-bottom: 4.0rem;
     margin-bottom: 40px;
 }
 .header .headline {
@@ -19,7 +18,7 @@
 
 .title-bar {
     background: #00254c;;
-    padding: 0.9rem 0.9rem 0px;
+    padding: 0.9rem 0.9rem 0;
 }
 
 .top-bar {
@@ -133,7 +132,6 @@
 
 .headline {
     position: relative;
-    top: 30px;
 }
 
 #time_left {

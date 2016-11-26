@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Take Quiz{% endblock %}
+{% block title %}{{ loc.get_text("take_quiz", lan)  }}{% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">
@@ -14,7 +14,7 @@
         <div class="row">
             <div class="small-10 large-7 medium-10 columns small-centered text-center">
                 <br/>
-                <h3 class="info">Welcome {{ student.name }}</h3>
+                <h3 class="info">{{ loc.get_text("welcome", lan)  }} {{ student.name }}</h3>
                 <br/><br/>
                 <h4 class="info">{{ class_room.name }}</h4>
                 <br/>
@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <div class="columns small-6 large-3 small-centered">
-                <h5 id="time_left"><span>Time Left:  </span><span class="timer-quick" data-minutes-left="{{ quiz.time_allowed }}"></span> </h5>
+                <h5 id="time_left"><span>{{ loc.get_text("time_left", lan)  }}:  </span><span class="timer-quick" data-minutes-left="{{ quiz.time_allowed }}"></span> </h5>
             </div>
             <br/><br/>
         </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="row">
                 <div class="columns small-10 large-7 medium-10 text-center small-centered">
-                    <button id="submit" type="submit" class="submitButton button expanded large" >Submit</button>
+                    <button id="submit" type="submit" class="submitButton button expanded large" >{{ loc.get_text("submit", lan)  }}</button>
                 </div>
             </div>
         </div>

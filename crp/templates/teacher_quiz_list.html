@@ -36,10 +36,10 @@
                     </div>
                     <div class="columns small-5 large-3 text-right">
                         <div class="columns small-6">
-                            <a class="button small" href="{{ url_for("teacher_view_quiz", key=quiz.key()) }}">View</a>
+                            <a class="button small" href="{{ url_for("teacher_view_quiz", key=quiz.key()) }}">{{ loc.get_text("view", lan)  }}</a>
                         </div>
                         <div class="columns small-6">
-                            <a class="button small" href="{{ url_for("teacher_create_quiz", quiz_key=quiz.key(), classroom_key=quiz.class_room.key()) }}">Edit</a>
+                            <a class="button small" href="{{ url_for("teacher_create_quiz", quiz_key=quiz.key(), classroom_key=quiz.class_room.key()) }}">{{ loc.get_text("edit", lan)  }}</a>
                         </div>
                     </div>
                 </div>
@@ -85,10 +85,10 @@
                     </div>
                     <div class="columns small-5 large-3 text-right">
                         <div class="columns small-6">
-                            <a class="button small" href="{{ url_for("teacher_view_quiz", key=quiz.key()) }}">View</a>
+                            <a class="button small" href="{{ url_for("teacher_view_quiz", key=quiz.key()) }}">{{ loc.get_text("view", lan)  }}</a>
                         </div>
                         <div class="columns small-6">
-                            <a class="button small" href="{{ url_for("teacher_create_quiz", quiz_key=quiz.key(), classroom_key=quiz.class_room.key()) }}">Edit</a>
+                            <a class="button small" href="{{ url_for("teacher_create_quiz", quiz_key=quiz.key(), classroom_key=quiz.class_room.key()) }}">{{ loc.get_text("edit", lan)  }}</a>
                         </div>
                     </div>
                 </div>

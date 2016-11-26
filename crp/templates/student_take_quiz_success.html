@@ -13,13 +13,13 @@
      <div class="small-12 large-7 medium-10 columns small-centered text-center">
          {% if(student_answered) %}
             <div class="callout alert">
-                <h2>There was a problem</h2>
-                <h4>It looks like you have already answered this poll.</h4>
+               <h2>{{ loc.get_text("problem_occurred", lan) }}</h2>
+                <h4>{{ loc.get_text("quiz_already_taken", lan) }}</h4>
             </div>
          {% else %}
             <div class="callout success">
-                <h2>Thanks</h2>
-                <h4>Now you have completed the poll.</h4>
+                <h2>{{ loc.get_text("thanks", lan)  }}</h2>
+                 <h4>{{ loc.get_text("quiz_completed", lan) }}</h4>
             </div>
          {% endif %}
      </div>
