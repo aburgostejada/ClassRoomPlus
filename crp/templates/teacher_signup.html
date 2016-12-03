@@ -16,7 +16,7 @@
                 <br/>
                  {% if error %}
                      <div class="callout alert text-center">
-                        <h5>Something when wrong with your submission, please try again.</h5>
+                        <h5>{{ loc.get_text("something_went_wrong", lan) }}</h5>
                      </div>
                      <br/>
                 {% endif %}
@@ -41,12 +41,12 @@
                 </div>
                 <div class="row ">
                     <div class="column small-6">
-                         <h4>First Name</h4>
-                        <input name="first_name" type="text" placeholder="First Name" minlength="2" required />
+                         <h4>{{ loc.get_text("first_name", lan) }}</h4>
+                        <input name="first_name" type="text" placeholder="{{ loc.get_text("first_name", lan) }}" minlength="2" required />
                     </div>
                     <div class="column small-6">
-                      <h4>Last Name</h4>
-                        <input name="last_name" type="text" placeholder="Last Name" minlength="2" required />
+                      <h4>{{ loc.get_text("last_name", lan) }}</h4>
+                        <input name="last_name" type="text" placeholder="{{ loc.get_text("last_name", lan) }}" minlength="2" required />
                     </div>
                 </div>
                 <div class="row ">

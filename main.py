@@ -15,6 +15,7 @@ import time
 from crp.DB.classroom_model import ClassRoomModel
 from crp.DB.poll_model import PollModel
 from crp.DB.quiz_model import QuizModel
+from crp.DB.quiz_question_model import QuizQuestionModel
 from crp.DB.student_model import StudentModel
 from crp.lib.repository import Repository
 from crp.lib.security import Security
@@ -38,7 +39,7 @@ def load_user(username):
 @app.before_request
 def before_request():
     g.user = current_user
-     # Allows to change the language
+    # Allows to change the language
 
 
 def get_language():
@@ -47,7 +48,6 @@ def get_language():
         return lan
 
     return localization.eng
-
 
 
 @app.route("/dashboard", methods=["GET"])
@@ -67,8 +67,9 @@ def index():
 @app.route("/loc", methods=["GET"])
 def loc():
     language = request.args.get("lan")
+
     response = make_response(render_template("loc.html", loc=localization, lan=get_language(),
-                                             teacher=current_user.is_authenticated, error=False))
+                                             referrer=request.referrer, error=False))
     expire_date = datetime.datetime.now()
     expire_date = expire_date + datetime.timedelta(days=100)
     response.set_cookie('language', language, expires=expire_date)
@@ -99,15 +100,15 @@ def confirm(token):
 @app.route("/teacher_signup", methods=['GET', 'POST'])
 def teacher_signup():
     if request.method == "POST":
-            email = request.form['email']
-            password = request.form['password']
-            confirm = request.form['confirm']
-            first_name = request.form['first_name']
-            last_name = request.form['last_name']
+        email = request.form['email']
+        password = request.form['password']
+        confirm = request.form['confirm']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
 
-            if teacher.sign_up(email=email, password=password, confirm=confirm, first_name=first_name, last_name=last_name):
-                return render_template("teacher_signup_success.html", loc=localization, lan=get_language())
-            return render_template("teacher_signup.html", loc=localization, lan=get_language(), error=True)
+        if teacher.sign_up(email=email, password=password, confirm=confirm, first_name=first_name, last_name=last_name):
+            return render_template("teacher_signup_success.html", loc=localization, lan=get_language())
+        return render_template("teacher_signup.html", loc=localization, lan=get_language(), error=True)
 
     return render_template("teacher_signup.html", loc=localization, lan=get_language(), error=False)
 
@@ -203,7 +204,7 @@ def teacher_create_classroom():
 
         return render_template("teacher_create_classroom.html", loc=localization,
                                lan=get_language(), user=current_user, class_room=class_room,
-                               page_title=localization.get_text("create_classroom", lan), active="page")
+                               page_title=localization.get_text("create_classroom", get_language()), active="page")
 
 
 @app.route("/teacher_created_poll_success", methods=['GET'])
@@ -260,10 +261,40 @@ def teacher_delete_quiz_question():
     return flask.jsonify(dict(result="success"))
 
 
+@app.route("/teacher_edit_quiz_question", methods=['GET', 'POST'])
+@login_required
+def teacher_edit_quiz_question():
+    repo = Repository(current_user.get_model())
+    if request.method == "POST":
+        question = request.form['question']
+        answer_type = request.form['answer_type']
+        options = request.form.getlist('option[]')
+        classroom_key = request.form['classroom_key']
+        question_key = request.form['question_key']
+        quiz_key = request.form['quiz_key']
+        submit = request.form['submit']
+
+        if submit == "save":
+            repo.update_quiz_question(
+                question_key=question_key, question=question, answer_type=answer_type, options=options
+            )
+
+        return redirect(url_for("teacher_create_quiz", quiz_key=quiz_key, classroom_key=classroom_key, time=calendar.timegm(time.gmtime())))
+    else:
+        question = QuizQuestionModel.get(request.args.get("key"))
+
+        return render_template("teacher_edit_quiz_question.html", loc=localization, lan=get_language(),
+                               class_room=question.quiz.class_room, quiz=question.quiz, user=current_user, question=question,
+                               page_title=localization.get_text("create_quiz", get_language()),
+                               active="page")
+
+
+
+
 def render_quiz(quiz, class_room):
     return render_template("teacher_create_quiz.html", loc=localization, lan=get_language(),
                            user=current_user, class_room=class_room, quiz=quiz,
-                           page_title=localization.get_text("create_quiz", lan),
+                           page_title=localization.get_text("create_quiz", get_language()),
                            active="page")
 
 
@@ -352,13 +383,13 @@ def teacher_view_quiz():
 @app.route("/teacher_view_student", methods=['GET'])
 @login_required
 def teacher_view_student():
-        key = request.args.get("key")
-        student = StudentModel.get(key)
-        class_room = student.class_room
+    key = request.args.get("key")
+    student = StudentModel.get(key)
+    class_room = student.class_room
 
-        return render_template("teacher_view_student.html", loc=localization,
-                               lan=get_language(), user=current_user, student=student, class_room=class_room,
-                               page_title="Student Details", active="page")
+    return render_template("teacher_view_student.html", loc=localization,
+                           lan=get_language(), user=current_user, student=student, class_room=class_room,
+                           page_title="Student Details", active="page")
 
 
 @app.route("/student_view_classroom", methods=['POST', 'GET'])
@@ -377,8 +408,8 @@ def student_view_classroom():
         else:
             return render_template("student_landing.html", loc=localization,
                                    lan=get_language(), user=current_user, error=True, disable_login_button=True)
-        # else:
-        #     return redirect(url_for("student_take_poll", poll_key=poll.key(), student_key=student.key()))
+            # else:
+            #     return redirect(url_for("student_take_poll", poll_key=poll.key(), student_key=student.key()))
     else:
         return redirect(url_for("student_landing"))
 
@@ -457,3 +488,8 @@ def student_take_poll():
         return render_template("student_take_poll.html", loc=localization, lan=get_language(),
                                user=current_user, class_room=classroom, poll=poll,
                                student=student, disable_login_button=True)
+
+
+@app.route("/support", methods=['GET'])
+def support():
+    return render_template("support.html", user=current_user, loc=localization, lan=get_language())

@@ -31,15 +31,16 @@
         </ul>
     </div>
     <div class="top-bar-right">
-        {% if g.user and g.user.is_authenticated%}
-            <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
-                <li class="has-submenu">
-                    <a href="#">{{ loc.get_text("language", lan) }}</a>
-                    <ul class="submenu menu vertical" data-submenu>
-                        <li><a href="{{ url_for('loc', lan="eng") }}">English</a></li>
-                        <li><a href="{{ url_for('loc', lan="spa") }}">Español</a></li>
-                    </ul>
-                </li>
+        <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
+            <li class="has-submenu">
+                <a style="margin-right: 10px;" href="#">{{ loc.get_text("language", lan) }}</a>
+                <ul class="submenu menu vertical" data-submenu>
+                    <li><a href="{{ url_for('loc', lan="eng") }}">English</a></li>
+                    <li><a href="{{ url_for('loc', lan="spa") }}">Español</a></li>
+                    <li><a href="{{ url_for('support') }}">New Language</a></li>
+                </ul>
+            </li>
+            {% if g.user and g.user.is_authenticated%}
                 <li class="has-submenu">
                     <a href="#">{{ user.get_name() }}</a>
                     <ul class="submenu menu vertical" data-submenu>
@@ -47,24 +48,15 @@
                         <li><a href="{{ url_for('logout') }}">{{ loc.get_text("logout", lan) }}</a></li>
                     </ul>
                 </li>
-            </ul>
-        {% endif %}
-        {% if not g.user.is_authenticated%}
-            <ul class="menu" data-responsive-menu="drilldown medium-dropdown">
-                <li class="has-submenu">
-                    <a href="#">{{ loc.get_text("language", lan) }}</a>
-                    <ul class="submenu menu vertical" data-submenu>
-                        <li><a href="{{ url_for('loc', lan="eng") }}">English</a></li>
-                        <li><a href="{{ url_for('loc', lan="spa") }}">Español</a></li>
-                    </ul>
+            {% elif not g.user.is_authenticated and not disable_login_button%}
+                <li>
+                    <a href="{{ url_for('login') }}" class="button login">{{ loc.get_text("login", lan) }}</a>
                 </li>
-            </ul>
-        {% endif %}
-        {% if not g.user.is_authenticated and not disable_login_button%}
-
-            <a href="{{ url_for('login') }}" class="button login">{{ loc.get_text("login", lan) }}</a>
-            <a href="{{ url_for('teacher_signup') }}" class="button login">{{ loc.get_text("signup", lan) }}</a>
-        {% endif %}
+                <li>
+                    <a href="{{ url_for('teacher_signup') }}" class="button login">{{ loc.get_text("signup", lan) }}</a>
+                </li>
+            {% endif %}
+        </ul>
     </div>
 </div>
 <header class="header">
@@ -83,6 +75,7 @@
         <br/>
         <ul class="menu">
             <li class="float-right"> &copy; {{ loc.get_text("copyright", lan) }}</li>
+            <li class="float-left"><a href="{{ url_for('support') }}">{{ loc.get_text("support", lan) }}</a></li>
         </ul>
         <br/>
         <br/>

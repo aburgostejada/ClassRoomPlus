@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block title %}{{ loc.get_text("create_quiz", lan) }}{% endblock %}
+{% block subnav %} {% include "class_room_nav.html" %} {% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <form id="editQuizQuestion" autocomplete="off" action="{{ url_for('teacher_edit_quiz_question') }}" method="post">
+        <input name="classroom_key" type="hidden" value="{{ class_room.key() }}">
+        <input name="quiz_key" type="hidden" value="{{ quiz.key()  }}">
+        <input name="question_key" type="hidden" value="{{ question.key() }}">
+        <div class="row">
+            <div class="small-10 large-7 medium-10 columns small-centered">
+                <div class="row">
+                    <div class="columns small-12">
+                        <h6>{{ loc.get_text("question", lan) }}: </h6>
+                        <textarea name="question" placeholder="{{ loc.get_text("question", lan) }}" rows="3" >{{ question.question }}</textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="columns small-12">
+                        <h6>{{ loc.get_text("types_of_answer", lan) }} </h6>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 small-centered columns button-group toggle text-center" data-toggle="buttons-radio">
+                            <input type="radio" id="r1" name="answer_type" value="yes_no" {{ "checked" if question.type == "yes_no" else "" }} data-toggle="button">
+                            <label class="button" for="r1">{{ loc.get_text("yes_no", lan) }}</label>
+                            <input type="radio" id="r2" name="answer_type" value="free_text" {{ "checked" if question.type == "free_text" else "" }} data-toggle="button">
+                            <label class="button" for="r2">{{ loc.get_text("free_text", lan) }}</label>
+                            <input type="radio" id="r3" name="answer_type" value="multiple" {{ "checked" if question.type == "multiple" else "" }} data-toggle="button">
+                            <label class="button" for="r3">{{ loc.get_text("multiple", lan) }}</label>
+                            <input type="radio" id="r4" name="answer_type" value="single"  {{ "checked" if question.type == "single" else "" }} data-toggle="button">
+                            <label class="button" for="r4">{{ loc.get_text("single", lan) }}</label>
+                        </div>
+                    </div>
+                    <div class="row visible" id="options">
+                        <h5>{{ loc.get_text("options", lan) }}</h5>
+                        {% for option in question.options %}
+                            <div class="columns small-12 visible current_option" >
+                                <div class="column small-10">
+                                    <input name="option[]" type="text" value="{{ option }}" placeholder="{{ loc.get_text("option", lan) }}" />
+                                </div>
+                                <div class="column small-2">
+                                    <a href="#" class="deleteOption button small float-right">{{ loc.get_text("delete", lan) }}</a>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        <div class="newQuestions columns small-12 visible" ></div>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="small-12 columns visible" id="optionsActions">
+                            <a id="addOption" href="#" class=" button small">{{ loc.get_text("add", lan) }}</a>
+                            <a id="deleteOption" href="#" class=" button small float-right">{{ loc.get_text("delete", lan) }}</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="columns small-8 text-center small-centered">
+                            <button id="save" type="submit" name="submit" value="save" class="submitButton button expanded large" >{{ loc.get_text("update_question", lan) }}</button>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

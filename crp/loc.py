@@ -100,6 +100,14 @@ class Localization:
             "login_issues": "The email address or password is incorrect, please try again.",
             "student_detailed_view": "Student Detailed View",
             "take_quiz": "Take Quiz",
+            "something_went_wrong": "Something when wrong with your submission, please try again.",
+            "first_name": "First Name",
+            "last_name": "Last Name",
+            "update_question": "Update Question",
+            "support": "Support",
+            "forgot_password": "Forgot Your Password",
+            "support_message": "Thanks for using our beta version of ClassRoom+. If you happen to experiment any problems or you need to reset your password or even have a suggestion please sent us an Email at ",
+            "new_language_message": "If you would like to see a new language added to Classroom+, please sent us an Email at "
         }
 
 
@@ -111,7 +119,9 @@ class Localization:
             "login_sign_up": "Acceder / Crear Cuenta",
             "copyright": "Copyright 2016 Por Classroom Plus",
             "teacher_login": "Acceso de Profesores",
+            "teacher_signup": "Nueva Cuenta Para Un Profesor",
             "login": "Acceder",
+            "signup": "Crear Cuenta",
             "remember_me": "Recordar Me",
             "you_are": "Usted es un",
             "student": "Estudiante",
@@ -144,7 +154,7 @@ class Localization:
 
             "404": "URL no encontrada...",
             "logout": "Cerrar sesion",
-            "password": "contrasena",
+            "password": "Clave De Acceso",
             "active_polls": "Encuestas activas",
             "question": "Pregunta",
             "answered": "Respuesta",
@@ -194,6 +204,15 @@ class Localization:
             "login_issues": "La direccion de correo electronico o la contrasena son incorrectas. Vuelve a intentarlo.",
             "student_detailed_view": "Vista Detallada Del Estudiante",
             "take_quiz": "Tomar Examen",
+            "something_went_wrong": "Algo incorrecto con tu envio, intentalo de nuevo.",
+            "first_name": "Nombre",
+            "last_name": "Apellido",
+            "update_question": "Actualizar Pregunta",
+            "support": "Soporte",
+            "forgot_password": "Olvido Clave De Acceso.",
+            "support_message": "Gracias por usar nuestra version beta de ClassRoom+. Si experimenta algun problema o necesita restablecer su clave de accesso o incluso tiene una sugerencia por favor envienos un correo electronico a ",
+            "new_language_message": "Si desea ver un nuevo idioma agregado a Classroom +, por favor envienos un correo electronico a "
+
 
         }
 

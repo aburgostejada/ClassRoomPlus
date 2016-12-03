@@ -1,7 +1,3 @@
 <script>
-    {% if teacher %}
-        window.location = '/dashboard';
-    {% else %}
-        window.location = '/student_landing';
-    {% endif %}
+    window.location = "{{ referrer }}";
 </script>

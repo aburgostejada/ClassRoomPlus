@@ -96,6 +96,16 @@ class Repository:
         return quiz.put()
 
     @staticmethod
+    def update_quiz_question(question_key, question, answer_type, options):
+        if str(question) is not "":
+            quiz_question = QuizQuestionModel.get(question_key)
+            quiz_question.question = question
+            quiz_question.type = answer_type
+            quiz_question.options = options
+            return quiz_question.put()
+        return False
+
+    @staticmethod
     def add_question_to_quiz(quiz_key, question, answer_type, options):
         if str(question) is not "":
             quiz = QuizModel.get(quiz_key)

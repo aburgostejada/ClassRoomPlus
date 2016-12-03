@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}{{ loc.get_text("support", lan) }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <form id="login" action="{{ url_for('login') }}" method=post>
+        <div class="row">
+            <div class="small-10 large-7 medium-10 columns small-centered text-center">
+                <br/>
+                <h3 class="info">{{ loc.get_text("support", lan) }}</h3>
+                 <br/>
+                 <br/>
+                <p>
+                    {{ loc.get_text("support_message", lan) }}<a href="mailto:support@crplus.net">support@crplus.net</a>
+                </p>
+                 <br/>
+                <p>
+                   {{ loc.get_text("new_language_message", lan) }} <a href="mailto:languages@crplus.net">languages@crplus.net</a>
+                </p>
+                <br/>
+                <br/>
+                <br/>
+                <p><small>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</small></p>
+                <br/>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

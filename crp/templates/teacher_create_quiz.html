@@ -49,26 +49,27 @@
                                 <div class="columns small-4 large-4">
                                     <h6><strong>{{ loc.get_text("question", lan) }}</strong></h6>
                                 </div>
-                                <div class="columns small-4 large-4">
+                                <div class="columns small-3 large-3">
                                     <h6><strong>{{ loc.get_text("types_of_answer", lan) }}</strong></h6>
                                 </div>
                                 <div class="columns small-2 large-2">
                                     <h6><strong>{{ loc.get_text("options", lan) }}</strong></h6>
                                 </div>
-                                <div class="columns small-2 large-2"></div>
+                                <div class="columns small-3 large-3"></div>
                             </div>
                             {% for question in quiz.get_active_questions() %}
                                 <div class="row">
                                     <div class="columns small-4 large-4">
                                         <h6>{{ question.question }}</h6>
                                     </div>
-                                    <div class="columns small-4 large-4">
+                                    <div class="columns small-3 large-3">
                                         <h6>{{ question.type  }}</h6>
                                     </div>
                                     <div class="columns small-2 large-2">
                                         <h6>{{ question.get_total_options()  }}</h6>
                                     </div>
-                                    <div class="columns small-2 large-2">
+                                    <div class="columns small-3 large-3">
+                                        <a class="button small " href="{{ url_for("teacher_edit_quiz_question", key=question.key()) }}">{{ loc.get_text("edit", lan) }}</a>
                                         <a class="button small deleteQuizQuestion" href="{{ url_for("teacher_delete_quiz_question", key=question.key()) }}">{{ loc.get_text("delete", lan) }}</a>
                                     </div>
                                 </div>

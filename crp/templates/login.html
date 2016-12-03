@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}{{ loc.get_text("teacher_login", lan) }}{% endblock %}
 {% block head %}
     {{ super() }}
     <style type="text/css">
@@ -37,6 +37,9 @@
                         <button id="loginButton" type="submit" class="submitButton button expanded large">{{ loc.get_text("login", lan) }}</button>
                         <input id="remember_me" name="remember_me" type="checkbox"><label for="remember_me">{{ loc.get_text("remember_me", lan) }}</label>
                     </div>
+                </div>
+                <div class="row text-center">
+                    <a href="{{ url_for('support') }}">{{ loc.get_text("forgot_password", lan) }}</a>
                 </div>
             </div>
         </div>

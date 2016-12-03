@@ -149,6 +149,10 @@
     display: none;
 }
 
+#options.visible, #optionsActions.visible{
+    display: block;
+}
+
 .jst-hours {
     float: left;
 }
