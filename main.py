@@ -1,5 +1,6 @@
 """`main` is the top level module for your Flask application."""
 # Import the Flask Framework
+#  -*- coding: utf-8 -*-
 import calendar
 import os
 
@@ -44,7 +45,7 @@ def before_request():
 
 def get_language():
     lan = request.cookies.get('language')
-    if lan == localization.eng or lan == localization.spa:
+    if lan == localization.eng or lan == localization.spa or lan == localization.cn:
         return lan
 
     return localization.eng

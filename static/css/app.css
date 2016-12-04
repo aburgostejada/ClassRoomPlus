@@ -39,20 +39,28 @@
 }
 
 .menu-text {
-    color: #fff; }
+    color: #fff;
+}
 @media only screen and (max-width: 40em) {
     .menu-text {
-        display: none !important; } }
+        display: none !important;
+    }
+}
 
 @media only screen and (min-width: 40em) {
     .menu:last-child {
-        border-left: 1px solid #4e4e4e; }
+        border-left: 1px solid #4e4e4e;
+    }
 
     .menu:first-child {
-        border-left: none; }
+        border-left: none;
+    }
+}
 
-    .menu li:not(:last-child) {
-        border-right: 1px solid #4e4e4e; } }
+.dropdown.menu>li.opens-left>.is-dropdown-submenu {
+    border: 1px solid #eeb211;
+}
+
 .dropdown.menu .submenu {
     border: none; }
 
@@ -66,7 +74,7 @@
     border-color: transparent #fff transparent transparent; }
 
 .is-drilldown{
-    height: 120px;
+    height: 200px;
 }
 
 

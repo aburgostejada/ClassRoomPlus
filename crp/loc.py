@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class Localization:
     eng = "eng"
     spa = "spa"
@@ -7,7 +9,7 @@ class Localization:
         pass
 
     @classmethod
-    def get_text(cls, key, lan="eng"):
+    def get_text(cls, phrase, lan="eng"):
         english = {
             "language": "English",
             "dashboard": "Dashboard",
@@ -142,7 +144,7 @@ class Localization:
             "new_quiz": "Nueva prueba",
             "quiz_title": "Titulo de la Prueba",
             "disable": "Deshabilitar",
-             "close": "Cerrar",
+            "close": "Cerrar",
             "back": "Volver",
             "add": "Agregar",
             "add_question": "Agregar Pregunta",
@@ -322,13 +324,11 @@ class Localization:
             "new_language_message": "如果您愿意为我们添加新的语言, 请邮件联系我们 "
         }
 
-
-        if lan == cls.eng and english.has_key(key):
-            return english[key]
-        elif lan == cls.spa and spanish.has_key(key):
-            return spanish[key]
-
-        elif lan == cls.cn and chinese.has_key(key):
-            return chinese[key]
+        if lan == cls.eng and phrase in english:
+            return english[phrase]
+        elif lan == cls.spa and phrase in spanish:
+            return spanish[phrase]
+        elif lan == cls.cn and phrase in chinese:
+            return chinese[phrase].decode('utf-8')
 
         return "Error"
