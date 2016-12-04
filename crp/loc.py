@@ -1,6 +1,7 @@
 class Localization:
     eng = "eng"
     spa = "spa"
+    cn = "cn"
 
     def __init__(self):
         pass
@@ -73,7 +74,7 @@ class Localization:
             "poll_completed": "Poll Completed",
             "quiz_completed": "Quiz Completed",
             "poll_already_taken": "Poll Already Taken",
-            "quiz_already_taken": "Quiz` Already Taken",
+            "quiz_already_taken": "Quiz Already Taken",
             "class_name": "Class Name",
             "separated_by_comma": "Separated by Comma",
             "comments": "Comments",
@@ -216,9 +217,118 @@ class Localization:
 
         }
 
+
+
+        chinese = {
+            "language": "中文",
+            "dashboard": "控制台",
+            "menu_one" : "行动!",
+            "menu_two" : "说做就做!",
+            "login_sign_up": "教师登陆",
+            "copyright": "版权所有 2016 Classroom Plus",
+            "teacher_login": "教师登陆",
+            "teacher_signup": "新教师注册",
+            "login": "登陆",
+            "signup": "注册",
+            "remember_me": "记住我",
+            "you_are": "您是",
+            "student": "学生",
+            "teacher": "教师",
+            "student_landing": "欢迎",
+            "create": "新建",
+            "save": "保存",
+            "edit": "编辑",
+            "update": "更新",
+            "enter_a_classroom": "进入教室",
+            "create_classroom": "新建教室",
+            "class_room_view": "教室浏览",
+            "view_classroom": "详情",
+            "create_quiz": "新建测试",
+            "create_poll": "新建投票",
+            "new_poll": "新投票",
+            "new_quiz": "新测验",
+            "disable": "停止",
+            "close": "关闭",
+            "back": "返回",
+            "add": "添加",
+            "add_question": "添加问题",
+            "time_allowed": "时间 (分钟):",
+            "required": "必填",
+            "quiz_title": "测试标题",
+            "yes_no": "是 / 否",
+            "free_text": "开放回答",
+            "multiple": "多选",
+            "single": "单选",
+
+            "404": "无效链接...",
+            "logout": "注销登陆",
+            "password": "密码",
+            "active_polls": "进行中投票",
+            "question": "问题",
+            "answered": "已回答",
+            "closed_polls": "已关闭投票",
+            "active_quizzes": "进行中测试",
+            "closed_quizzes": "已关闭测试",
+            "completed": "已完成",
+            "input_error": "输入错误",
+            "class_access_code": "课堂编号",
+            "student_pin": "学生编号",
+            "enter": "进入",
+            "welcome": "欢迎",
+            "yes": "是",
+            "no": "否",
+            "submit": "提交",
+            "time_left": "剩余时间",
+            "responses_here": "在这里回答",
+            "thanks": "谢谢",
+            "problem_occurred": "出现了问题",
+            "poll_completed": "已完成投票",
+            "quiz_completed": "已完成测试",
+            "poll_already_taken": "投票已完成",
+            "quiz_already_taken": "测试已完成",
+            "class_name": "课程名字",
+            "separated_by_comma": "用逗号分开",
+            "comments": "评论",
+            "go": "出发",
+            "types_of_answer": "答案类型",
+            "option": "选项",
+            "options": "选项",
+            "delete": "删除",
+            "poll_created_successfully": "投票新建成功",
+            "quiz_created_successfully": "测试新建成功",
+            "account_created_successfully": "教师账号新建成功",
+            "check_your_email": "验证邮件已发送, 请查收",
+            "repeat_password": "重复密码",
+            "email": "邮箱",
+            "name": "名字",
+            "view": "浏览",
+            "status": "状态",
+            "number_of_questions": "问题数量",
+            "type": "类型",
+            "polls": "投票",
+            "quizzes": "测试",
+            "date": "日期",
+            "answer": "回答",
+            "login_issues": "邮箱地址输入有误, 请重输",
+            "student_detailed_view": "学生详情",
+            "take_quiz": "做测试",
+            "something_went_wrong": "提交失败，请重试",
+            "first_name": "名字",
+            "last_name": "姓氏",
+            "update_question": "更新问题",
+            "support": "支持",
+            "forgot_password": "忘记密码",
+            "support_message": "感谢使用我们的测试版本, 如有任何问题或者需要重置密码, 请邮件联系我们 ",
+            "new_language_message": "如果您愿意为我们添加新的语言, 请邮件联系我们 "
+        }
+
+
         if lan == cls.eng and english.has_key(key):
             return english[key]
         elif lan == cls.spa and spanish.has_key(key):
             return spanish[key]
+
+        elif lan == cls.cn and chinese.has_key(key):
+            return chinese[key]
 
         return "Error"
